@@ -3,7 +3,7 @@
 
 void print_board(chess_piece pieces[32])
 {
-    wchar_t board[8][8] = {'\0'};
+    wchar_t board[8][8] = {};
 
     for (int i = 0; i < 32; ++i)
     {
@@ -12,25 +12,12 @@ void print_board(chess_piece pieces[32])
 
     for (int row = 0; row < 8; ++row)
     {
-        printf("%-2d", row + 1);
-        for (int col = 0; col < 8; ++col)
-        {
-            if (board[row][col] != NULL)
-            {
-                printf(" %lc", board[row][col]);
-            }
-            else
-            {
-                if ((row + col)%2 != 0)
-                {
-                    printf("\33[1;35m \u2588\33[0m");
-                }
-                else
-                {
-                    printf("\33[1;33m \u2588\33[0m");
-                }
-            }
-        }
-        printf("\n");
+        printf(
+               "\33[1;35m%d\33[0m %lc %lc %lc %lc %lc %lc %lc %lc\n",
+                row+1,
+                board[row][0], board[row][1], board[row][2], board[row][3],
+                board[row][4], board[row][5], board[row][6], board[row][7]
+                );
     }
+    printf("\33[1;35m  A B C D E F G H\33[0m");
 }
