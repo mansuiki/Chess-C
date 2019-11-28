@@ -2,20 +2,19 @@
 #include "ui.h"
 #include "rule.h"
 
-void init(chess_piece *);
+wchar_t board[8][8] = { [0 ... 7][0 ... 7] = 0xB7 }; //범위 초기화는 GCC에서만 될 수도 있음
 
+void init(chess_piece *);
 
 int main()
 {
     setlocale(LC_ALL, "");
-
-    chess_piece pieces[32];
-    wchar_t board[8][8] = { [0 ... 7][0 ... 7] = 0xB7 }; //범위 초기화는 GCC에서만 될 수도 있음
+    init(pieces);
+    _turn = 1;
 
     int action = 0;
 
     do {
-        init(pieces);
         print_board(pieces, board, 32);
 
         scanf("%d", &action);
@@ -25,7 +24,7 @@ int main()
     return 0;
 }
 
-void init(chess_piece pieces[32])
+void init(chess_piece pieces[NUM_CHESS_PIECES])
 {
     int i = 0, iter_row = 8;
 
