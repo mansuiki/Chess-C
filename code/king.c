@@ -24,7 +24,7 @@ void get_possible_k_mvs(int curr_pos[2], wchar_t board[8][8], _Bool result[8][8]
     }
 
     chess_piece pieces_in_moves[8];
-    int len_pieces_in_mvs = get_piece_by_pos(moves, 8, pieces_in_moves);
+    int len_pieces_in_mvs = get_pieces_by_pos(moves, 8, pieces_in_moves);
 
     //아군 기물과 겹침 방지
     for (int j = 0; j < len_pieces_in_mvs; ++j)

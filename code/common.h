@@ -7,7 +7,7 @@
 
 typedef struct _chess_piece {
     char type; //k = King, q = Queen, r = Rook, b = Bishops, n = Knights, p = Pawns
-    wchar_t unicode;
+    wchar_t unicode         ;
     int position[2]; //{x, y}
     _Bool color; //1 = Black, 0 = White
 } chess_piece;
@@ -15,4 +15,4 @@ typedef struct _chess_piece {
 chess_piece pieces[NUM_CHESS_PIECES];
 _Bool _turn;
 
-int get_piece_by_pos(int pos_arr[2], int num_pos, chess_piece *result);
+int get_pieces_by_pos(int pos_arr[][2], int num_pos, chess_piece result[]);
