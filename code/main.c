@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <locale.h>
 #include "visual.h"
 
@@ -9,8 +8,11 @@ int main()
     setlocale(LC_ALL, "");
 
     chess_piece pieces[32];
+    wchar_t board[8][8] = { [0 ... 7][0 ... 7] = 0xB7 }; //범위 초기화는 GCC에서만 될 수도 있음
+
     init(pieces);
-    print_board(pieces);
+    print_board(pieces, board, 32);
+
     return 0;
 }
 
@@ -159,7 +161,6 @@ void init(chess_piece pieces[32])
     pieces[i].position[0] = 4; //x
     pieces[i].position[1] = 7; //y
     pieces[i].color = 0;
-    i ++;
 
     return;
 }

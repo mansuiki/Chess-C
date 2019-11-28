@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include "visual.h"
 
-void print_board(chess_piece pieces[32])
+/**
+ *
+ * @param pieces  체스 기물 배열
+ * @param board 출력할 보드 배열
+ * @param pieces_num 보드 위에 있는 체스 기물의 수
+ */
+void print_board(chess_piece pieces[32], wchar_t board[8][8], int pieces_num)
 {
-    wchar_t board[8][8] = {};
-
-    for (int i = 0; i < 32; ++i)
+    for (int i = 0; i < pieces_num; ++i)
     {
         board[ pieces[i].position[1] ][ pieces[i].position[0] ] = pieces[i].unicode;
     }
