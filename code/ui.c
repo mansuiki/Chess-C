@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "visual.h"
+#include "ui.h"
 
 /**
  *
@@ -23,5 +23,5 @@ void print_board(chess_piece pieces[32], wchar_t board[8][8], int pieces_num)
                 board[row][4], board[row][5], board[row][6], board[row][7]
                 );
     }
-    printf("\33[1;35m  A B C D E F G H\33[0m");
+    printf("\33[1;35m  A B C D E F G H\33[0m\n");
 }

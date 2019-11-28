@@ -1,5 +1,5 @@
 #include <locale.h>
-#include "visual.h"
+#include "ui.h"
 
 void init(chess_piece *);
 
@@ -10,8 +10,15 @@ int main()
     chess_piece pieces[32];
     wchar_t board[8][8] = { [0 ... 7][0 ... 7] = 0xB7 }; //범위 초기화는 GCC에서만 될 수도 있음
 
-    init(pieces);
-    print_board(pieces, board, 32);
+    int action = 0;
+
+    do {
+        init(pieces);
+        print_board(pieces, board, 32);
+
+        scanf("%d", &action);
+
+    } while (action);
 
     return 0;
 }
