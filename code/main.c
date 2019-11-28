@@ -1,7 +1,9 @@
 #include <locale.h>
 #include "ui.h"
+#include "rule.h"
 
 void init(chess_piece *);
+
 
 int main()
 {
@@ -30,7 +32,7 @@ void init(chess_piece pieces[32])
     //Black pawn
     for (; i < iter_row; ++i)
     {
-        pieces[i].type = "pawn";
+        pieces[i].type = 'p';
         pieces[i].unicode = 0x265F;
         pieces[i].position[0] = i; //x
         pieces[i].position[1] = 1; //y
@@ -41,7 +43,7 @@ void init(chess_piece pieces[32])
     iter_row += 8;
     for (; i < iter_row; ++i)
     {
-        pieces[i].type = "pawn";
+        pieces[i].type = 'p';
         pieces[i].unicode = 0x2659;
         pieces[i].position[0] = i; //x
         pieces[i].position[1] = 5; //y
