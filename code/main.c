@@ -2,20 +2,23 @@
 #include "ui.h"
 #include "rule.h"
 
-wchar_t board[8][8] = { [0 ... 7][0 ... 7] = 0xB7 }; //범위 초기화는 GCC에서만 될 수도 있음
-
 void init(chess_piece *);
 
 int main()
 {
     setlocale(LC_ALL, "");
-    init(pieces);
-    _turn = 1;
 
-    int action = 1;
+    wchar_t board[8][8] = { [0 ... 7][0 ... 7] = 0xB7 }; //범위 초기화는 GCC에서만 될 수도 있음
+    chess_piece pieces[NUM_CHESS_PIECES];
+    _Bool turn = 1;
+
+    init(pieces);
 
     int coordinates[2][2];
     char special_cmd;
+
+
+    print_board(pieces, board, 32);
 
     do {
         special_cmd = input_cmd(coordinates);
@@ -35,12 +38,11 @@ int main()
                 break;
 
             default:
-
+                move_piece(pieces, coordinates, turn);
                 print_board(pieces, board, 32);
                 break;
         }
-
-    } while (action);
+    } while (1);
 
     return 0;
 }

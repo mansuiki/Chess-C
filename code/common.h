@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wchar.h>
+#include <string.h>
 
 #define NUM_CHESS_PIECES 32
 #define BASE_H_INCLUDED 1
@@ -12,7 +13,5 @@ typedef struct _chess_piece {
     _Bool color; //1 = Black, 0 = White
 } chess_piece;
 
-chess_piece pieces[NUM_CHESS_PIECES];
-_Bool _turn;
-
-int get_pieces_by_pos(int pos_arr[][2], int num_pos, chess_piece result[]);
+int get_pieces_by_pos(int [][2], int, chess_piece [NUM_CHESS_PIECES], chess_piece []);
+_Bool get_one_piece_by_pos(int [2], chess_piece [NUM_CHESS_PIECES], chess_piece *);
