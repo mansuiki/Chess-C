@@ -12,12 +12,33 @@ int main()
     init(pieces);
     _turn = 1;
 
-    int action = 0;
+    int action = 1;
+
+    int coordinates[2][2];
+    char special_cmd;
 
     do {
-        print_board(pieces, board, 32);
+        special_cmd = input_cmd(coordinates);
 
-        scanf("%d", &action);
+        switch (special_cmd)
+        {
+            case 'H':
+                printf("Display help\n");
+                break;
+
+            case 'S':
+                printf("Save file\n");
+                break;
+
+            case -1:
+                printf("Command not found\n");
+                break;
+
+            default:
+
+                print_board(pieces, board, 32);
+                break;
+        }
 
     } while (action);
 

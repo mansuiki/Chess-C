@@ -24,3 +24,32 @@ void print_board(chess_piece pieces[32], wchar_t board[8][8], int pieces_num)
     }
     printf("\33[1;35m  A B C D E F G H\33[0m\n");
 }
+
+char input_cmd(int result[2][2])
+{
+    char *cmd = (char *) calloc(4, sizeof(char));
+    char cols[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+
+    scanf("%s", cmd);
+
+    if (cmd[0] == 'H' || cmd[0] == 'S')
+    {
+        return cmd[0];
+    }
+
+    for (int i = 0; i < 8; ++i)
+    {
+        if (cmd[0] == cols[i])
+        {
+            result[0][0] = *cmd - 97;
+        }
+        if (cmd[2] == cols[i])
+        {
+            result[1][0] = *(cmd+2) - 97;
+        }
+    }
+    result[0][1] = *(cmd+1) - 49;
+    result[1][1] = *(cmd+3) - 49;
+
+    return '\0';
+}
