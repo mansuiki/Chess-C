@@ -41,15 +41,15 @@ char input_cmd(int result[2][2])
     {
         if (cmd[0] == cols[i])
         {
-            result[0][0] = *cmd - 97;
+            result[0][0] = (int)(*cmd - 97);
         }
         if (cmd[2] == cols[i])
         {
-            result[1][0] = *(cmd+2) - 97;
+            result[1][0] = (int)(*(cmd+2) - 97);
         }
     }
-    result[0][1] = *(cmd+1) - 49;
-    result[1][1] = *(cmd+3) - 49;
+    result[0][1] = *(cmd+1) - '0';
+    result[1][1] = *(cmd+3) - '0';
 
     return '\0';
 }
