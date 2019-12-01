@@ -2,6 +2,13 @@
 #include "piece.h"
 #include "check.h"
 
+/**
+ * 체스 말을 움직이는 함수
+ * @param pieces 전체 체스 기물 배열
+ * @param check_board 고유번호 배열
+ * @param position 이동 위치
+ * @param turn 턴
+ */
 void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], int position[2][2], _Bool turn)
 {
     chess_piece *piece_in_position = malloc(sizeof(chess_piece)); //이동하고자 하는 기물
@@ -23,11 +30,30 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
         {
             piece_in_position->position[0] = position[1][0];
             piece_in_position->position[1] = position[1][1];
+            *turn = !(*turn);
+
+            return;
         }
     }
 }
 
-void castling()
+/**
+ * 이동하는 기물이 킹이고 이동가능 위치가 9 혹은 10일 때 실행
+ * @param k
+ * @param r
+ * @param pos
+ */
+void castling(chess_piece *k, chess_piece *r, int pos[2])
 {
-
+    int tmp;
+    if(k->position[0] - pos[0] > 0)
+    {
+        k->position[0] = pos[0];
+        r->position[0] = pos[0] - 1;
+    }
+    else
+    {
+        k->position[0] = pos[0];
+        r->position[0] = pos[0] + 1;
+    }
 }

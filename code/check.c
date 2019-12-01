@@ -205,7 +205,8 @@ void get_q_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
 void get_k_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int board[][12], int row)
 {
     int tmp[2]; // 이동 가능 위치 임시 저장
-    for(int i = 0; i < 4; i++)
+    check_castling(p, board, row);
+    for(int i = 0; i < 10; i++)
     {
         tmp[0] = p->position[0] + p->directions[i][0];
         tmp[1] = p->position[1] + p->directions[i][1];
@@ -215,7 +216,6 @@ void get_k_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int
             p->movable_pos[i][1] = p->position[1] + p->directions[i][1];
         }
     }
-    check_castling(p, board, row);
 }
 
 //현재 더 구현해야 할 것 캐슬링, 앙파상, 프로모션 특수이동
