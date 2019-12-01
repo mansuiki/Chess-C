@@ -3,6 +3,7 @@
 #include "rule.h"
 #include "piece.h"
 #include "check.h"
+#include "option.h"
 
 void init(chess_piece *);
 
@@ -28,16 +29,26 @@ int main()
         }
     }
     init(pieces);
+    int gameMode, aiLevel, playerSide;
 
     int coordinates[2][2];
     char special_cmd;
-
+    if (!setChessGameMode())// Player vs Player, Player vs AI 결정
+    {
+        gameMode = 0; // PVC
+        aiLevel = askForDepthOfAI(); // 만일 AI와 할 경우, AI의 난이도를 설정
+        playerSide = askForPlayerSide(); // Player의 순서 결정, 흰색일경우 0, 검은색일 경우 1으로
+        // 추후 tern - if(PlayerSide == term ) 조건 추가
+    }
+    else {
+        gameMode = 1; // PVP 일반 게임
+    }
     print_board(pieces);
 //    reset(pieces, check_board, 12);
 
     do
     {
-        turn ? printf("검은 말의 순서입니다\n\n") : printf("흰 말의 순서입니다\n\n");
+        turn ? printf("검은 말의 순서입니다\n") : printf("흰 말의 순서입니다\n");
         special_cmd = input_cmd(coordinates);
         update_movable_positions(pieces, check_board, 12);
 

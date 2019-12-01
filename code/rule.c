@@ -16,15 +16,16 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
     _Bool color_in_now_position;
     if (!get_one_piece_by_pos(_tmp, pieces, &piece_in_position))// 그곳에 유닛 있는지 체크
     {
+        printf("잘못된 입력입니다. 다시 입력해주십시오. \n");
         //만약 100번대 기물을 폰이 잡을 경우 id - 100 한게 인덱스, 그 인덱스로 기물 제거
         return;
     }
 
     color_in_now_position = piece_in_position->color;
-    printf("turn : %d / color : %d\n", *turn, color_in_now_position);
+    //printf("turn : %d / color : %d\n", *turn, color_in_now_position);
     if (*turn ^ color_in_now_position)
     {
-        printf("잘못된 턴 입력, 재입력을 받습니다. \n");
+        printf("자신의 말이 아닙니다. 다시 입력해주십시오. \n");
         return;
     }
 
@@ -49,6 +50,10 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
 
             *turn = !*turn;
 
+            return;
+        } else
+        {
+            printf("이동할수 없는 위치입니다. 다시 입력해주십시오\n");
             return;
         }
     }

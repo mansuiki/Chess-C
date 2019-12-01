@@ -401,7 +401,7 @@ void promotion(chess_piece *p, int color)
     int roop = 1;
     while (roop == 1)
     {
-        printf("변신할 기물을 선택하시오.(b,n,r,q)");
+        printf("변신할 기물을 선택하시오.(비숍 : b, 나이트 : n, 룩 : r, 퀸 : q)");
         scanf("%c", &t);
         switch (t)
         {
