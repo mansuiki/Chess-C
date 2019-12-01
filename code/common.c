@@ -17,13 +17,28 @@ int get_pieces_by_pos(int pos_arr[][2], int num_pos, chess_piece pieces[NUM_CHES
     return len_pieces_in_mvs;
 }
 
-_Bool get_one_piece_by_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES], chess_piece *result)
+_Bool get_one_piece_by_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES])
 {
+    for (int i = 0; i < NUM_CHESS_PIECES; ++i)
+    {
+        if ((pieces[i].position[0] == pos_arr[0] && pieces[i].position[1] == pos_arr[1]) || (pos_arr[0] < 0 && pos_arr[0] > 7 && pos_arr[1] < 0 && pos_arr[1] > 7))
+        {
+            return 1;
+        }
+    }
+}
+
+_Bool posFind(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES],int color)
+{
+    if(pos_arr[0] < 0 && pos_arr[0] > 7 && pos_arr[1] < 0 && pos_arr[1] > 7)
+    {
+        return color;
+    }
     for (int i = 0; i < NUM_CHESS_PIECES; ++i)
     {
         if (pieces[i].position[0] == pos_arr[0] && pieces[i].position[1] == pos_arr[1])
         {
-            *result = pieces[i];
+            return pieces[i].color;
         }
     }
 }
