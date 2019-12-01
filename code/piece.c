@@ -6,7 +6,7 @@ void setQueen(chess_piece *p, _Bool color)
 {
     p->type = 'q';
     p->unicode = color ? 0x265B : 0x2655;
-    p->id = color ? 10 : 5;
+    p->id = color ? 15 : 5;
     p->value = 9;
     // 이동 가능 방향 초기화 퀸
     int t = 1;
@@ -44,7 +44,7 @@ void setBishop(chess_piece *p, _Bool color)
 {
     p->type = 'b';
     p->unicode = color ? 0x265D : 0x2657;
-    p->id = color ? 10 : 3;
+    p->id = color ? 13 : 3;
     p->value = 3;
 
     // ?? ?? ?? ??? ??
@@ -64,7 +64,7 @@ void setPawn(chess_piece *p, _Bool color)
 {
     p->type = 'p';
     p->unicode = color ? 0x265F : 0x2659;
-    p->id = color ? 10 : 1;
+    p->id = color ? 11 : 1;
     p->value = 1;
 }
 
@@ -89,7 +89,7 @@ void setKing(chess_piece *p, _Bool color)
 {
     p->type = 'k';
     p->unicode = color ? 0x265A : 0x2654;
-    p->id = color ? 10 : 3;
+    p->id = color ? 13 : 3;
     p->value = 100;
     // ?? ?? ?? ??? ?
     int t = 1;
@@ -132,7 +132,7 @@ void setRook(chess_piece *p, _Bool color)
 {
     p->type = 'r';
     p->unicode = color ? 0x265C : 0x2656;
-    p->id = color ? 10 : 4;
+    p->id = color ? 14 : 4;
     p->value = 5;
     // ?? ?? ?? ??? ?
     for(int i = 0; i < 4; i++)
@@ -158,7 +158,7 @@ void setKnight(chess_piece *p, _Bool color)
 {
     p->type = 'n';
     p->unicode = color ? 0x265E : 0x2658;
-    p->id = color ? 10 : 2;
+    p->id = color ? 12 : 2;
     p->value = 9;
     // ?? ?? ?? ??? ???
     int t = 1;
