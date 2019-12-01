@@ -2,11 +2,11 @@
 #include "common.h"
 #endif
 
-void setQueen(chess_piece *);
-void setBishop(chess_piece *);
-void setPawn(chess_piece *);
-void setKing(chess_piece *);
-void setRook(chess_piece *);
-void setKnight(chess_piece *);
+void setQueen(chess_piece *, _Bool);
+void setBishop(chess_piece *, _Bool);
+void setPawn(chess_piece *l, _Bool);
+void setKing(chess_piece *, _Bool);
+void setRook(chess_piece *, _Bool);
+void setKnight(chess_piece *, _Bool);
 
 void move_pawn(chess_piece *p);

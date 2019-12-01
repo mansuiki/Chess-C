@@ -1,9 +1,14 @@
 #include "piece.h"
 
-void setQueen(chess_piece *p)
+/* color == 1일 경우 블랙으로 처리됨 */
+
+void setQueen(chess_piece *p, _Bool color)
 {
+    p->type = 'q';
+    p->unicode = color ? 0x265B : 0x2655;
+    p->id = color ? 10 : 5;
     p->value = 9;
-    // ?? ?? ?? ??? ?
+    // 이동 가능 방향 초기화 퀸
     int t = 1;
     for(int i = 0; i < 4; i++)
     {
@@ -35,8 +40,11 @@ void setQueen(chess_piece *p)
 
 }
 
-void setBishop(chess_piece *p)
+void setBishop(chess_piece *p, _Bool color)
 {
+    p->type = 'b';
+    p->unicode = color ? 0x265D : 0x2657;
+    p->id = color ? 10 : 3;
     p->value = 3;
 
     // ?? ?? ?? ??? ??
@@ -52,8 +60,11 @@ void setBishop(chess_piece *p)
     }
 }
 
-void setPawn(chess_piece *p)
+void setPawn(chess_piece *p, _Bool color)
 {
+    p->type = 'p';
+    p->unicode = color ? 0x265F : 0x2659;
+    p->id = color ? 10 : 1;
     p->value = 1;
 }
 
@@ -74,8 +85,11 @@ void move_pawn(chess_piece *p)//폰의 움직임 시 실행하여
     }
 }
 
-void setKing(chess_piece *p)
+void setKing(chess_piece *p, _Bool color)
 {
+    p->type = 'k';
+    p->unicode = color ? 0x265A : 0x2654;
+    p->id = color ? 10 : 3;
     p->value = 100;
     // ?? ?? ?? ??? ?
     int t = 1;
@@ -114,8 +128,11 @@ void castling(chess_piece *p, int arr[][12], int col, int row)
     //
 }
 
-void setRook(chess_piece *p)
+void setRook(chess_piece *p, _Bool color)
 {
+    p->type = 'r';
+    p->unicode = color ? 0x265C : 0x2656;
+    p->id = color ? 10 : 4;
     p->value = 5;
     // ?? ?? ?? ??? ?
     for(int i = 0; i < 4; i++)
@@ -137,8 +154,11 @@ void setRook(chess_piece *p)
     }
 }
 
-void setKnight(chess_piece *p)
+void setKnight(chess_piece *p, _Bool color)
 {
+    p->type = 'n';
+    p->unicode = color ? 0x265E : 0x2658;
+    p->id = color ? 10 : 2;
     p->value = 9;
     // ?? ?? ?? ??? ???
     int t = 1;
@@ -160,7 +180,7 @@ void setKnight(chess_piece *p)
         }
         if(i % 2 == 1)
         {
-            t *= -1;
+             t*= -1;
         }
     }
 }
