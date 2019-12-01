@@ -12,6 +12,7 @@ void setQueen(chess_piece *p, _Bool color)
     p->value = 9;
     p->color = color;
     p->move_cnt = 0;
+    p->is_dead = 0;
 
     // 이동 가능 방향 초기화 퀸
     int t = 1;
@@ -53,6 +54,7 @@ void setBishop(chess_piece *p, _Bool color)
     p->value = 3;
     p->color = color;
     p->move_cnt = 0;
+    p->is_dead = 0;
 
     // ?? ?? ?? ??? ??
     int t = 1;
@@ -75,6 +77,7 @@ void setPawn(chess_piece *p, _Bool color)
     p->value = 1;
     p->color = color;
     p->move_cnt = 0;
+    p->is_dead = 0;
 }
 
 /**
@@ -114,6 +117,7 @@ void setKing(chess_piece *p, _Bool color)
     p->value = 100;
     p->color = color;
     p->move_cnt = 0;
+    p->is_dead = 0;
     // ?? ?? ?? ??? ?
     int t = 1;
     for (int i = 0; i < 4; i++)
@@ -222,6 +226,7 @@ void setRook(chess_piece *p, _Bool color)
     p->value = 5;
     p->color = color;
     p->move_cnt = 0;
+    p->is_dead = 0;
     // ?? ?? ?? ??? ?
     for (int i = 0; i < 4; i++)
     {
@@ -250,6 +255,7 @@ void setKnight(chess_piece *p, _Bool color)
     p->value = 9;
     p->color = color;
     p->move_cnt = 0;
+    p->is_dead = 0;
     // ?? ?? ?? ??? ???
     int t = 1;
 

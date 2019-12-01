@@ -36,10 +36,21 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
         if (piece_in_position->movable_pos[i][0] == position[1][0] &&
             piece_in_position->movable_pos[i][1] == position[1][1])
         {
+            chess_piece *piece_to_kill;
+            if (get_one_piece_by_pos(position[1], pieces, &piece_to_kill))
+            {
+                if (piece_to_kill->color != *turn)
+                {
+                    piece_to_kill->is_dead = 1;
+                }
+            }
+
             piece_in_position->position[0] = position[1][0];
             piece_in_position->position[1] = position[1][1];
             piece_in_position->move_cnt++;
+
             *turn = !*turn;
+
             return;
         }
     }
