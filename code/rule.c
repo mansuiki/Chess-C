@@ -9,6 +9,7 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int position[2][2], _Bool 
 
     if (!get_one_piece_by_pos(_tmp, pieces, &piece_in_position))// 그곳에 유닛 있는지 체크
     {
+        //만약 100번대 기물을 폰이 잡을 경우 id - 100 한게 인덱스, 그 인덱스로 기물 제거
         return;
     }
 
@@ -24,4 +25,9 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int position[2][2], _Bool 
             piece_in_position->position[1] = position[1][1];
         }
     }
+}
+
+void castling()
+{
+
 }

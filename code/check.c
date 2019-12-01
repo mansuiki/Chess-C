@@ -350,9 +350,23 @@ void reset(chess_piece *pieces[NUM_CHESS_PIECES],int arr[][12], int row)
     {
         if(pieces[i]->type == 'p')
         {
-            if(pieces[i]->position[0] == 0 || pieces[i]->position[0] == 7 || pieces[i]->position[1] == 0 || pieces[i]->position[1] == 7)
+            if(pieces[i]->position[0] == 0 || pieces[i]->position[0] == 7)
             {
                 promotion(pieces[i],pieces[i]->color);
+            }
+            if(pieces[i]->position[0] == 4)
+            {
+                if(pieces[i]->move_cnt == 1)
+                {
+                    arr[7][pieces[i]->position[1] + 2] = 100 + i;
+                }
+            }
+            if(pieces[i]->position[0] == 3)
+            {
+                if(pieces[i]->move_cnt == 1)
+                {
+                    arr[4][pieces[i]->position[1] + 2] = 100 + i;
+                }
             }
         }
         arr[pieces[i]->position[0] + 2][pieces[i]->position[1] + 2] = pieces[i]->id;

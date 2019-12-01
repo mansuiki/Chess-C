@@ -3,3 +3,4 @@
 #endif
 
 void move_piece(chess_piece [NUM_CHESS_PIECES], int [2][2], _Bool);
+void castling();

@@ -6,13 +6,11 @@
 void init(chess_piece *);
 
 chess_piece pieces[NUM_CHESS_PIECES];
-int checkBoard[12][12] = {0,}; //체크용 보드판 (1:백폰,2:백나이트,3:백비숍,4:백룩,5:백퀸,6:백킹,11:흑폰)
 
 int main()
 {
     setlocale(LC_ALL, "");
 
-    wchar_t board[8][8] = { [0 ... 7][0 ... 7] = 0xB7 }; //범위 초기화는 GCC에서만 될 수도 있음
     _Bool turn = 1;
 
     init(pieces);

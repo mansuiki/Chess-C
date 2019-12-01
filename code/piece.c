@@ -1,5 +1,7 @@
 #include "piece.h"
 
+int check_board[12][12] = {0,}; //체크용 보드판 (1:백폰,2:백나이트,3:백비숍,4:백룩,5:백퀸,6:백킹,11:흑폰)
+
 /* color == 1일 경우 블랙으로 처리됨 */
 
 void setQueen(chess_piece *p, _Bool color)
@@ -76,13 +78,26 @@ void move_pawn(chess_piece *p)//폰의 움직임 시 실행하여
 {
     if(p->move_cnt == 0)
     {
-        p->directions[0][0] = 1;
-        p->directions[1][0] = 2;
+        p->directions[0][1] = 1 - 2 * p->color;
+        p->directions[1][1] = 2 * 1 - 2 * p->color;
     }
     else
     {
-        p->directions[1][0] = 0;
+        p->directions[0][1] = 1 - 2 * p->color;
     }
+
+    if(check_board[p->position[0] + 2 + 1][p->position[0] + 2 + 1 - 2 * p->color] > 0)
+    {
+        p->directions[2][0] = 1;
+        p->directions[2][1] = 1 - 2 * p->color;
+    }
+
+    if(check_board[p->position[0] + 2 - 1][p->position[0] + 2 + 1 - 2 * p->color] > 0)
+    {
+        p->directions[2][0] = -1;
+        p->directions[2][1] = 1 - 2 * p->color;
+    }
+
 }
 
 void setKing(chess_piece *p, _Bool color)
@@ -123,7 +138,7 @@ void setKing(chess_piece *p, _Bool color)
 
 }
 
-void castling(chess_piece *p, int arr[][12], int col, int row)
+void check_castling(chess_piece *p, int arr[][12], int col, int row)
 {
     //
 }
