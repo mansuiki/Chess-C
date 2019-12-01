@@ -11,6 +11,7 @@ void setQueen(chess_piece *p, _Bool color)
     p->id = color ? 15 : 5;
     p->value = 9;
     p->color = color;
+    p->move_cnt = 0;
 
     // 이동 가능 방향 초기화 퀸
     int t = 1;
@@ -51,6 +52,7 @@ void setBishop(chess_piece *p, _Bool color)
     p->id = color ? 13 : 3;
     p->value = 3;
     p->color = color;
+    p->move_cnt = 0;
 
     // ?? ?? ?? ??? ??
     int t = 1;
@@ -72,6 +74,7 @@ void setPawn(chess_piece *p, _Bool color)
     p->id = color ? 11 : 1;
     p->value = 1;
     p->color = color;
+    p->move_cnt = 0;
 }
 
 /**
@@ -82,24 +85,24 @@ void move_pawn(chess_piece *p, int board[][12], int row)//폰의 움직임 시 �
 {
     if (p->move_cnt == 0)
     {
-        p->directions[0][1] = 1 - 2 * p->color;
-        p->directions[1][1] = 2 * 1 - 2 * p->color;
+        p->directions[0][1] = -1 + 2 * p->color;
+        p->directions[1][1] = -2 * (1 - 2 * p->color);
     }
     else
     {
-        p->directions[0][1] = 1 - 2 * p->color;
+        p->directions[0][1] = -1 + 2 * p->color;
     }
 
-    if (board[p->position[0] + 2 + 1][p->position[0] + 2 + 1 - 2 * p->color] > 0)
+    if (board[p->position[0] + 2 + 1][p->position[0] + 2 - 1 + 2 * p->color] > 0)
     {
         p->directions[2][0] = 1;
-        p->directions[2][1] = 1 - 2 * p->color;
+        p->directions[2][1] = -1 + 2 * p->color;
     }
 
-    if (board[p->position[0] + 2 - 1][p->position[0] + 2 + 1 - 2 * p->color] > 0)
+    if (board[p->position[0] + 2 - 1][p->position[0] + 2 - 1 + 2 * p->color] > 0)
     {
         p->directions[2][0] = -1;
-        p->directions[2][1] = -1 - 2 * p->color;
+        p->directions[2][1] = -1 + 2 * p->color;
     }
 }
 
@@ -110,6 +113,7 @@ void setKing(chess_piece *p, _Bool color)
     p->id = color ? 13 : 3;
     p->value = 100;
     p->color = color;
+    p->move_cnt = 0;
     // ?? ?? ?? ??? ?
     int t = 1;
     for (int i = 0; i < 4; i++)
@@ -217,6 +221,7 @@ void setRook(chess_piece *p, _Bool color)
     p->id = color ? 14 : 4;
     p->value = 5;
     p->color = color;
+    p->move_cnt = 0;
     // ?? ?? ?? ??? ?
     for (int i = 0; i < 4; i++)
     {
@@ -244,6 +249,7 @@ void setKnight(chess_piece *p, _Bool color)
     p->id = color ? 12 : 2;
     p->value = 9;
     p->color = color;
+    p->move_cnt = 0;
     // ?? ?? ?? ??? ???
     int t = 1;
 
