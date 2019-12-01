@@ -8,6 +8,7 @@ void checkBishop(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 void checkRook(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 void checkQueen(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 void checkKing(chess_piece [NUM_CHESS_PIECES], chess_piece *);
+void promotion(chess_piece *, int);
 
 void update_movable_positions(chess_piece pieces[NUM_CHESS_PIECES])
 {
@@ -332,3 +333,62 @@ int checkmate(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int board[][
 
 }
 
+void reset(chess_piece *pieces[NUM_CHESS_PIECES],int arr[][12], int row)
+{
+    for(int i = 2; i < 10; i++) // 보드판 초기화
+    {
+        for(int j = 2; j < 10; j++)
+        {
+            arr[i][j] = 0;
+        }
+    }
+    for(int i = 0; i < NUM_CHESS_PIECES; i++)
+    {
+        if(pieces[i]->type == 'p')
+        {
+            if(pieces[i]->position[0] == 0 || pieces[i]->position[0] == 7 || pieces[i]->position[1] == 0 || pieces[i]->position[1] == 7)
+            {
+                promotion(pieces[i],pieces[i]->color);
+            }
+        }
+        arr[pieces[i]->position[0] + 2][pieces[i]->position[1] + 2] = pieces[i]->id;
+        for(int j = 0; j < 28; j++)
+        {
+            pieces[i]->movable_pos[j][0] = 0;
+            pieces[i]->movable_pos[j][1] = 0;
+        }
+    }
+}
+
+void promotion(chess_piece *p,int color)
+{
+    char t;
+    int roop = 1;
+    while(roop == 1)
+    {
+        printf("변신할 기물을 선택하시오.(b,n,r,q)");
+        scanf("%c",&t);
+        switch (t)
+        {
+            case 'b':
+                setBishop(p,color);
+                roop = 0;
+                break;
+            case 'n':
+                setKnight(p,color);
+                roop = 0;
+                break;
+            case 'r':
+                setRook(p,color);
+                roop = 0;
+                break;
+            case 'q':
+                setQueen(p,color);
+                roop = 0;
+                break;
+            default:
+                printf("잘못된 입력입니다.\n");
+                break;
+        }
+    }
+}
