@@ -67,8 +67,8 @@ void init(chess_piece pieces[NUM_CHESS_PIECES])
     {
         pieces[i].type = 'p';
         pieces[i].unicode = 0x2659;
-        pieces[i].position[0] = i; //x
-        pieces[i].position[1] = 5; //y
+        pieces[i].position[0] = i-8; //x
+        pieces[i].position[1] = 6; //y
         pieces[i].color = 0;
     }
 
