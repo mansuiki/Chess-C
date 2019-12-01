@@ -61,7 +61,7 @@ void update_movable_positions(chess_piece pieces[NUM_CHESS_PIECES], int board []
  */
 void get_p_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int board[][12], int row)
 {
-    move_pawn(p); // 폰의 이동 가능 방향 체크
+    move_pawn(p, board, row); // 폰의 이동 가능 방향 체크
     int tmp[2]; // 이동 가능 위치 임시 저장
     for(int i = 0; i < 4; i++)
     {
@@ -181,7 +181,8 @@ void get_q_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
                 p->movable_pos[index][1] = tmp[1];
             }
             else if (tmp[0] == p->position[0] && tmp[1] == p->position[1])
-            { ;
+            {
+                ;
             }
             else
             {

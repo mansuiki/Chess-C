@@ -9,6 +9,6 @@ void setKing(chess_piece *, _Bool);
 void setRook(chess_piece *, _Bool);
 void setKnight(chess_piece *, _Bool);
 
-void move_pawn(chess_piece *p);
+void move_pawn(chess_piece *, int [][12], int);
 
 void check_castling(chess_piece *, int [][12], int);
