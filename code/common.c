@@ -49,12 +49,13 @@ _Bool get_one_piece_by_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES],
     return 0;
 }
 
-_Bool find_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES], int color)
+_Bool find_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES], _Bool color)
 {
     if((pos_arr[0] < 0 || pos_arr[0] > 7) && pos_arr[1] < 0 && pos_arr[1] > 7)
     {
-        return color;
+        return !color;
     }
+
     for (int i = 0; i < NUM_CHESS_PIECES; ++i)
     {
         if (pieces[i].position[0] == pos_arr[0] && pieces[i].position[1] == pos_arr[1])
@@ -62,4 +63,6 @@ _Bool find_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES], int color)
             return pieces[i].color;
         }
     }
+
+    return !color;
 }

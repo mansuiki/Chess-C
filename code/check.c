@@ -69,8 +69,8 @@ void get_p_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int
         tmp[1] = p->position[1] + p->directions[i][1];
         if(find_pos(tmp, pieces, p->color) != p->color)
         {
-            p->movable_pos[i][0] = p->position[0] + p->directions[i][0];
-            p->movable_pos[i][1] = p->position[1] + p->directions[i][1];
+            p->movable_pos[i][0] = tmp[0];
+            p->movable_pos[i][1] = tmp[1];
         }
     }
 }
