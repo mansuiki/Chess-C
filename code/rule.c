@@ -30,7 +30,6 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
         {
             piece_in_position->position[0] = position[1][0];
             piece_in_position->position[1] = position[1][1];
-            *turn = !(*turn);
 
             return;
         }
