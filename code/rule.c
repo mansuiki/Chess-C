@@ -20,7 +20,7 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int position[2][2], _Bool 
         if (piece_in_position->movable_pos[i][0] == position[1][0] \
          && piece_in_position->movable_pos[i][1] == position[1][1])
         {
-            piece_in_position->position[1] = position[1][0];
+            piece_in_position->position[0] = position[1][0];
             piece_in_position->position[1] = position[1][1];
         }
     }
