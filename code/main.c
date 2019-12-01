@@ -9,7 +9,7 @@ int main()
 {
     setlocale(LC_ALL, "");
 
-    _Bool turn = 1;
+    _Bool *turn = 0;
 
     int check_board[12][12] = {
             [0 ... 1][0 ... 11] = -1,
@@ -35,8 +35,8 @@ int main()
 
     do
     {
+        turn ? printf("검은 말의 순서입니다\n\n") : printf("흰 말의 순서입니다\n\n");
         special_cmd = input_cmd(coordinates);
-
         switch (special_cmd)
         {
             case 'H':
@@ -52,7 +52,7 @@ int main()
                 break;
 
             default:
-                move_piece(pieces, check_board, coordinates, turn);
+                move_piece(pieces, check_board, coordinates, &turn);
                 print_board(pieces);
                 break;
         }
