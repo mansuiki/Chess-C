@@ -20,7 +20,7 @@ int main()
     int coordinates[2][2];
     char special_cmd;
 
-    print_board(pieces, board, 32);
+    print_board(pieces);
 
     do {
         special_cmd = input_cmd(coordinates);
@@ -41,7 +41,7 @@ int main()
 
             default:
                 move_piece(pieces, coordinates, turn);
-                print_board(pieces, board, 32);
+                print_board(pieces);
                 break;
         }
     } while (1);

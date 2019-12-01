@@ -10,6 +10,10 @@ void checkQueen(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 void checkKing(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 void promotion(chess_piece *, int);
 
+/**
+ * 움직임이 수행될 때마다 이동 가능한 위치를 업데이트하는 함수
+ * @param pieces 전체 기물 배열
+ */
 void update_movable_positions(chess_piece pieces[NUM_CHESS_PIECES])
 {
     for(int i = 0; i < NUM_CHESS_PIECES; i++)

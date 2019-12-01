@@ -6,9 +6,10 @@
  * @param board 출력할 보드 배열
  * @param pieces_num 보드 위에 있는 체스 기물의 수
  */
-void print_board(chess_piece pieces[32], wchar_t board[8][8], int pieces_num)
+void print_board(chess_piece pieces[32])
 {
-    for (int i = 0; i < pieces_num; ++i)
+    wchar_t board[8][8] = { [0 ... 7][0 ... 7] = 0xB7 };
+    for (int i = 0; i < NUM_CHESS_PIECES; ++i)
     {
         board[ pieces[i].position[1] ][ pieces[i].position[0] ] = pieces[i].unicode;
     }
