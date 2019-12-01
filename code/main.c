@@ -5,14 +5,21 @@
 
 void init(chess_piece *);
 
-chess_piece pieces[NUM_CHESS_PIECES];
-
 int main()
 {
     setlocale(LC_ALL, "");
 
     _Bool turn = 1;
 
+    chess_piece pieces[NUM_CHESS_PIECES];
+    for (int i = 0; i < NUM_CHESS_PIECES; ++i)
+    {
+        for (int j = 0; j < 10; ++j)
+        {
+            pieces[i].directions[j][0] = 0;
+            pieces[i].directions[j][1] = 0;
+        }
+    }
     init(pieces);
 
     int coordinates[2][2];
