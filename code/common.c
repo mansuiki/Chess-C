@@ -28,7 +28,7 @@ _Bool get_one_piece_by_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES])
     }
 }
 
-_Bool posFind(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES],int color)
+_Bool find_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES],int color)
 {
     if(pos_arr[0] < 0 && pos_arr[0] > 7 && pos_arr[1] < 0 && pos_arr[1] > 7)
     {

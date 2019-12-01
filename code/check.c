@@ -1,4 +1,3 @@
-#include "common.h"
 #include "piece.h"
 
 int checkBoard[10][10];
@@ -100,8 +99,8 @@ void checkBishop(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
                 }
             }
 
-            tmp[0] =+ p->directions[i][0];
-            tmp[1] =+ p->directions[i][1];
+            tmp[0] += p->directions[i][0];
+            tmp[1] += p->directions[i][1];
             index++;
         }
     }
@@ -126,7 +125,7 @@ void checkRook(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
             }
             else
             {
-                if((tmp,pieces,p->color) == p->color) break;
+                if(find_pos(tmp,pieces,p->color) == p->color) break;
                 else
                 {
                     p->movable_pos[index][0] = tmp[0];
@@ -136,8 +135,8 @@ void checkRook(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
                 }
             }
 
-            tmp[0] =+ p->directions[i][0];
-            tmp[1] =+ p->directions[i][1];
+            tmp[0] += p->directions[i][0];
+            tmp[1] += p->directions[i][1];
             index++;
         }
     }
@@ -172,8 +171,8 @@ void checkQueen(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
                 }
             }
 
-            tmp[0] =+ p->directions[i][0];
-            tmp[1] =+ p->directions[i][1];
+            tmp[0] += p->directions[i][0];
+            tmp[1] += p->directions[i][1];
             index++;
         }
     }
@@ -198,22 +197,124 @@ void checkKing(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
 
 int checkmate(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int board[][12], int row) // 0: x 1: 체크 2: 체크메이트
 {
-    int posCheck[9] = {0,};
+    int posCheck[3][3] = {0,};
     int isCheck = 0;
-    for(int i = 2; i < 10; i++)
+    int color = (1 - 1 * p->color) * 10; // 킹이 백일 경우 10, 흑일 경우 0
+    int direction1[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};//십자 축
+    int direction2[4][2] = {{1,1},{1,-1},{-1,1},{-1,-1}};//대각선 축
+    int pos1[8][2] = {{2,1},{2,-1},{-2,1},{-2,-1},{1,2},{1,-2},{-1,2},{-1,-2}};//나이트 이동위치
+    int pos2[2][2] = {{1,1},{-1,1}};//폰 이동 위치
+    for(int t = 0; t < 3; t++)
     {
-        int color = (1 - 1 * p->color) * 10; // 킹이 백일 경우 10, 흑일 경우 0
-        int tmp[2] = {p->position[0],p->position[1]}; // 이동 가능 위치 임시 저장
-        if(board[i][p->position[1]+2] == color + 4 || board[i][p->position[1]+2] == color + 5)
+        for(int j = 0; j < 3; j++)
         {
-            posCheck[0] = 1;
-            isCheck = 1;
+
+            int tmp[2] = {p->position[0] + 1 + t, p->position[1] + 1 + j};// 이동 가능 위치 임시 저장 9개
+            if(board[tmp[0]][tmp[1]] == -1) continue; // 이동 불가능 위치면 넘기기
+            for(int i = 0; i < 4; i++) //십자 축 체크
+            {
+
+                while(board[tmp[0]][tmp[1]] > -1)
+                {
+                    if(board[tmp[0]][tmp[1]] == color + 3 || board[tmp[0]][tmp[1]] == color + 5)
+                    {
+                        posCheck[t][j] = 1;
+                        isCheck = 1;
+                    }
+                    else if(board[tmp[0]][tmp[1]] == 0)
+                    {
+                        ;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+
+                    tmp[0] += direction1[i][0];
+                    tmp[1] += direction1[i][1];
+                }
+            }
+
+            tmp[0] = p->position[0] + 1 + t;
+            tmp[1] = p->position[1] + 1 + j;
+
+            for(int i = 0; i < 4; i++) // 대각선 축 체크
+            {
+
+                while(board[tmp[0]][tmp[1]] > -1)
+                {
+                    if(board[tmp[0]][tmp[1]] == color + 3 || board[tmp[0]][tmp[1]] == color + 5)
+                    {
+                        posCheck[t][j] = 1;
+                        isCheck = 1;
+                    }
+                    else if(board[tmp[0]][tmp[1]] == 0)
+                    {
+                        ;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    tmp[0] += direction2[i][0];
+                    tmp[1] += direction2[i][1];
+                }
+            }
+
+            tmp[0] = p->position[0] + 1 + t;
+            tmp[1] = p->position[1] + 1 + j;
+
+            for(int i = 0; i < 8; i++) // 나이트 위치 체크
+            {
+                if(board[tmp[0] + pos1[i][0]][tmp[1] + pos1[i][1]] == color + 2)
+                {
+                    posCheck[t][j] = 1;
+                    isCheck = 1;
+                }
+            }
+
+            tmp[0] = p->position[0] + 1 + t;
+            tmp[1] = p->position[1] + 1 + j;
+
+            for(int i = 0; i < 2; i++) // 폰 위치 체크
+            {
+                if(color == 0)
+                {
+                    if(board[tmp[0] + pos2[i][0]][tmp[1] + pos2[i][1]] == color + 2)
+                    {
+                        posCheck[t][j] = 1;
+                        isCheck = 1;
+                    }
+                }
+                else
+                {
+                    if(board[tmp[0] + pos2[i][0]][tmp[1] - pos2[i][1]] == color + 2)
+                    {
+                        posCheck[t][j] = 1;
+                        isCheck = 1;
+                    }
+                }
+
+            }
         }
-        if(board[p->position[0]+2][i] == color + 4 || board[i][p->position[1]+2] == color + 5)
+
+    }
+
+    //체크메이트 판정===========================================
+    int isCheckmate = 0;
+
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < 3; j++)
         {
-            posCheck[0] = 1;
-            isCheck = 1;
+            isCheckmate += posCheck[i][j];
         }
     }
+    if(isCheckmate == 9) return 2;
+    if(isCheck == 0) return 0;
+    else return 1;
+
 }
 

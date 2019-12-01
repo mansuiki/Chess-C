@@ -1,5 +1,5 @@
 #include "rule.h"
-#include "pawn.h"
+#include "piece.h"
 
 void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int position[2][2], _Bool turn)
 {
@@ -17,16 +17,7 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int position[2][2], _Bool 
     {
         case 'p':
         {
-            int len_coords = pawn_behavior(position[0], pieces, turn, coords);
-            for (int i = 0; i < len_coords; ++i)
-            {
-                if (coords[i][0] == position[1][0] && coords[i][1] == position[1][1])
-                {
-                    piece_in_position.position[0] = position[1][0];
-                    piece_in_position.position[1] = position[1][1];
-                }
-            }
+            movePawn(position[0], pieces, turn, coords);
         }
-
     }
 }
