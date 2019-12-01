@@ -25,12 +25,12 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
     for (int i = 0; i < 32; ++i)
     {
         //이동하고자 하는 위치가 이동 가능 위치에 속해있는 경우
-        if (piece_in_position->movable_pos[i][0] == position[1][0] \
-         && piece_in_position->movable_pos[i][1] == position[1][1])
+        if (piece_in_position->movable_pos[i][0] == position[1][0] &&
+            piece_in_position->movable_pos[i][1] == position[1][1])
         {
             piece_in_position->position[0] = position[1][0];
             piece_in_position->position[1] = position[1][1];
-
+            piece_in_position->move_cnt++;
             return;
         }
     }
@@ -45,7 +45,7 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
 void castling(chess_piece *k, chess_piece *r, int pos[2])
 {
     int tmp;
-    if(k->position[0] - pos[0] > 0)
+    if (k->position[0] - pos[0] > 0)
     {
         k->position[0] = pos[0];
         r->position[0] = pos[0] - 1;
