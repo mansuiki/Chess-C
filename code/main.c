@@ -2,6 +2,7 @@
 #include "ui.h"
 #include "rule.h"
 #include "piece.h"
+#include "check.h"
 
 void init(chess_piece *);
 
@@ -32,11 +33,14 @@ int main()
     char special_cmd;
 
     print_board(pieces);
+//    reset(pieces, check_board, 12);
 
     do
     {
         turn ? printf("검은 말의 순서입니다\n\n") : printf("흰 말의 순서입니다\n\n");
         special_cmd = input_cmd(coordinates);
+        update_movable_positions(pieces, check_board, 12);
+
         switch (special_cmd)
         {
             case 'H':
@@ -54,6 +58,7 @@ int main()
             default:
                 move_piece(pieces, check_board, coordinates, &turn);
                 print_board(pieces);
+                reset(pieces, check_board, 12);
                 break;
         }
     }

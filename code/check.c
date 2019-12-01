@@ -354,7 +354,7 @@ int checkmate(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int board[][
 
 }
 
-void reset(chess_piece *pieces[NUM_CHESS_PIECES], int arr[][12], int row)
+void reset(chess_piece pieces[NUM_CHESS_PIECES], int arr[][12], int row)
 {
     for (int i = 2; i < 10; i++) // 보드판 초기화
     {
@@ -365,32 +365,32 @@ void reset(chess_piece *pieces[NUM_CHESS_PIECES], int arr[][12], int row)
     }
     for (int i = 0; i < NUM_CHESS_PIECES; i++)
     {
-        if (pieces[i]->type == 'p')
+        if (pieces[i].type == 'p')
         {
-            if (pieces[i]->position[0] == 0 || pieces[i]->position[0] == 7)
+            if (pieces[i].position[0] == 0 || pieces[i].position[0] == 7)
             {
-                promotion(pieces[i], pieces[i]->color);
+                promotion(&pieces[i], pieces[i].color);
             }
-            if (pieces[i]->position[0] == 4)
+            if (pieces[i].position[0] == 4)
             {
-                if (pieces[i]->move_cnt == 1)
+                if (pieces[i].move_cnt == 1)
                 {
-                    arr[7][pieces[i]->position[1] + 2] = 100 + i;
+                    arr[7][pieces[i].position[1] + 2] = 100 + i;
                 }
             }
-            if (pieces[i]->position[0] == 3)
+            if (pieces[i].position[0] == 3)
             {
-                if (pieces[i]->move_cnt == 1)
+                if (pieces[i].move_cnt == 1)
                 {
-                    arr[4][pieces[i]->position[1] + 2] = 100 + i;
+                    arr[4][pieces[i].position[1] + 2] = 100 + i;
                 }
             }
         }
-        arr[pieces[i]->position[0] + 2][pieces[i]->position[1] + 2] = pieces[i]->id;
+        arr[pieces[i].position[0] + 2][pieces[i].position[1] + 2] = pieces[i].id;
         for (int j = 0; j < 28; j++)
         {
-            pieces[i]->movable_pos[j][0] = 0;
-            pieces[i]->movable_pos[j][1] = 0;
+            pieces[i].movable_pos[j][0] = 0;
+            pieces[i].movable_pos[j][1] = 0;
         }
     }
 }
