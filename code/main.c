@@ -11,6 +11,12 @@ int main()
 
     _Bool turn = 1;
 
+    int check_board[12][12] = {
+        [0 ... 2][0 ... 11] = -1,
+        [3 ... 9][0 ... 2] = -1,
+        [3 ... 9][9 ... 11] = -1,
+        [10 ... 11][0 ... 11] = -1
+    };
     chess_piece pieces[NUM_CHESS_PIECES];
     for (int i = 0; i < NUM_CHESS_PIECES; ++i)
     {
@@ -45,7 +51,7 @@ int main()
                 break;
 
             default:
-                move_piece(pieces, coordinates, turn);
+                move_piece(pieces, check_board, coordinates, turn);
                 print_board(pieces);
                 break;
         }

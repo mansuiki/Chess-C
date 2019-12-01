@@ -2,7 +2,7 @@
 #include "piece.h"
 #include "check.h"
 
-void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int position[2][2], _Bool turn)
+void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], int position[2][2], _Bool turn)
 {
     chess_piece *piece_in_position = malloc(sizeof(chess_piece)); //이동하고자 하는 기물
     int _tmp[2] = {position[0][0], position[0][1]};
@@ -13,7 +13,7 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int position[2][2], _Bool 
         return;
     }
 
-    update_movable_positions(pieces);
+    update_movable_positions(pieces, check_board, 12);
 
     for (int i = 0; i < 32; ++i)
     {

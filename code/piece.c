@@ -97,7 +97,6 @@ void move_pawn(chess_piece *p)//폰의 움직임 시 실행하여
         p->directions[2][0] = -1;
         p->directions[2][1] = 1 - 2 * p->color;
     }
-
 }
 
 void setKing(chess_piece *p, _Bool color)
@@ -138,9 +137,72 @@ void setKing(chess_piece *p, _Bool color)
 
 }
 
-void check_castling(chess_piece *p, int arr[][12], int col, int row)
+void check_castling(chess_piece *p, int arr[][12], int row)
 {
-    //
+    if(p->color == 1)
+    {
+        if(p->move_cnt == 0)
+        {
+            if(arr[2][9] == 14)
+            {
+                int t = 0;
+                for(int i = 1; i < 4; i++)
+                {
+                    if(arr[2+i][9] == 0) t++;
+                }
+                if(t == 3)
+                {
+                    p->directions[8][0] = -2;
+                    p->directions[8][1] = 0;
+                }
+            }
+            if(arr[9][9] == 14)
+            {
+                int t = 0;
+                for(int i = 1; i < 4; i++)
+                {
+                    if(arr[9-i][9] == 0) t++;
+                }
+                if(t == 3)
+                {
+                    p->directions[8][0] = 2;
+                    p->directions[8][1] = 0;
+                }
+            }
+        }
+    }
+    else
+    {
+        if(p->move_cnt == 0)
+        {
+            if(arr[2][2] == 4)
+            {
+                int t = 0;
+                for(int i = 1; i < 4; i++)
+                {
+                    if(arr[2+i][2] == 0) t++;
+                }
+                if(t == 3)
+                {
+                    p->directions[8][0] = -2;
+                    p->directions[8][1] = 0;
+                }
+            }
+            if(arr[9][2] == 4)
+            {
+                int t = 0;
+                for(int i = 1; i < 4; i++)
+                {
+                    if(arr[9-i][2] == 0) t++;
+                }
+                if(t == 3)
+                {
+                    p->directions[8][0] = 2;
+                    p->directions[8][1] = 0;
+                }
+            }
+        }
+    }
 }
 
 void setRook(chess_piece *p, _Bool color)
