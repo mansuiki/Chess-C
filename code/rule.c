@@ -22,9 +22,9 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
 
     update_movable_positions(pieces, check_board, 12);
 
-    color_in_now_position=piece_in_position->color;
-    printf("turn : %d / color : %d\n",*turn,color_in_now_position);
-    if(*turn^color_in_now_position)
+    color_in_now_position = piece_in_position->color;
+    printf("turn : %d / color : %d\n", *turn, color_in_now_position);
+    if (*turn ^ color_in_now_position)
     {
         printf("잘못된 턴 입력, 재입력을 받습니다. \n");
         return;
@@ -39,10 +39,10 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
             piece_in_position->position[0] = position[1][0];
             piece_in_position->position[1] = position[1][1];
             piece_in_position->move_cnt++;
+            *turn = !*turn;
             return;
         }
     }
-    *turn=*turn?0:1;
 }
 
 /**
