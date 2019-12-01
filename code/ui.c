@@ -48,8 +48,8 @@ char input_cmd(int result[2][2])
             result[1][0] = (int)(*(cmd+2) - 97);
         }
     }
-    result[0][1] = *(cmd+1) - '0';
-    result[1][1] = *(cmd+3) - '0';
+    result[0][1] = *(cmd+1) - '0' - 1;
+    result[1][1] = *(cmd+3) - '0' - 1;
 
     return '\0';
 }

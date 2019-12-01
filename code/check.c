@@ -2,52 +2,63 @@
 
 int checkBoard[10][10];
 
-void checkPawn(chess_piece [NUM_CHESS_PIECES], chess_piece *);
-void checkKnight(chess_piece [NUM_CHESS_PIECES], chess_piece *);
+void get_p_movable_pos(chess_piece [NUM_CHESS_PIECES], chess_piece *);
+void get_n_movable_pos(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 void checkBishop(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 void checkRook(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 void checkQueen(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 void checkKing(chess_piece [NUM_CHESS_PIECES], chess_piece *);
 
-void checkMove(chess_piece *pieces[NUM_CHESS_PIECES])
+void update_movable_positions(chess_piece pieces[NUM_CHESS_PIECES])
 {
     for(int i = 0; i < NUM_CHESS_PIECES; i++)
     {
-        switch (pieces[i]->type)
+        switch (pieces[i].type)
         {
             case 'p':
-                checkPawn(pieces,pieces[i]);
+                get_p_movable_pos(pieces, &pieces[i]);
                 break;
+
             case 'n':
-                checkKnight(pieces,pieces[i]);
+                get_n_movable_pos(pieces, &pieces[i]);
                 break;
+
             case 'b':
-                checkBishop(pieces,pieces[i]);
+                checkBishop(pieces, &pieces[i]);
                 break;
+
             case 'r':
-                checkRook(pieces,pieces[i]);
+                checkRook(pieces, &pieces[i]);
                 break;
+
             case 'q':
-                checkQueen(pieces,pieces[i]);
+                checkQueen(pieces, &pieces[i]);
                 break;
+
             case 'k':
-                checkKing(pieces,pieces[i]);
+                checkKing(pieces, &pieces[i]);
                 break;
+
             default:
                 break;
         }
     }
 }
 
-void checkPawn(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
+/**
+ * 이동가능한 폰의 위치를 pieces 배열에 저장하는 함수
+ * @param pieces 전체 기물
+ * @param p 저장할 대상
+ */
+void get_p_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
 {
-    movePawn(p,checkBoard,10,10); // 폰의 이동 가능 방향 체크
+    move_pawn(p); // 폰의 이동 가능 방향 체크
     int tmp[2]; // 이동 가능 위치 임시 저장
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
         tmp[0] = p->position[0] + p->directions[i][0];
         tmp[1] = p->position[1] + p->directions[i][1];
-        if(get_one_piece_by_pos(tmp, pieces) == 0)
+        if (is_piece_exists(tmp, pieces) == 0) //이동하고자 하는 위치에 기물이 없을 경우
         {
             p->movable_pos[i][0] = p->position[0] + p->directions[i][0];
             p->movable_pos[i][1] = p->position[1] + p->directions[i][1];
@@ -55,14 +66,19 @@ void checkPawn(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
     }
 }
 
-void checkKnight(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
+/**
+ * 이동가능한 나이트의 위치를 pieces 배열에 저장하는 함수
+ * @param pieces 전체 기물
+ * @param p 저장할 대상
+ */
+void get_n_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
 {
     int tmp[2]; // 이동 가능 위치 임시 저장
     for(int i = 0; i < 8; i++)
     {
         tmp[0] = p->position[0] + p->directions[i][0];
         tmp[1] = p->position[1] + p->directions[i][1];
-        if(get_one_piece_by_pos(tmp, pieces) == 0)
+        if(is_piece_exists(tmp, pieces) == 0)
         {
             p->movable_pos[i][0] = p->position[0] + p->directions[i][0];
             p->movable_pos[i][1] = p->position[1] + p->directions[i][1];
@@ -78,7 +94,7 @@ void checkBishop(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
         int tmp[2] = {p->position[0],p->position[1]}; // 이동 가능 위치 임시 저장
         while(tmp[0] > 0 && tmp[0] < 9 && tmp[1] > 0 && tmp[1] < 9)
         {
-            if(get_one_piece_by_pos(tmp,pieces) == 0)
+            if(is_piece_exists(tmp,pieces) == 0)
             {
                 p->movable_pos[index][0] = tmp[0];
                 p->movable_pos[index][0] = tmp[1];
@@ -114,7 +130,7 @@ void checkRook(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
         int tmp[2] = {p->position[0],p->position[1]}; // 이동 가능 위치 임시 저장
         while(tmp[0] > 0 && tmp[0] < 9 && tmp[1] > 0 && tmp[1] < 9)
         {
-            if(get_one_piece_by_pos(tmp,pieces) == 0)
+            if(is_piece_exists(tmp, pieces) == 0)
             {
                 p->movable_pos[index][0] = tmp[0];
                 p->movable_pos[index][0] = tmp[1];
@@ -150,7 +166,7 @@ void checkQueen(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
         int tmp[2] = {p->position[0],p->position[1]}; // 이동 가능 위치 임시 저장
         while(tmp[0] > 0 && tmp[0] < 9 && tmp[1] > 0 && tmp[1] < 9)
         {
-            if(get_one_piece_by_pos(tmp,pieces) == 0)
+            if(is_piece_exists(tmp, pieces) == 0)
             {
                 p->movable_pos[index][0] = tmp[0];
                 p->movable_pos[index][0] = tmp[1];
@@ -185,7 +201,7 @@ void checkKing(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
     {
         tmp[0] = p->position[0] + p->directions[i][0];
         tmp[1] = p->position[1] + p->directions[i][1];
-        if(get_one_piece_by_pos(tmp, pieces) == 0)
+        if(is_piece_exists(tmp, pieces) == 0)
         {
             p->movable_pos[i][0] = p->position[0] + p->directions[i][0];
             p->movable_pos[i][1] = p->position[1] + p->directions[i][1];
@@ -208,7 +224,6 @@ int checkmate(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int board[][
     {
         for(int j = 0; j < 3; j++)
         {
-
             int tmp[2] = {p->position[0] + 1 + t, p->position[1] + 1 + j};// 이동 가능 위치 임시 저장 9개
             if(board[tmp[0]][tmp[1]] == -1) continue; // 이동 불가능 위치면 넘기기
             for(int i = 0; i < 4; i++) //십자 축 체크
@@ -229,7 +244,6 @@ int checkmate(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int board[][
                     {
                         break;
                     }
-
 
                     tmp[0] += direction1[i][0];
                     tmp[1] += direction1[i][1];

@@ -48,6 +48,10 @@ int main()
     return 0;
 }
 
+/**
+ * 첫 실행 시 체스 말을 생성하는 함수
+ * @param pieces 활성화할 체스 말 배열
+ */
 void init(chess_piece pieces[NUM_CHESS_PIECES])
 {
     int i = 0, iter_row = 8;

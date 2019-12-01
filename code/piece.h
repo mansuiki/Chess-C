@@ -9,4 +9,4 @@ void setKing(chess_piece *);
 void setRook(chess_piece *);
 void setKnight(chess_piece *);
 
-void movePawn(chess_piece *p, int arr[][10], int col, int row);
+void move_pawn(chess_piece *p);

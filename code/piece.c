@@ -57,7 +57,11 @@ void setPawn(chess_piece *p)
     p->value = 1;
 }
 
-void movePawn(chess_piece *p, int arr[][10], int col, int row)//?? ??? ? ????
+/**
+ *
+ * @param p
+ */
+void move_pawn(chess_piece *p)//폰의 움직임 시 실행하여
 {
     if(p->move_cnt == 0)
     {
@@ -67,18 +71,6 @@ void movePawn(chess_piece *p, int arr[][10], int col, int row)//?? ??? ? ????
     else
     {
         p->directions[1][0] = 0;
-    }
-
-    if(arr[p->position[0] + 1][p->position[1] - 1 + 2 * p->color] > 0)
-    {
-        p->directions[2][0] = 1;
-        p->directions[2][1] = -1 + 2 * p->color;
-    }
-
-    if(arr[p->position[0] - 1][p->position[1] - 1 + 2 * p->color] > 0)
-    {
-        p->directions[3][0] = -1;
-        p->directions[3][1] = -1 + 2 * p->color;
     }
 }
 
@@ -171,5 +163,4 @@ void setKnight(chess_piece *p)
             t *= -1;
         }
     }
-
 }
