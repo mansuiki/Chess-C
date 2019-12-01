@@ -153,25 +153,25 @@ void init(chess_piece pieces[NUM_CHESS_PIECES])
     i++;
 
     //Black king
-    pieces[i].position[0] = 3; //x
+    pieces[i].position[0] = 4; //x
     pieces[i].position[1] = 0; //y
     setKing(&pieces[i], 1);
     i++;
 
     //White king
-    pieces[i].position[0] = 3; //x
+    pieces[i].position[0] = 4; //x
     pieces[i].position[1] = 7; //y
     setKing(&pieces[i], 0);
     i++;
 
     //Black queen
-    pieces[i].position[0] = 4; //x
+    pieces[i].position[0] = 3; //x
     pieces[i].position[1] = 0; //y
     setQueen(&pieces[i], 1);
     i++;
 
     //White queen
-    pieces[i].position[0] = 4; //x
+    pieces[i].position[0] = 3; //x
     pieces[i].position[1] = 7; //y
     setQueen(&pieces[i], 0);
 
