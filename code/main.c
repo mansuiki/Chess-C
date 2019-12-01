@@ -12,10 +12,10 @@ int main()
     _Bool turn = 1;
 
     int check_board[12][12] = {
-        [0 ... 1][0 ... 11] = -1,
-        [2 ... 9][0 ... 2] = -1,
-        [2 ... 9][10 ... 11] = -1,
-        [10 ... 11][0 ... 11] = -1
+            [0 ... 1][0 ... 11] = -1,
+            [2 ... 9][0 ... 2] = -1,
+            [2 ... 9][10 ... 11] = -1,
+            [10 ... 11][0 ... 11] = -1
     };
     chess_piece pieces[NUM_CHESS_PIECES];
     for (int i = 0; i < NUM_CHESS_PIECES; ++i)
@@ -33,7 +33,8 @@ int main()
 
     print_board(pieces);
 
-    do {
+    do
+    {
         special_cmd = input_cmd(coordinates);
 
         switch (special_cmd)
@@ -55,7 +56,8 @@ int main()
                 print_board(pieces);
                 break;
         }
-    } while (1);
+    }
+    while (1);
 
     return 0;
 }
@@ -80,7 +82,7 @@ void init(chess_piece pieces[NUM_CHESS_PIECES])
     iter_row += 8;
     for (; i < iter_row; ++i)
     {
-        pieces[i].position[0] = i-8; //x
+        pieces[i].position[0] = i - 8; //x
         pieces[i].position[1] = 6; //y
         setPawn(&pieces[i], 0);
     }
@@ -89,7 +91,7 @@ void init(chess_piece pieces[NUM_CHESS_PIECES])
     pieces[i].position[0] = 7; //x
     pieces[i].position[1] = 0; //y
     setRook(&pieces[i], 1);
-    i ++;
+    i++;
     pieces[i].position[0] = 0; //x
     pieces[i].position[1] = 0; //y
     setRook(&pieces[i], 1);
@@ -111,7 +113,7 @@ void init(chess_piece pieces[NUM_CHESS_PIECES])
     pieces[i].position[0] = 6; //x
     pieces[i].position[1] = 0; //y
     setKnight(&pieces[i], 1);
-    i ++;
+    i++;
     pieces[i].position[0] = 1; //x
     pieces[i].position[1] = 0; //y
     setKnight(&pieces[i], 1);
@@ -122,7 +124,7 @@ void init(chess_piece pieces[NUM_CHESS_PIECES])
     pieces[i].position[0] = 1; //x
     pieces[i].position[1] = 7; //y
     setKnight(&pieces[i], 0);
-    i ++;
+    i++;
     pieces[i].position[0] = 6; //x
     pieces[i].position[1] = 7; //y
     setKnight(&pieces[i], 0);
@@ -133,7 +135,7 @@ void init(chess_piece pieces[NUM_CHESS_PIECES])
     pieces[i].position[0] = 5; //x
     pieces[i].position[1] = 0; //y
     setBishop(&pieces[i], 1);
-    i ++;
+    i++;
     pieces[i].position[0] = 2; //x
     pieces[i].position[1] = 0; //y
     setBishop(&pieces[i], 1);
@@ -144,7 +146,7 @@ void init(chess_piece pieces[NUM_CHESS_PIECES])
     pieces[i].position[0] = 2; //x
     pieces[i].position[1] = 7; //y
     setBishop(&pieces[i], 0);
-    i ++;
+    i++;
     pieces[i].position[0] = 5; //x
     pieces[i].position[1] = 7; //y
     setBishop(&pieces[i], 0);
@@ -154,19 +156,19 @@ void init(chess_piece pieces[NUM_CHESS_PIECES])
     pieces[i].position[0] = 3; //x
     pieces[i].position[1] = 0; //y
     setKing(&pieces[i], 1);
-    i ++;
+    i++;
 
     //White king
     pieces[i].position[0] = 3; //x
     pieces[i].position[1] = 7; //y
     setKing(&pieces[i], 0);
-    i ++;
+    i++;
 
     //Black queen
     pieces[i].position[0] = 4; //x
     pieces[i].position[1] = 0; //y
     setQueen(&pieces[i], 1);
-    i ++;
+    i++;
 
     //White queen
     pieces[i].position[0] = 4; //x
