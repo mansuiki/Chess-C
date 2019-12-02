@@ -33,7 +33,7 @@ char input_cmd(int result[2][2])
 
     scanf("%s", cmd);
 
-    if (cmd[0] == 'H' || cmd[0] == 'S')
+    if (cmd[0] == 'H' || cmd[0] == 'S' || cmd[0] == 'X')
     {
         return cmd[0];
     }

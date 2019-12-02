@@ -44,7 +44,6 @@ int main()
         gameMode = 1; // PVP 일반 게임
     }
     print_board(pieces);
-//    reset(pieces, check_board, 12);
 
     do
     {
@@ -62,6 +61,9 @@ int main()
                 printf("Save file\n");
                 break;
 
+            case 'X':
+                return 0;
+
             case -1:
                 printf("Command not found\n");
                 break;
@@ -74,8 +76,6 @@ int main()
         }
     }
     while (1);
-
-    return 0;
 }
 
 /**
