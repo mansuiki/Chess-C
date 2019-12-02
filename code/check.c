@@ -367,7 +367,8 @@ void reset(chess_piece pieces[NUM_CHESS_PIECES], int arr[][12], int row)
     {
         if (pieces[i].type == 'p')
         {
-            if (pieces[i].position[0] == 0 || pieces[i].position[0] == 7)
+            if ((pieces[i].position[1] == 1 && pieces[i].color == 0) \
+            ||  (pieces[i].position[1] == 6 && pieces[i].color == 1))
             {
                 promotion(&pieces[i], pieces[i].color);
             }
@@ -397,33 +398,31 @@ void reset(chess_piece pieces[NUM_CHESS_PIECES], int arr[][12], int row)
 
 void promotion(chess_piece *p, int color)
 {
-    char t;
-    int roop = 1;
-    while (roop == 1)
-    {
+    char input;
+    _Bool notok = 1;
+
+    do {
         printf("변신할 기물을 선택하시오.(비숍 : b, 나이트 : n, 룩 : r, 퀸 : q)");
-        scanf("%c", &t);
-        switch (t)
+        scanf("%c", &input);
+
+        switch (input)
         {
             case 'b':
                 setBishop(p, color);
-                roop = 0;
                 break;
             case 'n':
                 setKnight(p, color);
-                roop = 0;
                 break;
             case 'r':
                 setRook(p, color);
-                roop = 0;
                 break;
             case 'q':
                 setQueen(p, color);
-                roop = 0;
                 break;
             default:
                 printf("잘못된 입력입니다.\n");
+                notok = 0;
                 break;
         }
-    }
+    } while (!notok);
 }

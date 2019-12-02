@@ -38,7 +38,7 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
             chess_piece *piece_to_kill = malloc(sizeof(chess_piece));
             if (get_one_piece_by_pos(position[1], pieces, &piece_to_kill))
             {
-                if (piece_to_kill->color != *turn)
+                if (piece_to_kill->color == *turn)
                 {
                     piece_to_kill->is_dead = 1;
                 }
