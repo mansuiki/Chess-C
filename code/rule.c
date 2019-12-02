@@ -29,7 +29,9 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
         return;
     }
 
-    for (int i = 0; i < 32; ++i)
+    int i;
+
+    for (i = 0; i < 32; ++i)
     {
         //이동하고자 하는 위치가 이동 가능 위치에 속해있는 경우
         if (piece_in_position->movable_pos[i][0] == position[1][0] &&
@@ -38,7 +40,7 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
             chess_piece *piece_to_kill = malloc(sizeof(chess_piece));
             if (get_one_piece_by_pos(position[1], pieces, &piece_to_kill))
             {
-                if (piece_to_kill->color == *turn)
+                if (piece_to_kill->color != *turn)
                 {
                     piece_to_kill->is_dead = 1;
                 }
@@ -51,11 +53,12 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
             *turn = !*turn;
 
             return;
-        } else
-        {
-            printf("이동할수 없는 위치입니다. 다시 입력해주십시오\n");
-            return;
         }
+    }
+    if (i == 32)
+    {
+        printf("이동할수 없는 위치입니다. 다시 입력해주십시오\n");
+        return;
     }
 }
 
