@@ -31,8 +31,10 @@ int main()
     init(pieces);
     int gameMode, aiLevel, playerSide;
 
-    int coordinates[2][2];
+    unsigned char coordinate[2];
     char special_cmd;
+    chess_piece *picked_piece = malloc(sizeof(chess_piece));
+
     if (!setChessGameMode())// Player vs Player, Player vs AI 결정
     {
         gameMode = 0; // PVC
@@ -49,8 +51,8 @@ int main()
     do
     {
         turn ? printf("검은 말의 순서입니다\n") : printf("흰 말의 순서입니다\n");
-        special_cmd = input_cmd(coordinates);
-        update_movable_positions(pieces, check_board, 12);
+        printf("기물을 선택해 주세요> ");
+        special_cmd = input_cmd(coordinate);
         system("clear");
 
         switch (special_cmd)
@@ -71,7 +73,22 @@ int main()
                 break;
 
             default:
-                move_piece(pieces, check_board, coordinates, &turn);
+                //고른 좌표에 유닛이 있는지 체크
+                get_one_piece_by_pos(coordinate, pieces, &picked_piece);
+                //유닛을 고를 때까지 반복
+                while (picked_piece == NULL)
+                {
+                    printf("빈 공간을 선택하였습니다. 다시 선택해 주세요> ");
+                    input_cmd(coordinate);
+                    get_one_piece_by_pos(coordinate, pieces, &picked_piece);
+                }
+
+                //가고자할 좌표 입력
+                printf("가고자 할 위치를 선택해 주세요> ");
+                input_cmd(coordinate);
+
+                //기물 이동
+                move_piece(pieces, check_board, picked_piece, coordinate, &turn);
                 print_board(pieces);
                 reset(pieces, check_board, 12);
                 break;

@@ -9,36 +9,27 @@
  * @param position 이동 위치
  * @param turn 턴
  */
-void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], int position[2][2], _Bool *turn)
+void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], chess_piece *picked_piece, unsigned char pos_to_mv[2], _Bool *turn)
 {
-    chess_piece *piece_in_position = malloc(sizeof(chess_piece)); //이동하고자 하는 기물
-    int _tmp[2] = {position[0][0], position[0][1]};
-    _Bool color_in_now_position;
-    if (!get_one_piece_by_pos(_tmp, pieces, &piece_in_position))// 그곳에 유닛 있는지 체크
-    {
-        printf("잘못된 입력입니다. 다시 입력해주십시오. \n");
-        //만약 100번대 기물을 폰이 잡을 경우 id - 100 한게 인덱스, 그 인덱스로 기물 제거
-        return;
-    }
-
-    color_in_now_position = piece_in_position->color;
-    //printf("turn : %d / color : %d\n", *turn, color_in_now_position);
-    if (*turn ^ color_in_now_position)
+    _Bool picked_piece_color = picked_piece->color;
+    if (*turn ^ picked_piece_color)
     {
         printf("자신의 말이 아닙니다. 다시 입력해주십시오. \n");
         return;
     }
 
-    int i;
+    update_movable_positions(pieces, check_board, 12);
 
+    int i;
     for (i = 0; i < 32; ++i)
     {
         //이동하고자 하는 위치가 이동 가능 위치에 속해있는 경우
-        if (piece_in_position->movable_pos[i][0] == position[1][0] &&
-            piece_in_position->movable_pos[i][1] == position[1][1])
+        if (picked_piece->movable_pos[i][0] == pos_to_mv[0] &&
+            picked_piece->movable_pos[i][1] == pos_to_mv[1])
         {
+            //이동하고자 하는 좌표에 적 기물이 있을 경우 죽임
             chess_piece *piece_to_kill = malloc(sizeof(chess_piece));
-            if (get_one_piece_by_pos(position[1], pieces, &piece_to_kill))
+            if (get_one_piece_by_pos(pos_to_mv, pieces, &piece_to_kill))
             {
                 if (piece_to_kill->color != *turn)
                 {
@@ -46,15 +37,18 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], i
                 }
             }
 
-            piece_in_position->position[0] = position[1][0];
-            piece_in_position->position[1] = position[1][1];
-            piece_in_position->move_cnt++;
+            //기물 위치 변경
+            picked_piece->position[0] = pos_to_mv[0];
+            picked_piece->position[1] = pos_to_mv[1];
+            picked_piece->move_cnt++;
 
+            //턴 변경
             *turn = !*turn;
 
             return;
         }
     }
+
     if (i == 32)
     {
         printf("이동할수 없는 위치입니다. 다시 입력해주십시오\n");

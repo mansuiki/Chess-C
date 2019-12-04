@@ -36,7 +36,7 @@ _Bool is_piece_exists(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES])
  * @param result 찾은 기물
  * @return 기물 찾음 여부
  */
-_Bool get_one_piece_by_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES], chess_piece **result)
+_Bool get_one_piece_by_pos(unsigned char pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES], chess_piece **result)
 {
     for (int i = 0; i < NUM_CHESS_PIECES; ++i)
     {

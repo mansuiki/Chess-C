@@ -20,6 +20,6 @@ typedef struct _chess_piece {
 } chess_piece;
 
 int get_pieces_by_pos(int [][2], int, chess_piece [NUM_CHESS_PIECES], chess_piece []);
-_Bool get_one_piece_by_pos(int [2], chess_piece [NUM_CHESS_PIECES], chess_piece **);
+_Bool get_one_piece_by_pos(unsigned char [2], chess_piece [NUM_CHESS_PIECES], chess_piece **);
 _Bool is_piece_exists(int [2], chess_piece [NUM_CHESS_PIECES]);
 _Bool find_pos(int [2], chess_piece [NUM_CHESS_PIECES], _Bool);

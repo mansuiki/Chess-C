@@ -4,4 +4,4 @@
 
 void print_board(chess_piece [32]);
 
-char input_cmd(int [2][2]);
+char input_cmd(unsigned char [2]);

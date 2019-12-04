@@ -27,31 +27,40 @@ void print_board(chess_piece pieces[32])
     printf("      <<White>>\n");
 }
 
-char input_cmd(int result[2][2])
+char input_cmd(unsigned char result[2])
 {
-    char *cmd = (char *) calloc(4, sizeof(char));
-    char cols[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+    char cmd[4], cols[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
     scanf("%s", cmd);
 
-    if (cmd[0] == 'H' || cmd[0] == 'S' || cmd[0] == 'X')
+    if (strcmp(cmd, "help") == 0)
     {
-        return cmd[0];
+        return 'H';
+    }
+    if (strcmp(cmd, "save") == 0)
+    {
+        return 'S';
+    }
+    if (strcmp(cmd, "quit") == 0)
+    {
+        return 'X';
+    }
+
+    while (strlen(cmd) > 2)
+    {
+        printf("명령어가 너무 깁니다. 예) a2> ");
+        scanf("%s", cmd);
     }
 
     for (int i = 0; i < 8; ++i)
     {
         if (cmd[0] == cols[i])
         {
-            result[0][0] = (int)(*cmd - 97);
-        }
-        if (cmd[2] == cols[i])
-        {
-            result[1][0] = (int)(*(cmd+2) - 97);
+            result[0] = (int) cmd[0] - 97;
+            break;
         }
     }
-    result[0][1] = *(cmd+1) - '0' - 1;
-    result[1][1] = *(cmd+3) - '0' - 1;
+    result[1] = cmd[1] - '0' - 1;
 
     return '\0';
 }
