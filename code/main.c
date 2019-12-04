@@ -43,6 +43,7 @@ int main()
     else {
         gameMode = 1; // PVP 일반 게임
     }
+    system("clear");
     print_board(pieces);
 
     do
@@ -50,6 +51,7 @@ int main()
         turn ? printf("검은 말의 순서입니다\n") : printf("흰 말의 순서입니다\n");
         special_cmd = input_cmd(coordinates);
         update_movable_positions(pieces, check_board, 12);
+        system("clear");
 
         switch (special_cmd)
         {
