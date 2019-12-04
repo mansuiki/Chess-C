@@ -13,7 +13,7 @@ void print_board(chess_piece pieces[32])
     {
         board[ pieces[i].position[1] ][ pieces[i].position[0] ] = pieces[i].unicode;
     }
-
+    printf("      <<Black>>\n");
     for (int row = 0; row < 8; ++row)
     {
         printf(
@@ -24,6 +24,7 @@ void print_board(chess_piece pieces[32])
                 );
     }
     printf("\33[1;35m  A B C D E F G H\33[0m\n");
+    printf("      <<White>>\n");
 }
 
 char input_cmd(int result[2][2])
