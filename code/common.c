@@ -21,7 +21,9 @@ _Bool is_piece_exists(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES])
 {
     for (int i = 0; i < NUM_CHESS_PIECES; ++i)
     {
-        if ((pieces[i].position[0] == pos_arr[0] && pieces[i].position[1] == pos_arr[1]) || (pos_arr[0] < 0 && pos_arr[0] > 7 && pos_arr[1] < 0 && pos_arr[1] > 7))
+        if (pieces[i].position[0] == pos_arr[0] &&
+            pieces[i].position[1] == pos_arr[1] &&
+            !pieces[i].is_dead)
         {
             return 1;
         }
@@ -40,7 +42,9 @@ _Bool get_one_piece_by_pos(unsigned char pos_arr[2], chess_piece pieces[NUM_CHES
 {
     for (int i = 0; i < NUM_CHESS_PIECES; ++i)
     {
-        if ((pieces[i].position[0] == pos_arr[0] && pieces[i].position[1] == pos_arr[1]))
+        if (pieces[i].position[0] == pos_arr[0] &&
+            pieces[i].position[1] == pos_arr[1] &&
+            !pieces[i].is_dead)
         {
             *result = &pieces[i];
             return 1;
@@ -58,7 +62,9 @@ _Bool find_pos(int pos_arr[2], chess_piece pieces[NUM_CHESS_PIECES], _Bool color
 
     for (int i = 0; i < NUM_CHESS_PIECES; ++i)
     {
-        if (pieces[i].position[0] == pos_arr[0] && pieces[i].position[1] == pos_arr[1])
+        if (pieces[i].position[0] == pos_arr[0] &&
+            pieces[i].position[1] == pos_arr[1] &&
+            !pieces[i].is_dead)
         {
             return pieces[i].color;
         }
