@@ -86,15 +86,19 @@ void setPawn(chess_piece *p, _Bool color)
  */
 void move_pawn(chess_piece *p, int board[][12], int row)//폰의 움직임 시 실행하여
 {
-    if (p->move_cnt == 0)
+    if(board[p->position[0] + 2][p->position[1] + 2 -1 + 2 * p->color] == 0)
     {
-        p->directions[0][1] = -1 + 2 * p->color;
-        if(board[p->position[0] + 2][p->position[1] + 2 -1 + 2 * p->color] == 0) p->directions[1][1] = -2 * (1 - 2 * p->color);
+        if (p->move_cnt == 0)
+        {
+            p->directions[0][1] = -1 + 2 * p->color;
+            if(board[p->position[0] + 2][p->position[1] + 3 -1 + 2 * p->color] == 0) p->directions[1][1] = -2 * (1 - 2 * p->color);
+        }
+        else
+        {
+            p->directions[0][1] = -1 + 2 * p->color;
+        }
     }
-    else
-    {
-        p->directions[0][1] = -1 + 2 * p->color;
-    }
+
 
     if (board[p->position[0] + 2 + 1][p->position[1] + 2 - 1 + 2 * p->color] > 0)
     {
