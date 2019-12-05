@@ -11,7 +11,11 @@ void print_board(chess_piece pieces[32])
     wchar_t board[8][8] = { [0 ... 7][0 ... 7] = 0xB7 };
     for (int i = 0; i < NUM_CHESS_PIECES; ++i)
     {
-        board[ pieces[i].position[1] ][ pieces[i].position[0] ] = pieces[i].unicode;
+        if (!pieces[i].is_dead)
+        {
+            board[ pieces[i].position[1] ][ pieces[i].position[0] ] = pieces[i].unicode;
+
+        }
     }
     printf("      <<Black>>\n");
     for (int row = 0; row < 8; ++row)
