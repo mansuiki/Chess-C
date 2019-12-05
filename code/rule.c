@@ -18,8 +18,6 @@ void move_piece(chess_piece pieces[NUM_CHESS_PIECES], int check_board[12][12], c
         return;
     }
 
-    update_movable_positions(pieces, check_board, 12);
-
     int i;
     for (i = 0; i < 32; ++i)
     {

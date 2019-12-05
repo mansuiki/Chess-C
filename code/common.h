@@ -16,7 +16,8 @@ typedef struct _chess_piece {
     int id; // 식별 번호
     int move_cnt; //움직인 횟수
     int directions[10][2]; //이동 가능 방향
-    int movable_pos[32][2]; //이동 가능 위치
+    int (*movable_pos)[2]; //이동 가능 위치
+    unsigned char movable_pos_len;
 } chess_piece;
 
 int get_pieces_by_pos(int [][2], int, chess_piece [NUM_CHESS_PIECES], chess_piece []);

@@ -63,6 +63,10 @@ void get_p_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int
 {
     move_pawn(p, board, row); // 폰의 이동 가능 방향 체크
     int tmp[2]; // 이동 가능 위치 임시 저장
+
+    p->movable_pos_len = 0;
+    p->movable_pos = (int (*)[2]) calloc(4, sizeof(*p->movable_pos));
+
     for(int i = 0; i < 4; i++)
     {
         tmp[0] = p->position[0] + p->directions[i][0];
@@ -71,6 +75,7 @@ void get_p_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int
         {
             p->movable_pos[i][0] = tmp[0];
             p->movable_pos[i][1] = tmp[1];
+            ++(p->movable_pos_len);
         }
     }
 }
@@ -83,14 +88,19 @@ void get_p_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int
 void get_n_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
 {
     int tmp[2]; // 이동 가능 위치 임시 저장
+
+    p->movable_pos_len = 0;
+    p->movable_pos = (int (*)[2]) calloc(8, sizeof(*p->movable_pos));
+
     for (int i = 0; i < 8; i++)
     {
         tmp[0] = p->position[0] + p->directions[i][0];
         tmp[1] = p->position[1] + p->directions[i][1];
         if (find_pos(tmp, pieces, p->color) != p->color)
         {
-            p->movable_pos[i][0] = p->position[0] + p->directions[i][0];
-            p->movable_pos[i][1] = p->position[1] + p->directions[i][1];
+            p->movable_pos[i][0] = tmp[0];
+            p->movable_pos[i][1] = tmp[1];
+            ++(p->movable_pos_len);
         }
     }
 }
@@ -98,23 +108,37 @@ void get_n_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
 void get_b_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
 {
     int index = 0;
+
+    p->movable_pos = (int (*)[2]) calloc(8, sizeof(*p->movable_pos));
+
     for(int i = 0; i < 4; i++)
     {
-        int tmp[2] = {p->position[0],p->position[1]}; // 이동 가능 위치 임시 저장
+        int tmp[2] = {
+            p->position[0],
+            p->position[1]
+        }; // 이동 가능 위치 임시 저장
+
+        //tmp 위치가 맵을 멋어날 때까지 반복
         while(tmp[0] > -1 && tmp[0] < 8 && tmp[1] > -1 && tmp[1] < 8)
         {
+            //해당 위치에 기물이 존재하지 않는 경우
             if(is_piece_exists(tmp, pieces) == 0)
             {
                 p->movable_pos[index][0] = tmp[0];
                 p->movable_pos[index][1] = tmp[1];
             }
+            //tmp 위치가 현재 기물의 위치와 같을 경우
             else if(tmp[0] == p->position[0] && tmp[1] == p->position[1])
             {
                 ;
             }
             else
             {
-                if(find_pos(tmp,pieces,p->color) == p->color) break;
+                //tmp 위치에 아군이 있을 경우
+                if(find_pos(tmp, pieces, p->color) == p->color)
+                {
+                    break;
+                }
                 else
                 {
                     p->movable_pos[index][0] = tmp[0];
@@ -129,11 +153,16 @@ void get_b_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
             index++;
         }
     }
+
+    p->movable_pos_len = index;
 }
 
 void get_r_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
 {
     int index = 0;
+
+    p->movable_pos = (int (*)[2]) calloc(14, sizeof(*p->movable_pos));
+
     for(int i = 0; i < 4; i++)
     {
         int tmp[2] = {p->position[0],p->position[1]}; // 이동 가능 위치 임시 저장
@@ -165,11 +194,16 @@ void get_r_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
             index++;
         }
     }
+
+    p->movable_pos_len = index;
 }
 
 void get_q_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
 {
     int index = 0;
+
+    p->movable_pos = (int (*)[2]) calloc(34, sizeof(*p->movable_pos));
+
     for (int i = 0; i < 8; i++)
     {
         int tmp[2] = {p->position[0], p->position[1]}; // 이동 가능 위치 임시 저장
@@ -201,13 +235,19 @@ void get_q_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p)
             index++;
         }
     }
+
+    p->movable_pos_len = index;
 }
 
 void get_k_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int board[][12], int row)
 {
     int tmp[2]; // 이동 가능 위치 임시 저장
+
+    p->movable_pos = (int (*)[2]) calloc(8, sizeof(*p->movable_pos));
+
     check_castling(p, board, row);
-    for(int i = 0; i < 10; i++)
+    int i = 0;
+    for(i = 0; i < 10; i++)
     {
         tmp[0] = p->position[0] + p->directions[i][0];
         tmp[1] = p->position[1] + p->directions[i][1];
@@ -217,6 +257,8 @@ void get_k_movable_pos(chess_piece pieces[NUM_CHESS_PIECES], chess_piece *p, int
             p->movable_pos[i][1] = p->position[1] + p->directions[i][1];
         }
     }
+
+    p->movable_pos_len = i;
 }
 
 //현재 더 구현해야 할 것 캐슬링, 앙파상, 프로모션 특수이동
