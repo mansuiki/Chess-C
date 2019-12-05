@@ -89,7 +89,7 @@ void move_pawn(chess_piece *p, int board[][12], int row)//폰의 움직임 시 �
     if (p->move_cnt == 0)
     {
         p->directions[0][1] = -1 + 2 * p->color;
-        p->directions[1][1] = -2 * (1 - 2 * p->color);
+        if(board[p->position[0]][p->position[1] -1 + 2 * p->color] == 0) p->directions[1][1] = -2 * (1 - 2 * p->color);
     }
     else
     {
