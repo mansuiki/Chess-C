@@ -15,22 +15,18 @@ void printboard(t_board board)
     /* number => piecetype*/
     for (i = 0; i < 18; i++)
     { /*18 = num of lines on board*/
-        if (i == 17)
+        if (i == 0 || i % 2 == 0)
         {
-            printf("                   a    b    c    d    e    f    g    h   \n");
+//            printf("\t\t  +---+---+---+---+---+---+---+---+\n");
         }
-        else if (i == 0 || i % 2 == 0)
+        else if (i % 2 != 0 && 8 - i/2 > 0)
         {
-            printf("                +----+----+----+----+----+----+----+----+\n");
-        }
-        else if (i % 2 != 0)
-        {
-            printf("              %d |", line);
+            printf("\33[1;35m%d \33[0m", 8 - i/2);
 
             for (j = boardnum; j < (boardnum + 8); j++)
             {
                 convertPieceType(board[j], piecetype);
-                printf(" %s |", piecetype);
+                printf("%s ", piecetype);
             }/*end for j*/
 
             boardnum += 10;
@@ -38,6 +34,7 @@ void printboard(t_board board)
             line--;
         }
     }/*end for i*/
+    printf(" \33[1;35m A B C D E F G H\33[0m\n");
 }/*end of printboard*/
 
 /*convert number to piece type*/
@@ -48,67 +45,67 @@ void convertPieceType(int num, char piece[3])
     {
         case (1):
         {
-            strcpy(piece, "♙ ");
+            strcpy(piece, "♙");
             break;
         }
         case (-1):
         {
-            strcpy(piece, "♟ ");
+            strcpy(piece, "♟");
             break;
         }
         case (2):
         {
-            strcpy(piece, "♘ ");
+            strcpy(piece, "♘");
             break;
         }
         case (-2):
         {
-            strcpy(piece, "♞ ");
+            strcpy(piece, "♞");
             break;
         }
         case (3):
         {
-            strcpy(piece, "♗ ");
+            strcpy(piece, "♗");
             break;
         }
         case (-3):
         {
-            strcpy(piece, "♝ ");
+            strcpy(piece, "♝");
             break;
         }
         case (4):
         {
-            strcpy(piece, "♖ ");
+            strcpy(piece, "♖");
             break;
         }
         case (-4):
         {
-            strcpy(piece, "♜ ");
+            strcpy(piece, "♜");
             break;
         }
         case (5):
         {
-            strcpy(piece, "♕ ");
+            strcpy(piece, "♕");
             break;
         }
         case (-5):
         {
-            strcpy(piece, "♛ ");
+            strcpy(piece, "♛");
             break;
         }
         case (6):
         {
-            strcpy(piece, "♔ ");
+            strcpy(piece, "♔");
             break;
         }
         case (-6):
         {
-            strcpy(piece, "♚ ");
+            strcpy(piece, "♚");
             break;
         }
         default:
         {
-            strcpy(piece, "  ");
+            strcpy(piece, "·");
             break;
         }
     }
