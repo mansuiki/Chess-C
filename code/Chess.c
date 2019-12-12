@@ -1008,36 +1008,12 @@ void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[
 /*Prints out sexy menu header*/
 void PrintTrojan()
 {
-    printf("                     _________________________\n");
-    printf("                     -------------------------\n");
-    printf("                     |     Knights of the    |\n");
-    printf("                     |      Square Table     |\n");
-    printf("                     |        PRESENTS:      |\n");
-    printf("                     _________________________\n");
-    printf("                     -------------------------\n");
-    printf("                              ,....,          \n");
-    printf("                            ,::::::<          \n");
-    printf("                           ,::/^\\\"``.       \n");
-    printf("                          ,::/, `   e`.       \n");
-    printf("                         ,::; |        '.     \n");
-    printf("                         ,::|  \\___,-.  c)   \n");
-    printf("                         ;::|     \\   '-'    \n");
-    printf("                         ;::|      \\         \n");
-    printf("                         ;::|   _.=`\\        \n");
-    printf("                         `;:|.=` _.=`\\       \n");
-    printf("                           '|_.=`   __\\      \n");
-    printf("                           `\\_..==`` /       \n");
-    printf("                            .'.___.-'.        \n");
-    printf("                           /          \\      \n");
-    printf("                          ('--......--')      \n");
-    printf("                          /'--......--'\\     \n");
-    printf("                          `\"--......--\"`    \n");
-    printf("                     ________________________ \n");
-    printf("                     |       KNIGHT'S       | \n");
-    printf("                     |      CHESS GAME      | \n");
-    printf("                     |                      | \n");
-    printf("                     |       VER: 1.0       | \n");
-    printf("                     |______________________| \n\n\n");
+    printf("  e88~-_   888                              \n");
+    printf(" d888   \\  888-~88e   e88~~8e    d88~\\   d88~\n");
+    printf(" 8888      888  888  d888  88b  C888    C888  \n");
+    printf(" 8888      888  888  8888__888   Y88b    Y88b \n");
+    printf(" Y888   /  888  888  Y888    ,    888D    888D\n");
+    printf("  \"88_-~   888  888   \"88___/   \\_88P   \\_88P \n");
 }/*end print trojan*/
 
 /*******************************/
