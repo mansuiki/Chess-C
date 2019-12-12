@@ -48,62 +48,62 @@ void convertPieceType(int num, char piece[3])
     {
         case (1):
         {
-            strcpy(piece, "wP");
+            strcpy(piece, "♙ ");
             break;
         }
         case (-1):
         {
-            strcpy(piece, "bP");
+            strcpy(piece, "♟ ");
             break;
         }
         case (2):
         {
-            strcpy(piece, "wN");
+            strcpy(piece, "♘ ");
             break;
         }
         case (-2):
         {
-            strcpy(piece, "bN");
+            strcpy(piece, "♞ ");
             break;
         }
         case (3):
         {
-            strcpy(piece, "wB");
+            strcpy(piece, "♗ ");
             break;
         }
         case (-3):
         {
-            strcpy(piece, "bB");
+            strcpy(piece, "♝ ");
             break;
         }
         case (4):
         {
-            strcpy(piece, "wR");
+            strcpy(piece, "♖ ");
             break;
         }
         case (-4):
         {
-            strcpy(piece, "bR");
+            strcpy(piece, "♜ ");
             break;
         }
         case (5):
         {
-            strcpy(piece, "wQ");
+            strcpy(piece, "♕ ");
             break;
         }
         case (-5):
         {
-            strcpy(piece, "bQ");
+            strcpy(piece, "♛ ");
             break;
         }
         case (6):
         {
-            strcpy(piece, "wK");
+            strcpy(piece, "♔ ");
             break;
         }
         case (-6):
         {
-            strcpy(piece, "bK");
+            strcpy(piece, "♚ ");
             break;
         }
         default:
