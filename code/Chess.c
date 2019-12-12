@@ -9,10 +9,10 @@
 #include "AI.h"
 #include "GUI.h"
 #include "ChessLog.h"
-
+/* print game screen*/
 void PrintMenu();
 
-void PrintTrojan();
+void PrintCHESS();
 
 int MAX = 300;
 int arraynum = 0;
@@ -51,7 +51,7 @@ int main()
     while (choice1 != 4)
     {
         system("clear");
-        PrintTrojan();
+        PrintCHESS();
 
         if (invalidprompt == 1)
         {
@@ -90,7 +90,7 @@ int main()
                     {
 
                         system("clear");
-                        PrintTrojan();
+                        PrintCHESS();
                         if (invalidprompt == 1)
                         {
                             invalidprompt = 0;
@@ -130,7 +130,7 @@ int main()
                             while (choice3 != 1 && choice3 != 2)
                             {
                                 system("clear");
-                                PrintTrojan();
+                                PrintCHESS();
                                 if (invalidprompt == 1)
                                 {
                                     invalidprompt = 0;
@@ -187,7 +187,7 @@ int main()
                     while (choice2 != 1 && choice2 != 2 && choice2 != 3 && choice2 != 4)
                     {
                         system("clear");
-                        PrintTrojan();
+                        PrintCHESS();
                         if (invalidprompt == 1)
                         {
                             invalidprompt = 0;
@@ -197,7 +197,7 @@ int main()
                         printf(" 			    1: Easy                                 \n");
                         printf("     			    2: Medium                               \n");
                         printf("                            3: Hard                                 \n");
-                        printf("                            4: Master                               \n");
+                        printf("                                   4: Master                               \n");
 
                         printf("Please make a selection: ");
                         scanf("%s", input);
@@ -213,16 +213,8 @@ int main()
                             memset(input, 0, 2);
                         }/*end input check:AI difficulty*/
 
-                        if (choice2 == 1)
-                            difficulty = 1;
-
-                        else if (choice2 == 2)
-                            difficulty = 2;
-
-                        else if (choice2 == 3)
-                            difficulty = 3;
-                        else if (choice2 == 4)
-                            difficulty = 4;
+                        if (choice2 >=1 && choice2<=4)
+                            difficulty=choice2;
                     }
                     choice2 = 0;
                     break;
@@ -539,7 +531,7 @@ int main()
 
 
 void PrintMenu()
-{ /* Need to expand this menu probably */
+{
 
     printf("\n<======================>{ Chess Game Menu }<======================>\n");
     printf("                      1: Select Game Mode                          \n");
@@ -665,11 +657,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
         }
 
         chessboard1++;
-/*		if(undoprompt == 2){
-			undoprompt = 0;
-			printf("Cannot Undo");
-		}
-*/        if (validInput == 1)
+        if (validInput == 1)
         {
             validInput = 0;
             printf("Invalid Selection");
@@ -681,7 +669,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
 
         printf(" 명령을 입력하세요> ");
         scanf("%s", input);
-        /*decision check*/
+        /*decision check, if the input is not correct */
         if (input[0] > 51 || input[0] < 49)
         {
             validInput = 1;
@@ -711,12 +699,10 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                     }
                     else if (validInput != 0)
                     {
-
                         validInput = 0;
                         printf("\33[0;31m\n잘못된 입력입니다. 열(A~H)을 입력한 다음 행(1~8)을 입력해 주세요.\33[0m");
                     }
                 }
-
                 chessboard2++;
                 printf("\n움직임을 입력하세요(선택위치 목표위치)> ");
                 scanf("%s", startin);
@@ -1006,18 +992,20 @@ void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[
 }
 
 /*Prints out sexy menu header*/
-void PrintTrojan()
+void PrintCHESS()
 {
-    printf("  e88~-_   888                              \n");
-    printf(" d888   \\  888-~88e   e88~~8e    d88~\\   d88~\n");
-    printf(" 8888      888  888  d888  88b  C888    C888  \n");
-    printf(" 8888      888  888  8888__888   Y88b    Y88b \n");
-    printf(" Y888   /  888  888  Y888    ,    888D    888D\n");
-    printf("  \"88_-~   888  888   \"88___/   \\_88P   \\_88P \n");
+    printf("\n          --------------------------------------------------  \n"); // 13칸 공백
+    printf("               e88~-_   888                                     \n");
+    printf("              d888   \\  888-~88e   e88~~8e    d88~\\   d88~    \n");
+    printf("              8888      888  888  d888  88b  C888    C888       \n");
+    printf("              8888      888  888  8888__888   Y88b    Y88b      \n");
+    printf("              Y888   /  888  888  Y888    ,    888D    888D     \n");
+    printf("               \"88_-~   888  888   \"88___/   \\_88P   \\_88P  \n");
+    printf("\n          --------------------------------------------------  \n");
 }/*end print trojan*/
 
 /*******************************/
-/* HOW I AM SEEING THE BOARD */
+/* HOW WE ARE SEEING THE BOARD */
 /*		___________________________
  *  	8	| 21 22 23 24 25 26 27 28 |	BLACK
  *  	7	| 31 32 33 34 35 36 37 38 |
