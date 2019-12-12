@@ -65,11 +65,11 @@ int main(){
 		printf("Select an option: ");
 		scanf("%s", input);
 		getchar();
-		/* choice1: Game Menu Check */
+		/* choice1: 게임 메뉴 체크 */
 		if(input[0] > 52 || input [0] < 49)
 		{
 			invalidprompt = 1;
-			continue;/* go back to game menu */
+			continue;/* 게임 메뉴로 돌아가기 */
 		}
 		else
 		{
@@ -77,7 +77,7 @@ int main(){
 			memset(input, 0, 2);
 		}/* end input check:Game menu */
 		
-		while (choice1 != 3){ /* while loop to take in all menu choice before starting the game */
+		while (choice1 != 3){ /* 게임이 시작하기전 모든 설정을 반복함 */
 		
 			switch (choice1){
 				case 1:
@@ -98,17 +98,17 @@ int main(){
 						
 						printf("Choose a game mode: ");
 						scanf("%s", input);
-						/*choice2:Game mode check*/
+						/*choice2:게임모드 선택*/
 						if(input[0] > 51 || input[0] < 49)
 						{
 							invalidprompt = 1;
-							continue;/*go back to game mode menu*/
+							continue;/*게임 메뉴로 돌아가기*/
 						}
 						else
 						{
 							choice2 = input[0] - 48;
 							memset(input, 0, 2);
-						}/*end input check:Game mode*/
+						}
 						
 						if (choice2 == 1){
 							PvP = 1;
@@ -133,15 +133,15 @@ int main(){
 								
 								printf("What color is the AI: ");
 								scanf("%s", input);
-								/*choice3:AI color check*/
+								/*choice3:AI 색상 선택 메뉴*/
 								if(input[0] > 50 || input[0] < 49){
 									invalidprompt = 1;
-									continue;/*go back to AI Piece menu*/
+									continue;/*AI 환경 메뉴로 돌아감*/
 								}
 								else{
 									choice3 = input[0] - 48;
 									memset(input, 0, 2);
-								}/*end input check:AI color*/
+								}
 					
 								if (choice3 == 1){
 									White = 0;
@@ -185,15 +185,15 @@ int main(){
 						
 						printf("Please make a selection: ");
 						scanf("%s", input);
-						/*choice2:AI difficulty check*/
+						/*choice2:AI 난이도 설정 메뉴*/
 						if(input[0] > 52 || input[0] < 49){
 							invalidprompt = 1;
-							continue;/*go back to AI difficulty menu*/
+							continue;/*AI 난이도 설정 메뉴로 돌아가기*/
 						}
 						else{
 							choice2 = input[0] - 48;
 							memset(input, 0, 2);
-						}/*end input check:AI difficulty*/
+						}
 					
 						if (choice2 == 1)
 							difficulty = 1;
@@ -213,12 +213,11 @@ int main(){
 				default:
 					break;
 			
-			}/*end switch: choice1*/
+			}
 			mainmenu = 1;
 			break;
-		}/*end while: choice1 != 3*/
-		
-		/*return to menu*/
+		}
+
 		if(mainmenu == 1){
 			mainmenu = 0;
 			continue;
@@ -228,8 +227,8 @@ int main(){
 			InitialBoard[i] = 42;
 		}
 
-		InitialBoard[21] = -4;		/* Row 1...Rank 8 */
-		InitialBoard[22] = -2;
+		InitialBoard[21] = -4;		/* 흑색 룩,나이트,비숍,퀸,킹 보드에 초기화 */
+		InitialBoard[22] = -2;      /* -4 : 흑룩, -2 : 흑나이트, -3 : 흑비숍, -5 : 흑퀸, -6 : 흑킹*/
 		InitialBoard[23] = -3;
 		InitialBoard[24] = -5;
 		InitialBoard[25] = -6;
@@ -237,11 +236,11 @@ int main(){
 		InitialBoard[27] = -2;
 		InitialBoard[28] = -4;
 
-		for(i = 31; i < 39; i++){	/* Row 2...Rank 7 */
-			InitialBoard[i] = -1;
+		for(i = 31; i < 39; i++){	/* 흑색 폰 보드에 초기화 */
+			InitialBoard[i] = -1;   /* -1 : 흑폰*/
 		}
 
-		for(i = 41; i < 79; i++){	/* Row 3 thru 6...Ranks 6 thru 3 */
+		for(i = 41; i < 79; i++){	/* 중간 보드 공간 0 초기화 */
 			InitialBoard[i] = 0;
 		}
 
@@ -254,12 +253,12 @@ int main(){
 		InitialBoard[79] = 42;
 		InitialBoard[80] = 42;
 
-		for(i = 81; i < 89; i++){	/* Row 7...Rank 2 */
-			InitialBoard[i] = 1;
+		for(i = 81; i < 89; i++){	/* 백색 폰 보드에 초기화 */
+			InitialBoard[i] = 1;    /* 1 : 백폰*/
 		}
 
-		InitialBoard[91] = 4;		/* Row 8...Rank 1 */
-		InitialBoard[92] = 2;
+		InitialBoard[91] = 4;		/* 백색 룩,나이트,비숍,퀸,킹 보드에 초기화 */
+		InitialBoard[92] = 2;       /* -4 : 백룩, -2 : 백나이트, -3 : 백비숍, -5 : 백퀸, -6 : 백킹*/
 		InitialBoard[93] = 3;
 		InitialBoard[94] = 5;
 		InitialBoard[95] = 6;
@@ -270,9 +269,9 @@ int main(){
 		boardlist = NewBoardList();
 		AddBoard(&InitialBoard, boardlist);
 		system("clear");
-		printboard(InitialBoard);
+		printboard(InitialBoard); // 보드 출력
 		
-			if (PvP == 1){
+			if (PvP == 1){ /* PvP 모드 선택 시*/
 				while (end != 1){
 					turn = 1;
 					User = UserTurn(InitialBoard, Castle, turn,piece, START,END, capture, special, wN, wB, bN, bB);
@@ -331,7 +330,7 @@ int main(){
 						break;
 				}
 			}
-			else if (PvA == 1 && White == 1){
+			else if (PvA == 1 && White == 1){ /* PvA 모드 선택, 백색 진형 선택*/
 				while (end != 1){
 					turn = 1;
 					User = UserTurn(InitialBoard, Castle, turn,piece, START,END, capture, special, wN, wB, bN, bB);
@@ -385,7 +384,7 @@ int main(){
 						break;
 				}
 			}
-			else if (PvA == 1 && White == 0){
+			else if (PvA == 1 && White == 0){ /* PvA 모드 선택, 흑색 진형 선택*/
 				while (end != 1){
 					turn = 1;
 					AITurn(InitialBoard,Castle, turn, difficulty,piece, START, END, capture, special, wN, wB, bN, bB);
@@ -438,7 +437,7 @@ int main(){
 						break;
 				}
 			}
-			else if (AvA == 1){
+			else if (AvA == 1){ /* AvA 모드 선택시*/
 				while (end != 1){
 					turn = 1;
 					AITurn(InitialBoard,Castle, turn, difficulty,piece, START,END, capture, special, wN, wB, bN, bB);
@@ -500,7 +499,7 @@ return 0;
 	
 
 	
-void PrintMenu(){ /* Need to expand this menu probably */
+void PrintMenu(){ /* 메뉴 출력 함수 */
 
 	printf("\n<======================>{ Chess Game Menu }<======================>\n");
         printf("                      1: Select Game Mode                          \n");
@@ -510,7 +509,7 @@ void PrintMenu(){ /* Need to expand this menu probably */
 }
 
 
-void AddBoard(t_board *board, BLIST *list){
+void AddBoard(t_board *board, BLIST *list){ /* 보드에 추가 */
 
 	BENTRY *newentry;
 	
@@ -540,7 +539,7 @@ void AddBoard(t_board *board, BLIST *list){
 }
 
 
-void DeleteBoard(BLIST *list){
+void DeleteBoard(BLIST *list){ /* 보드에서 제거 */
 	
 	BENTRY *entry;
 	
@@ -594,11 +593,16 @@ void DeleteBoardList(BLIST *list){
 
 /* Defines the data and function flow for a human player's turn */
 /*returns 1 to return to main menu or 0 to conitnue game in control flow, 2 prompt undo*/
+/*
+ * 유저의 턴일 때 작동 되는 함수
+ * 메인메뉴로 이동할 때 1을 리턴, 계속 진행 할 때 0을 리턴
+ * 보드, 케슬링 체크, 턴, (기물, 시작점, 종료점, 잡은 기물, 특수 이동) => 로그저장에 사용, (백나이트 이동유무, 백비숍 이동유무, 흑나이트 이동유무, 흑비숍 이동유무) => AI에서 사용
+*/
 int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][3], char end[][3], int capture[], int special[], int* Wn, int* Wb, int* Bn, int* Bb)
 {
-	char start_rank, end_rank; 
+	char start_rank, end_rank; // rank => 가로줄 - 숫자
 	t_move Move;
-	char start_file, end_file;
+	char start_file, end_file; // file => 세로줄 - 알파벳
 	int validInput = 0;
 	int decision;
 	int i;
@@ -606,9 +610,9 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
 	char startin[5], endin[3];
 	static int chessboard1 = 0, chessboard2 = 0, legal = 0;
 
-	/*user choice menu prompt*/
+	/*유저 선택창 출력*/
 	while(1){
-		/*prompt board again within players move*/
+		/*이동 후 새 보드 출력*/
 		if(chessboard1 != 0){
 			system("clear");
 			printboard(Board);
@@ -619,7 +623,9 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
 			undoprompt = 0;
 			printf("Cannot Undo");
 		}
-*/		if(validInput == 1){
+*/
+        /*선택지 입력*/
+        if(validInput == 1){
 			validInput = 0;
 			printf("Invalid Selection");
 		}
@@ -630,20 +636,20 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
 		
 		printf("Make your decision: ");
 		scanf("%s", input);
-		/*decision check*/
+		/*선택지 판별*/
 		if(input[0] > 51 || input[0] < 49){
 			validInput = 1;
 			/*printf("Invalid Selection\n\n");*/
-			continue;/*go back to move menu*/
+			continue;/*이동 메뉴로 돌아가기*/
 		}
 		else{
 			decision = input[0] - 48;
-			memset(input, 0, 2);
+        memset(input, 0, 2);
 		}/*end input check:AI difficulty*/
 		
-		/*make a move*/
+		/*이동을 선택 했을 경우*/
 		if(decision == 1){
-			/*for file and rank check*/
+			/*file, rank 체크*/
 			while(1){
 				system("clear");
 				printboard(Board);
@@ -687,12 +693,12 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
 				}
 				getchar();
 				
-				/* clear start and end */
+				/* 시작점, 이동점 초기화 */
 				memset(startin, 0, 5);
 				memset(endin, 0, 3);
 				
-				/*FILE CHECKS => allows capital or lowercase*/
-				/*check start file*/
+				/*file 체크 => 대소문자 판별*/
+				/*start_file 체크*/
 				if(start_file >= 65 && start_file <= 72)
 					start_file -= 64;
 				else if(start_file >= 97 && start_file <= 104)
@@ -700,8 +706,8 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
 				else{
 					/*printf("\nInvalid start file.");*/
 					validInput++;
-				}/*end Start File check*/
-
+				}
+                /*end_file 체크*/
 				if(end_file >= 65 && end_file <= 72)
 					end_file -= 64;
 				else if(end_file >= 97 && end_file <= 104)
@@ -709,16 +715,16 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
 				else{
 					/*printf("\nInvalid end file.");*/
 					validInput++;
-				}/*end End File check*/
+				}
 	
-				/*RANK CHECKS*/
+				/*rank 체크*/
 				if(start_rank > 56 || start_rank < 49){
 					/*printf("\nInvalid start rank");*/
 					validInput++;
 				}
 				else{
 					start_rank -= 48;
-				}/*end start rank check*/
+				}
 
 				if(end_rank > 56 || end_rank < 49){
 					/*printf("\nInvalid end rank");*/
@@ -726,7 +732,7 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
 				}
 				else{
 					end_rank -= 48;
-				}/*end end rank check*/
+				}
 
 				if(validInput != 0){
                                         continue;
@@ -737,8 +743,9 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
                         	Move.End.File = end_file;
                         	Move.End.Rank = end_rank;
                         	Move.PieceType = Board[two2one(Move.Start)];
-				
-				/*logfile*/
+
+				
+
 				piece[arraynum] = Move.PieceType;
 				capture[arraynum] = Board[two2one(Move.End)];
 				special[arraynum] = 0; /*no special move*/
@@ -772,12 +779,12 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
                         	       /* printf("That move is not legal!\n");*/ /* Raising illegal move flag */
 					legal = 1;
 					continue;
-					/*UserTurn(Board, turn);*/ /*Loop through UserTurn until a legal move is made*/
+					/*UserTurn(Board, turn);*/
                         	}
 				break;
-			}/*end while F/R CHECK*/ 
-                        break;/*gets out of user decision menu*/
-                }/*end if: make move*/
+			}
+                        break;/*유저 선택메뉴 나가기*/
+		}
 
                 else if (decision == 2){/*undo choice*/
 /*           		undoprompt = UndoBoard(boardlist, Board);
@@ -793,14 +800,14 @@ int UserTurn(t_board Board,t_castle Castle, int turn, int piece[], char start[][
 			chessboard1 = 0;
 /*			DeleteBoardList(boardlist);
 */			return 1;
-		}/*end else if:quit out of game*/
+		}
 		
-	}/*end while: user decision*/
+	}
 	chessboard1 = 0;
 	return 0;
 }
 
-/* Defines the data and function flow for a AI player's turn */
+/* AI 턴 함수 */
 void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[], char start[][3], char end[][3], int capture[], int special[], int* Wn, int* Wb, int* Bn, int* Bb)
 {
 	t_move Best = GetBestMove(Board,Castle, turn, difficulty, Wn, Wb, Bn, Bb);

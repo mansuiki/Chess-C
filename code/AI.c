@@ -27,7 +27,7 @@ double Min(double a, double b){
 		return b;
 }
 
-/* Function to find the best moves */
+/* 최선의 이동을 찾는 함수 */
 t_move GetBestMove(t_board board,t_castle Castle, int turn, int depth, int* wn, int* wb, int* bn, int* bb){
 	t_coin BestMove;
 	t_node top;
@@ -39,9 +39,9 @@ t_move GetBestMove(t_board board,t_castle Castle, int turn, int depth, int* wn, 
 	for (i = 0; i < 120; i++)
 		top.Board[i] = board[i];
 
-	if (turn == 0){		/* Black's move */
+	if (turn == 0){		/* 흑색 이동 */
 		BestMove = MinValue(top,Castle, alpha, beta, depth, turn, wn, wb, bn, bb);
-	}else{			/* White's move */
+	}else{			/* 백색 이동 */
 		BestMove = MaxValue(top,Castle, alpha, beta, depth, turn, wn, wb, bn, bb);
 	}
 
@@ -140,7 +140,7 @@ t_coin MinValue(t_node state, t_castle Castle, double alpha, double beta, int de
 /* Checks if the move is legal and returns a certain value depending on the result */
 int CheckLegalMove(t_board board);
 
-/* MovePiece func */
+/* 기물 이동 함수, 캐슬링용 Castle 로그 변경 */
 void MovePiece(t_board Board, t_move Move, t_castle Castle){
 	if(Move.PieceType == 6)
 		Castle[0] = 1;
@@ -164,7 +164,7 @@ void MovePiece(t_board Board, t_move Move, t_castle Castle){
 }
 
 
-/* PromotePiece Func */
+/* 프로모션 */
 void PromotePiece(t_board board, int promotingSquare){
 	char input[2];
 	int decision;
@@ -208,7 +208,7 @@ void PromotePiece(t_board board, int promotingSquare){
 }
 
 
-/* 1 to 2D conversion */
+/* 2차원 값을 하나의 값으로 치환해주는 함수*/
 int two2one(t_square Square){ /* ranks and files are 1-8, not 0-7 */
 	int one;
 
@@ -217,7 +217,8 @@ int two2one(t_square Square){ /* ranks and files are 1-8, not 0-7 */
 	return one;
 }
 
-/* 2 to 1D conversion */
+
+/* 하나의 값을 2차원 값으로 치환해주는 함수*/
 t_square one2two(int oneDindex){
 	t_square interSquare;
 
@@ -228,7 +229,7 @@ t_square one2two(int oneDindex){
 }
 
 t_move_array ExhaustMoves(t_board board, int turn, t_castle Castle){
-	t_move_array All_Moves;		/* MUST REMEMBER TO FREE THIS LATER */
+	t_move_array All_Moves;
 	int num_moves = 0;
 	t_square start;
 	t_move Move;
@@ -236,7 +237,7 @@ t_move_array ExhaustMoves(t_board board, int turn, t_castle Castle){
 
 	for (i = 21; i < 99; i++){
 		if (board[i] != 42 && board[i] != 0){
-			if (turn == 0){	 	/* Black's turn */
+			if (turn == 0){	 	/* 흑색 턴 */
 				if (board[i] < 0){
 					start = one2two(i);
 					Move.Start = start;
@@ -333,7 +334,7 @@ t_move_array ExhaustMoves(t_board board, int turn, t_castle Castle){
 							break;
 					}
 				}
-			}else{				/* White's turn */
+			}else{				/* 백색 턴 */
 				if (board[i] > 0){
 					start = one2two(i);
 					Move.Start = start;
@@ -482,13 +483,10 @@ double EvaluateMove(t_board board, t_move Move, int* whN, int* whB, int* blN, in
 }
 
 
-/* func to give a value to every position */
 double EvaluatePosition(t_board Board, t_move_array Moves, int turn, t_castle Castle){
 	double score = 0;
 	double open_game = 1 - ((.125 * PawnsOnBoard(Board))/2); /* Level of openness of the board */
 	int i;
-/*	turn = turn == 1 ? 0 : 1;
-*/
 
 	if (GamePhase(Board, turn) == 0)
 		score += 5.0 * QueenIsOut(Board);
@@ -498,7 +496,7 @@ double EvaluatePosition(t_board Board, t_move_array Moves, int turn, t_castle Ca
 	score += 2 * BishopPair(Board);
 	score += IsCastled(Board,turn);
 	for (i = 21; i < 99; i++){
-		if(i % 10 == 9){	/* This is used so that only legal squares are considered */
+		if(i % 10 == 9){
 			i++;
 			continue;
 		}else{
@@ -508,35 +506,35 @@ double EvaluatePosition(t_board Board, t_move_array Moves, int turn, t_castle Ca
 				score += IsCastled(Board, i);
 			}
 
-*/			switch(Board[i]){	/* Adding up to see which side has more pieces, both in terms of quantity and quality of those pieces */
-				case -5: /* Black Queen */
+*/			switch(Board[i]){
+				case -5: /* 흑색 퀸 */
 					score -= 18;
 					break;
-				case -4: /* Black Rook */
+				case -4: /* 흑색 룩 */
 					score -= 10 + open_game;
 					break;
-				case -3: /* Black Bishop */
+				case -3: /* 흑색 비숍 */
 					score -= 6 + open_game - 1.5* IsUndeveloped(Board, i);
 					break;
-				case -2: /* Black Knight */
+				case -2: /* 흑색 나이트 */
 					score -= 6 - open_game - (.5 * KnightOnRim(i)) - 1.5 * IsUndeveloped(Board, i);
 					break;
-				case -1: /* Black Pawn */
+				case -1: /* 흑색 폰 */
 					score -= 2 - .1 * (IsDoubled(Board, i)) + IsPassed(Board, i) + 9 * CanPromote(Board, i) - 1.5 * IsUndeveloped(Board, i);
 					break;
-				case 1:	 /* White Pawn */
+				case 1:	 /* 백색 폰 */
 					score += 2 - .1 * (IsDoubled(Board, i)) + IsPassed(Board, i) + 9 * CanPromote(Board, i) - 1.5 * IsUndeveloped(Board, i);
 					break;
-				case 2:	 /* White Knight */
+				case 2:	 /* 백색 나이트 */
 					score += 6 - open_game - (.5 * KnightOnRim(i)) - 1.5 * IsUndeveloped(Board, i);
 					break;
-				case 3:	 /* White Bishop */
+				case 3:	 /* 백색 비숍 */
 					score += 6 + open_game - 1.5 * IsUndeveloped(Board, i);
 					break;
-				case 4:	 /* White Rook */
+				case 4:	 /* 백색 나이트 */
 					score += 10 + open_game;
 					break;
-				case 5:	 /* White Queen */
+				case 5:	 /* 백색 퀸 */
 					score += 18;
 					break;
 				default:
@@ -610,6 +608,11 @@ int KnightOnRim(int index){
 	return onRim;
 }
 /* this is the IsLegal() function that DOES check to verify if a move would put that player in check	*/
+/*
+ * 모든 체스 말 움직임의 가능 여부 판별 파트
+ * IsLegal(보드, 움직임, 턴, 캐슬링 가능 로그)
+ *
+*/
 int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 	int value = 0;
 	int i = 0;
@@ -621,7 +624,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 
 	if (Board[end_index] != 42){
 		switch (Move.PieceType) {
-			case -6:	/*black king*/
+			case -6:	/*흑 킹 판별*/
 				if( turn == 1)
 					{
 					value = 0;
@@ -656,7 +659,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}
 				break;
-			case -5:  	/*black queen*/
+			case -5:  	/*흑 퀸 판별*/
 				if( turn == 1)
 					{
 					value = 0;
@@ -713,7 +716,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 						}
 				}
 				break;
-			case -4:	/*black rook*/
+			case -4:	/*흑 룩 판별*/
 				if( turn == 1)
 					{
 					value = 0;
@@ -752,7 +755,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}
 				break;
-			case -3:	/*black bishop*/
+			case -3:	/*흑 비숍 판별*/
 				if( turn == 1)
 					{
 					value = 0;
@@ -791,7 +794,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}			
 				break;
-			case -2:	/*black knight*/
+			case -2:	/*흑 나이트 판별*/
 				if( turn == 1)
 					{
 					value = 0;
@@ -804,7 +807,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}
 				break;
-			case -1:	/*black pawn*/
+			case -1:	/*흑 폰 판별*/
 				if( turn == 1)
 					{
 					value = 0;
@@ -837,7 +840,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 				}
 
 				break;
-			case 1:		/*white pawn*/
+			case 1:		/*백 폰 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -870,7 +873,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 				}
 
 				break;
-			case 2:		/*white knight*/
+			case 2:		/*백 나이트 판별*/
 				if( turn == 0)
 				{
 				value = 0;
@@ -885,7 +888,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 				}
 
 				break;
-			case 3:		/*white bishop*/
+			case 3:		/*백 비숍 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -925,7 +928,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}			
 				break;
-			case 4:		/*white rook*/
+			case 4:		/*백 룩 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -965,7 +968,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}
 				break;
-			case 5:		/*white queen*/
+			case 5:		/*백 퀸 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -1022,7 +1025,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 				}
 
 				break;
-			case 6:		/* white king */
+			case 6:		/* 백 퀸 판별 */
 				if( turn == 0)
 					{
 					value = 0;
@@ -1070,10 +1073,7 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle){
 }
 
 
-/* Determines is a move is legal */
-/* This func take a t_board that represents the board BEFORE the MOVE is made */
-/* this version of isLegal() does not contain a call to AmIinCheck() as such checking is not needed seeing as we are simply making sure if we make a move that our opponent could not capture us on his very next move
-	which does not require us to check to see if his move would put him in check because if he takes our king he would have won and such checks are both irrelevant and woudl result in an infinite loop */
+/* AmlinCheck() 를 불 포함한 islegal 함수, 말을 이동한 뒤에 상대의 말이 그 말을 잡을 수 있는 지 확인하지 않아도 됨*/
 int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 	int value = 0;
 	int i = 0;
@@ -1085,7 +1085,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 	
 	if (Board[end_index] != 42){
 		switch (Move.PieceType) {
-			case -6:	/*black king*/
+			case -6:	/*흑색 킹 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -1122,7 +1122,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}
 				break;
-			case -5:  	/*black queen*/
+			case -5:  	/*흑색 퀸 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -1177,7 +1177,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 						}
 				}
 				break;
-			case -4:	/*black rook*/	
+			case -4:	/*흑색 룩 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -1216,7 +1216,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}
 				break;
-			case -3:	/*black bishop*/
+			case -3:	/*흑색 비숍 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -1255,7 +1255,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}			
 				break;
-			case -2:	/*black knight*/
+			case -2:	/*흑색 나이트 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -1268,7 +1268,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}
 				break;
-			case -1:	/*black pawn*/
+			case -1:	/*흑색 폰 판별*/
 				if( turn == 0)
 					{
 					value = 0;
@@ -1301,7 +1301,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 				}
 
 				break;
-			case 1:		/*white pawn*/
+			case 1:		/*백색 폰 판별*/
 				if( turn == 1)
 					{
 					value = 0;
@@ -1334,7 +1334,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 				}
 
 				break;
-			case 2:		/*white knight*/
+			case 2:		/*백색 나이트 판별*/
 				if( turn == 1)
 				{
 				value = 0;
@@ -1348,7 +1348,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 				}
 
 				break;
-			case 3:		/*white bishop*/
+			case 3:		/*백색 비숍 판별*/
 				if( turn == 1)
 				{
 				value = 0;
@@ -1387,7 +1387,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}			
 				break;
-			case 4:		/*white rook*/
+			case 4:		/*백색 룩 판별*/
 				if( turn == 1)
 					{
 					value = 0;
@@ -1426,7 +1426,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 					}
 				}
 				break;
-			case 5:		/*white queen*/
+			case 5:		/*백색 퀸 판별*/
 				if( turn == 1)
 					{
 					value = 0;
@@ -1482,7 +1482,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle){
 				}
 
 				break;
-			case 6:		/* white king */
+			case 6:		/* 백색 킹 판별 */
 				if( turn == 1)
 					{
 					value = 0;
@@ -1562,9 +1562,9 @@ int AmIinCheck(t_board Board, t_move Move, int turn, t_castle Castle){
 		Board_Copy[i] = Board[i];
 	}
 	MovePiece(Board_Copy, Move, Castle);
-	if( turn == 1) /* this is white's turn */
+	if( turn == 1) /* 백색 턴 */
 		{
-		/*loop through to locate white's king  */
+		/* 백색 킹이 움직일 수 있는 위치  */
 		for(i = 1; i <9 ; i++)
 		{
 			for(j = 1; j < 9; j++)
@@ -1578,14 +1578,13 @@ int AmIinCheck(t_board Board, t_move Move, int turn, t_castle Castle){
 			if (Board_Copy[check1] == 6)
 				break;
 		}
-		/* now loop through black's pieces to see fi they have a legal move to white's king */
+		/* 백색 킹을 흑색 기물이 잡을 수 있는 지 판별 */
 		for( i = 1; i < 9 ; i++)
 			for( j = 1; j < 9 ; j++)
 				{
 				Nsquare.Rank = i;
 				Nsquare.File = j;
 				check1 = two2one(Nsquare);
-				/*looking for black pieces */
 				if(Board_Copy[check1] < 0)
 					{
 					MoveTest.Start = Nsquare;
@@ -1598,9 +1597,9 @@ int AmIinCheck(t_board Board, t_move Move, int turn, t_castle Castle){
 			
 			return 0;
 		}
-	else /* this is blacks turn */		
+	else /* 흑색 턴 */
 		{		
-		/*loop through to locate blacks's king  */
+		/* 흑색 킹이 움직일 수 있는 위치  */
 		for(i = 1; i <9 ; i++)
 		{
 			for(j = 1; j < 9; j++)
@@ -1614,14 +1613,13 @@ int AmIinCheck(t_board Board, t_move Move, int turn, t_castle Castle){
 			if (Board_Copy[check1] == -6)
 				break;
 		}
-		/* now loop through white's pieces to see fi they have a legal move to black's king */
+		/* 흑색 킹을 백색 기물이 잡을 수 있는 지 판별 */
 		for( i = 1; i < 9 ; i++)
 			for( j = 1; j < 9 ; j++)
 				{
 				Nsquare.Rank = i;
 				Nsquare.File = j;
 				check1 = two2one(Nsquare);
-				/*looking for black pieces */
 				if(Board_Copy[check1] > 0 && Board_Copy[check1] != 42)
 					{
 					MoveTest.Start = Nsquare;
@@ -1634,20 +1632,20 @@ int AmIinCheck(t_board Board, t_move Move, int turn, t_castle Castle){
 			
 			return 0;
 			}
-		}/* eof	*/
+		}
 
 /****************************************************************************************************************************************************/
 /****************************************************************************************************************************************************/
-/*This function is used to see if after a move was made, that the move put the opposing side in check.						*/
+/* 이동이 완료 된 후 체크가 되는 지 판별 */
 int CheckCheck(t_board Board, int turn,t_castle Castle){
 	int check1;
 	int i,j;
 	t_move MoveTest;
 	t_square Nsquare, Ksquare;
 
-	if( turn == 1) /* Black has just finished their move, see if a black piece can move to white's king. */
+	if( turn == 1) /* 흑색 기물이 이동을 마친 후 체크가 되는 지 */
 		{
-		/*loop through to locate white's king  */
+		/* 백색 킹이 움직일 수 있는 위치  */
 		for(i = 1; i <9 ; i++)
 		{
 			for(j = 1; j < 9; j++)
@@ -1661,14 +1659,13 @@ int CheckCheck(t_board Board, int turn,t_castle Castle){
 			if (Board[check1] == 6)
 				break;
 		}
-		/* now loop through black's pieces to see if they have a legal move to white's king */
+		/* 흑색 말이 백색 킹쪽으로 움직이는게 유효한지 확인 */
 		for( i = 1; i < 9 ; i++)
 			for( j = 1; j < 9 ; j++)
 				{
 				Nsquare.Rank = i;
 				Nsquare.File = j;
 				check1 = two2one(Nsquare);
-				/*looking for black pieces */
 				if(Board[check1] < 0)
 					{
 					MoveTest.Start = Nsquare;
@@ -1681,9 +1678,9 @@ int CheckCheck(t_board Board, int turn,t_castle Castle){
 			
 			return 0;
 		}
-	else /* White has just made its move, see if a white piece could move to black king */		
+	else /* 흑색 기물이 이동을 마친 후 체크가 되는 지 */
 		{		
-		/*loop through to locate blacks's king  */
+		/* 흑색 킹이 움직일 수 있는 위치  */
 		for(i = 1; i <9 ; i++)
 		{
 			for(j = 1; j < 9; j++)
@@ -1697,14 +1694,13 @@ int CheckCheck(t_board Board, int turn,t_castle Castle){
 			if (Board[check1] == -6)
 				break;
 		}
-		/* now loop through white's pieces to see fi they have a legal move to black's king */
+		/* 백색 말이 흑색 킹쪽으로 움직이는게 유효한지 확인 */
 		for( i = 1; i < 9 ; i++)
 			for( j = 1; j < 9 ; j++)
 				{
 				Nsquare.Rank = i;
 				Nsquare.File = j;
 				check1 = two2one(Nsquare);
-				/*looking for black pieces */
 				if(Board[check1] > 0 && Board[check1] != 42)
 					{
 					MoveTest.Start = Nsquare;
@@ -1717,7 +1713,7 @@ int CheckCheck(t_board Board, int turn,t_castle Castle){
 			
 			return 0;
 			}
-		}/* eof	*/
+		}
 
 
 
@@ -1725,7 +1721,7 @@ int CheckCheck(t_board Board, int turn,t_castle Castle){
 
 
 
-/*this will verify after a move is made if that move put the opposing side in CheckMate	*/
+/* 기물의 이동이 상대 진영의 체크 조건을 만족할 때 판별	*/
 int CheckCheckmate(t_board Board, int turn, t_castle Castle){
 	int check1;
 	int i,j;
@@ -1733,77 +1729,75 @@ int CheckCheckmate(t_board Board, int turn, t_castle Castle){
 /*	t_board Board_Copy;	*/
 	t_move MoveTest;
 	t_square Ssquare, Esquare;
-	/* it was white turns, so see if black now has a valid move... using turn = 0 due to data flow in chess.c	*/
-	if( turn == 0)
+	if( turn == 0) // 백색 기물이 이동했을 때 흑색 체크메이트 날 경우
 	{
-	for( i = 1; i < 9 ; i++)
-	{
-		for( j = 1; j < 9; j++)
-		{
-			Ssquare.Rank = i;
-			Ssquare.File = j; 
-			check1 = two2one(Ssquare);
-			if(Board[check1] < 0 && Board[check1] != 42)
-				{
-					for( a = 1; a < 9 ; a++)
-					{
-						for( b = 1; b < 9 ; b++)
-						{
-							Esquare.Rank = a;
-							Esquare.File = b;
-							MoveTest.Start = Ssquare;
-							MoveTest.End = Esquare;
-							MoveTest.PieceType = Board[check1];
-							if( IsLegal(Board, MoveTest, turn, Castle) == 1)
-								return 1;
-							else
-								continue;
-						}
-					}
-				}
-			else  /*if board[check1] isn't a black piece*/
-				continue;	
-		
-		} /* end of j loop */
-	} /* end of i loop */
-	} /* enf of if it was white's turn */
-	/* so here it was a black move made, checking to see if black put white in checkmate. */
+        for( i = 1; i < 9 ; i++)
+        {
+            for( j = 1; j < 9; j++)
+            {
+                Ssquare.Rank = i;
+                Ssquare.File = j;
+                check1 = two2one(Ssquare);
+                if(Board[check1] < 0 && Board[check1] != 42)
+                    {
+                        for( a = 1; a < 9 ; a++)
+                        {
+                            for( b = 1; b < 9 ; b++)
+                            {
+                                Esquare.Rank = a;
+                                Esquare.File = b;
+                                MoveTest.Start = Ssquare;
+                                MoveTest.End = Esquare;
+                                MoveTest.PieceType = Board[check1];
+                                if( IsLegal(Board, MoveTest, turn, Castle) == 1)
+                                    return 1;
+                                else
+                                    continue;
+                            }
+                        }
+                    }
+                else  /*board[check1]가 흑색 기물이 아닐경우*/
+                    continue;
+
+            }
+        }
+	}
+	/* 흑색 기물이 이동했을 때 백색 체크메이트 날 경우 */
 	else
 	{
-	for( i = 1; i < 9 ; i++)
-	{
-		for( j = 1; j < 9; j++)
-		{
-			Ssquare.Rank = i;
-			Ssquare.File = j; 
-			check1 = two2one(Ssquare);
-			if(Board[check1] > 0 && Board[check1] != 42 )
-				{
-					for( a = 1; a < 9 ; a++)
-					{
-						for( b = 1; b < 9 ; b++)
-						{
-							Esquare.Rank = a;
-							Esquare.File = b;
-							MoveTest.Start = Ssquare;
-							MoveTest.End = Esquare;
-							MoveTest.PieceType = Board[check1];
-							if( IsLegal(Board, MoveTest, turn, Castle) == 1)
-								return 1;
-							else
-								continue;
-						}
-					}
-				}
-			else /* if board[check1] isn't a white piece */
-				continue;	
-		
-		} /* end of j loop */
-	} /* end of i loop */
-	} /* enf of if it was black's turn */
-	/* so if at no point did the function find a legal move, we return 1 to show that a checkmate occured. */
+        for( i = 1; i < 9 ; i++)
+        {
+            for( j = 1; j < 9; j++)
+            {
+                Ssquare.Rank = i;
+                Ssquare.File = j;
+                check1 = two2one(Ssquare);
+                if(Board[check1] > 0 && Board[check1] != 42 )
+                    {
+                        for( a = 1; a < 9 ; a++)
+                        {
+                            for( b = 1; b < 9 ; b++)
+                            {
+                                Esquare.Rank = a;
+                                Esquare.File = b;
+                                MoveTest.Start = Ssquare;
+                                MoveTest.End = Esquare;
+                                MoveTest.PieceType = Board[check1];
+                                if( IsLegal(Board, MoveTest, turn, Castle) == 1)
+                                    return 1;
+                                else
+                                    continue;
+                            }
+                        }
+                    }
+                else /* board[check1] 가 백색 기물이 아닐 경우*/
+                    continue;
+
+            }
+        }
+	}
 	return 2;
-} /*eof */
+}
 
 int CanPromote(t_board board, int index){
 	int can = 0;
