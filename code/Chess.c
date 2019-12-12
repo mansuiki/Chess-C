@@ -665,7 +665,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
 
         printf("\n\33[1;32m [당신의 차례입니다]\33[0m\n");
         printf(" [1] 기물 움직이기 \n");
-        printf(" [3] 메뉴로 나가기 \n");
+        printf(" [2] 메뉴로 나가기로 \n");
 
         printf(" 명령을 입력하세요> ");
         scanf("%s", input);
@@ -834,19 +834,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
             }/*end while F/R CHECK*/
             break;/*gets out of user decision menu*/
         }/*end if: make move*/
-
         else if (decision == 2)
-        {/*undo choice*/
-/*           		undoprompt = UndoBoard(boardlist, Board);
-			if(turn == 1)
-				turn = 0;
-			else
-				turn = 1;
-			printboard(Board);
-			return undoprompt;
-*/                }/*end else if: undo*/
-
-        else if (decision == 3)
         {/*Quit game choice*/
             chessboard1 = 0;
 /*			DeleteBoardList(boardlist);
