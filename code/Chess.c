@@ -56,7 +56,7 @@ int main()
         if (invalidprompt == 1)
         {
             invalidprompt = 0;
-            printf("Invalid selection");
+            printf("잘못된 선택입니다.");
         }
         else if (GameAI == 1)
         {
@@ -65,7 +65,7 @@ int main()
         }
 
         PrintMenu();
-        printf("Select an option: ");
+        printf("옵션을 선택하세요: ");
         scanf("%s", input);
         getchar();
         /* choice1: Game Menu Check */
@@ -674,12 +674,12 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
             validInput = 0;
             printf("Invalid Selection");
         }
-        printf("\n<=========================>{ Your Move }<========================>\n");
-        printf("                          1. Make Move                            \n");
-        printf("                          2. Undo Move                            \n");
-        printf("                          3. Quit to Menu                         \n");
 
-        printf("Make your decision: ");
+        printf("\n\33[1;32m [당신의 차례입니다]\33[0m\n");
+        printf(" [1] 기물 움직이기 \n");
+        printf(" [2] 메뉴로 나가기 \n");
+
+        printf(" 명령을 입력하세요> ");
         scanf("%s", input);
         /*decision check*/
         if (input[0] > 51 || input[0] < 49)
@@ -706,19 +706,19 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                 {
                     if (legal == 1)
                     {
-                        printf("\nThat move is not legal");
+                        printf("\n유효한 이동이 아닙니다.");
                         legal = 0;
                     }
                     else if (validInput != 0)
                     {
 
                         validInput = 0;
-                        printf("\nInvalid entry. Make sure File is a letter and Rank is a number");
+                        printf("\33[0;31m\n잘못된 입력입니다. 열(A~H)을 입력한 다음 행(1~8)을 입력해 주세요.\33[0m");
                     }
                 }
 
                 chessboard2++;
-                printf("\nEnter Move(FileRank NewFileRank): ");
+                printf("\n움직임을 입력하세요(선택위치 목표위치)> ");
                 scanf("%s", startin);
                 if (startin[3])
                 {
