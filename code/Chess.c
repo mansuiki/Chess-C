@@ -65,7 +65,7 @@ int main()
         }
 
         PrintMenu();
-        printf("옵션을 선택하세요: ");
+        printf("옵션을 선택하세요> ");
         scanf("%s", input);
         getchar();
         /* choice1: Game Menu Check */
@@ -97,12 +97,12 @@ int main()
                             printf("Invalid Selection");
                         }
 
-                        printf("\n<========================>{ Game Mode }<==========================>\n");
-                        printf("                       1: Player vs Player                         \n");
-                        printf("                       2: Player vs AI                             \n");
-                        printf("                       3: AI vs AI                                 \n");
+                        printf("\n\n\33[1;32m[ 게임 모드 ]\33[0m\n");
+                        printf("1: 플레이어 vs 플레이어\n");
+                        printf("2: 플레이어 vs AI\n");
+                        printf("3: AI vs AI\n");
 
-                        printf("Choose a game mode: ");
+                        printf("게임 모드를 선택하세요> ");
                         scanf("%s", input);
                         /*choice2:Game mode check*/
                         if (input[0] > 51 || input[0] < 49)
@@ -136,11 +136,11 @@ int main()
                                     invalidprompt = 0;
                                     printf("Invalid Selection");
                                 }
-                                printf("\n<=========================>{ AI Piece }<==========================>\n");
-                                printf("                             1: White                              \n");
-                                printf("                             2: Black                              \n");
+                                printf("\n\n\33[1;32m[ AI 기물 ]\33[0m\n");
+                                printf("1: 화이트\n");
+                                printf("2: 블랙\n");
 
-                                printf("What color is the AI: ");
+                                printf("AI의 색상을 선택하세요> ");
                                 scanf("%s", input);
                                 /*choice3:AI color check*/
                                 if (input[0] > 50 || input[0] < 49)
@@ -533,11 +533,11 @@ int main()
 void PrintMenu()
 {
 
-    printf("\n<======================>{ Chess Game Menu }<======================>\n");
-    printf("                      1: Select Game Mode                          \n");
-    printf("                      2: Choose AI Difficulty                      \n");
-    printf("                      3: Start Game                                \n");
-    printf("                      4: Quit    								   \n");
+    printf("\n\33[1;32m[ 게임 메뉴 ]\33[0m\n");
+    printf("1: 게임 모드 선택\n");
+    printf("2: AI 난이도 선택\n");
+    printf("3: 게임 시작\n");
+    printf("4: 나가기\n");
 }
 
 
@@ -665,7 +665,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
 
         printf("\n\33[1;32m [당신의 차례입니다]\33[0m\n");
         printf(" [1] 기물 움직이기 \n");
-        printf(" [2] 메뉴로 나가기 \n");
+        printf(" [3] 메뉴로 나가기 \n");
 
         printf(" 명령을 입력하세요> ");
         scanf("%s", input);
