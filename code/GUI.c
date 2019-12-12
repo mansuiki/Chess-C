@@ -3,41 +3,42 @@
 #include <string.h>
 #include <stdlib.h>
 
-/*printboard*/
+/**
+ * 보드를 출력하는 함수
+ * 숫자로 이루어진 판 배열
+ * @param board
+ */
 void printboard(t_board board)
 {
-    int i, j;
     int boardnum = 21;
     int line = 8;
     char piecetype[3];
 
     printf("\n");
     /* number => piecetype*/
-    for (i = 0; i < 18; i++)
-    { /*18 = num of lines on board*/
-        if (i == 0 || i % 2 == 0)
-        {
-//            printf("\t\t  +---+---+---+---+---+---+---+---+\n");
-        }
-        else if (i % 2 != 0 && 8 - i/2 > 0)
-        {
-            printf("\33[1;35m%d \33[0m", 8 - i/2);
+    for (int row = 0; row < 8; row++)
+    {
+        printf("\33[1;35m%d \33[0m", 8 - row);
 
-            for (j = boardnum; j < (boardnum + 8); j++)
-            {
-                convertPieceType(board[j], piecetype);
-                printf("%s ", piecetype);
-            }/*end for j*/
-
-            boardnum += 10;
-            printf("\n");
-            line--;
+        for (int i = boardnum; i < (boardnum + 8); i++)
+        {
+            convertPieceType(board[i], piecetype);
+            printf("%s ", piecetype);
         }
-    }/*end for i*/
+
+        boardnum += 10;
+        printf("\n");
+        line--;
+    }
     printf(" \33[1;35m A B C D E F G H\33[0m\n");
-}/*end of printboard*/
+}
 
-/*convert number to piece type*/
+
+/**
+ * 숫자를 기물로 변경하는 함수
+ * @param num 기물 번호
+ * @param piece 출력할 기물
+ */
 void convertPieceType(int num, char piece[3])
 {
 
@@ -109,5 +110,4 @@ void convertPieceType(int num, char piece[3])
             break;
         }
     }
-}/*end conversion*/ 
- 
+}
