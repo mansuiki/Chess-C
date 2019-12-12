@@ -12,7 +12,7 @@
 
 void PrintMenu();
 
-void PrintTrojan();
+void PrintCHESS();
 
 int MAX = 300;
 int arraynum = 0;
@@ -51,12 +51,12 @@ int main()
     while (choice1 != 4)
     {
         system("clear");
-        PrintTrojan();
+        PrintCHESS();
 
         if (invalidprompt == 1)
         {
             invalidprompt = 0;
-            printf("Invalid selection");
+            printf("잘못된 선택입니다.");
         }
         else if (GameAI == 1)
         {
@@ -65,14 +65,14 @@ int main()
         }
 
         PrintMenu();
-        printf("Select an option: ");
+        printf("옵션을 선택하세요> ");
         scanf("%s", input);
         getchar();
-        /* choice1: Game Menu Check */
+        /* choice1: 게임 메뉴 체크 */
         if (input[0] > 52 || input[0] < 49)
         {
             invalidprompt = 1;
-            continue;/* go back to game menu */
+            continue;/* 게임 메뉴로 돌아가기 */
         }
         else
         {
@@ -81,7 +81,7 @@ int main()
         }/* end input check:Game menu */
 
         while (choice1 != 3)
-        { /* while loop to take in all menu choice before starting the game */
+        { /* 게임이 시작하기전 모든 설정을 반복함 */
 
             switch (choice1)
             {
@@ -90,31 +90,31 @@ int main()
                     {
 
                         system("clear");
-                        PrintTrojan();
+                        PrintCHESS();
                         if (invalidprompt == 1)
                         {
                             invalidprompt = 0;
                             printf("Invalid Selection");
                         }
 
-                        printf("\n<========================>{ Game Mode }<==========================>\n");
-                        printf("                       1: Player vs Player                         \n");
-                        printf("                       2: Player vs AI                             \n");
-                        printf("                       3: AI vs AI                                 \n");
+                        printf("\n\n\33[1;32m[ 게임 모드 ]\33[0m\n");
+                        printf("1: 플레이어 vs 플레이어\n");
+                        printf("2: 플레이어 vs AI\n");
+                        printf("3: AI vs AI\n");
 
-                        printf("Choose a game mode: ");
+                        printf("게임 모드를 선택하세요> ");
                         scanf("%s", input);
-                        /*choice2:Game mode check*/
+                        /*choice2:게임모드 선택*/
                         if (input[0] > 51 || input[0] < 49)
                         {
                             invalidprompt = 1;
-                            continue;/*go back to game mode menu*/
+                            continue;/*게임 메뉴로 돌아가기*/
                         }
                         else
                         {
                             choice2 = input[0] - 48;
                             memset(input, 0, 2);
-                        }/*end input check:Game mode*/
+                        }
 
                         if (choice2 == 1)
                         {
@@ -130,29 +130,29 @@ int main()
                             while (choice3 != 1 && choice3 != 2)
                             {
                                 system("clear");
-                                PrintTrojan();
+                                PrintCHESS();
                                 if (invalidprompt == 1)
                                 {
                                     invalidprompt = 0;
                                     printf("Invalid Selection");
                                 }
-                                printf("\n<=========================>{ AI Piece }<==========================>\n");
-                                printf("                             1: White                              \n");
-                                printf("                             2: Black                              \n");
+                                printf("\n\n\33[1;32m[ AI 기물 ]\33[0m\n");
+                                printf("1: 화이트\n");
+                                printf("2: 블랙\n");
 
-                                printf("What color is the AI: ");
+                                printf("AI의 색상을 선택하세요> ");
                                 scanf("%s", input);
-                                /*choice3:AI color check*/
+                                /*choice3:AI 색상 선택 메뉴*/
                                 if (input[0] > 50 || input[0] < 49)
                                 {
                                     invalidprompt = 1;
-                                    continue;/*go back to AI Piece menu*/
+                                    continue;/*AI 환경 메뉴로 돌아감*/
                                 }
                                 else
                                 {
                                     choice3 = input[0] - 48;
                                     memset(input, 0, 2);
-                                }/*end input check:AI color*/
+                                }
 
                                 if (choice3 == 1)
                                 {
@@ -187,42 +187,34 @@ int main()
                     while (choice2 != 1 && choice2 != 2 && choice2 != 3 && choice2 != 4)
                     {
                         system("clear");
-                        PrintTrojan();
+                        PrintCHESS();
                         if (invalidprompt == 1)
                         {
                             invalidprompt = 0;
                             printf("Invalid Selection");
                         }
-                        printf("\n<=======================>{ AI Difficulty }<=======================>\n");
-                        printf(" 			    1: Easy                                 \n");
-                        printf("     			    2: Medium                               \n");
-                        printf("                            3: Hard                                 \n");
-                        printf("                            4: Master                               \n");
+                        printf("\n\33[1;32m[ AI 난이도 ]\33[0m\n");
+                        printf("1: 쉬움\n");
+                        printf("2: 중간\n");
+                        printf("3: 어려움\n");
+                        printf("4: 마스터\n");
 
-                        printf("Please make a selection: ");
+                        printf("난이도를 선택해 주십시오> ");
                         scanf("%s", input);
-                        /*choice2:AI difficulty check*/
+                        /*choice2:AI 난이도 설정 메뉴*/
                         if (input[0] > 52 || input[0] < 49)
                         {
                             invalidprompt = 1;
-                            continue;/*go back to AI difficulty menu*/
+                            continue;/*AI 난이도 설정 메뉴로 돌아가기*/
                         }
                         else
                         {
                             choice2 = input[0] - 48;
                             memset(input, 0, 2);
-                        }/*end input check:AI difficulty*/
+                        }
 
-                        if (choice2 == 1)
-                            difficulty = 1;
-
-                        else if (choice2 == 2)
-                            difficulty = 2;
-
-                        else if (choice2 == 3)
-                            difficulty = 3;
-                        else if (choice2 == 4)
-                            difficulty = 4;
+                        if (choice2 >=1 && choice2<=4)
+                            difficulty = choice2;
                     }
                     choice2 = 0;
                     break;
@@ -231,25 +223,23 @@ int main()
                 default:
                     break;
 
-            }/*end switch: choice1*/
+            }
             mainmenu = 1;
             break;
-        }/*end while: choice1 != 3*/
+        }
 
-        /*return to menu*/
         if (mainmenu == 1)
         {
             mainmenu = 0;
             continue;
         }
 
-        for (i = 0; i < 120; i++)
-        {
-            InitialBoard[i] = 42;
-        }
+		for(i = 0; i < 120; i++){
+			InitialBoard[i] = 42;
+		}
 
-        InitialBoard[21] = -4;        /* Row 1...Rank 8 */
-        InitialBoard[22] = -2;
+        InitialBoard[21] = -4;        /* 흑색 룩,나이트,비숍,퀸,킹 보드에 초기화 */
+        InitialBoard[22] = -2;      /* -4 : 흑룩, -2 : 흑나이트, -3 : 흑비숍, -5 : 흑퀸, -6 : 흑킹*/
         InitialBoard[23] = -3;
         InitialBoard[24] = -5;
         InitialBoard[25] = -6;
@@ -258,31 +248,31 @@ int main()
         InitialBoard[28] = -4;
 
         for (i = 31; i < 39; i++)
-        {    /* Row 2...Rank 7 */
-            InitialBoard[i] = -1;
+        {    /* 흑색 폰 보드에 초기화 */
+            InitialBoard[i] = -1;   /* -1 : 흑폰*/
         }
 
         for (i = 41; i < 79; i++)
-        {    /* Row 3 thru 6...Ranks 6 thru 3 */
+        {    /* 중간 보드 공간 0 초기화 */
             InitialBoard[i] = 0;
         }
 
-        InitialBoard[49] = 42;
-        InitialBoard[50] = 42;
-        InitialBoard[59] = 42;
-        InitialBoard[60] = 42;
-        InitialBoard[69] = 42;
-        InitialBoard[70] = 42;
-        InitialBoard[79] = 42;
-        InitialBoard[80] = 42;
+		InitialBoard[49] = 42;
+		InitialBoard[50] = 42;
+		InitialBoard[59] = 42;
+		InitialBoard[60] = 42;
+		InitialBoard[69] = 42;
+		InitialBoard[70] = 42;
+		InitialBoard[79] = 42;
+		InitialBoard[80] = 42;
 
         for (i = 81; i < 89; i++)
-        {    /* Row 7...Rank 2 */
-            InitialBoard[i] = 1;
+        {    /* 백색 폰 보드에 초기화 */
+            InitialBoard[i] = 1;    /* 1 : 백폰*/
         }
 
-        InitialBoard[91] = 4;        /* Row 8...Rank 1 */
-        InitialBoard[92] = 2;
+        InitialBoard[91] = 4;        /* 백색 룩,나이트,비숍,퀸,킹 보드에 초기화 */
+        InitialBoard[92] = 2;       /* -4 : 백룩, -2 : 백나이트, -3 : 백비숍, -5 : 백퀸, -6 : 백킹*/
         InitialBoard[93] = 3;
         InitialBoard[94] = 5;
         InitialBoard[95] = 6;
@@ -293,10 +283,10 @@ int main()
         boardlist = NewBoardList();
         AddBoard(&InitialBoard, boardlist);
         system("clear");
-        printboard(InitialBoard);
+        printboard(InitialBoard); // 보드 출력
 
         if (PvP == 1)
-        {
+        { /* PvP 모드 선택 시*/
             while (end != 1)
             {
                 turn = 1;
@@ -360,7 +350,7 @@ int main()
             }
         }
         else if (PvA == 1 && White == 1)
-        {
+        { /* PvA 모드 선택, 백색 진형 선택*/
             while (end != 1)
             {
                 turn = 1;
@@ -418,7 +408,7 @@ int main()
             }
         }
         else if (PvA == 1 && White == 0)
-        {
+        { /* PvA 모드 선택, 흑색 진형 선택*/
             while (end != 1)
             {
                 turn = 1;
@@ -475,7 +465,7 @@ int main()
             }
         }
         else if (AvA == 1)
-        {
+        { /* AvA 모드 선택시*/
             while (end != 1)
             {
                 turn = 1;
@@ -516,8 +506,8 @@ int main()
                     {
                         WriteLog(piece, START, END, capture, special);
                         arraynum = 0;
-                        printf("Black Wins!\n");
-                        printf("Press Enter to Continue");
+                        printf("흑 승리!\n");
+                        printf("엔터키를 눌러서 계속하세요");
                         while (getchar() != '\n');
                         end = 1;
                     }
@@ -536,55 +526,53 @@ int main()
     system("clear");
     return 0;
 }
-
+	
+	
 
 void PrintMenu()
-{ /* Need to expand this menu probably */
+{ /* 메뉴 출력 함수 */
 
-    printf("\n<======================>{ Chess Game Menu }<======================>\n");
-    printf("                      1: Select Game Mode                          \n");
-    printf("                      2: Choose AI Difficulty                      \n");
-    printf("                      3: Start Game                                \n");
-    printf("                      4: Quit    								   \n");
+    printf("\n\33[1;32m[ 게임 메뉴 ]\33[0m\n");
+    printf("1: 게임 모드 선택\n");
+    printf("2: AI 난이도 선택\n");
+    printf("3: 게임 시작\n");
+    printf("4: 나가기\n");
 }
 
 
 void AddBoard(t_board *board, BLIST *list)
-{
+{ /* 보드에 추가 */
 
-    BENTRY *newentry;
-
-    assert(list);
-
-    newentry = (BENTRY *) malloc(sizeof(BENTRY));
-
-    if (newentry != NULL)
-    {
-        newentry->List = list;
-        newentry->Next = NULL;
-        newentry->Prev = NULL;
-        newentry->Turn = list->Turn;
-        newentry->Boards = board;
-
-        if (!list->First)
-        {
-            list->First = list->Last = newentry;
-        }
-
-        else
-        {
-            list->Last->Next = newentry;
-            newentry->Prev = list->Last;
-            list->Last = newentry;
-        }
-        list->Turn++;
-    }
-
+	BENTRY *newentry;
+	
+	assert(list);
+	
+	newentry = (BENTRY *)malloc (sizeof(BENTRY));
+	
+	if (newentry != NULL){
+		newentry->List = list;
+		newentry->Next = NULL;
+		newentry->Prev = NULL;
+		newentry->Turn = list->Turn;
+		newentry->Boards = board;
+		
+		if(!list->First){
+			list->First = list->Last = newentry;
+		}
+		
+		else{
+			list->Last->Next = newentry;
+			newentry->Prev = list->Last;
+			list->Last = newentry;
+		}
+		list->Turn ++;
+	}
+		
 }
 
 
 void DeleteBoard(BLIST *list)
-{
+{ /* 보드에서 제거 */
 
     BENTRY *entry;
 
@@ -601,52 +589,54 @@ void DeleteBoard(BLIST *list)
 }
 
 
-BLIST *NewBoardList(void)
-{
+BLIST *NewBoardList(void){
 
-    BLIST *newlist = (BLIST *) malloc(sizeof(BLIST));
-
-    if (newlist != NULL)
-    {
-        newlist->First = NULL;
-        newlist->Last = NULL;
-        newlist->Turn = 0;
-    }
-
-    return newlist;
+	BLIST *newlist = (BLIST *)malloc(sizeof(BLIST));
+	
+	if (newlist != NULL)
+	{
+		newlist->First = NULL;
+		newlist->Last = NULL;
+		newlist->Turn = 0;
+	}
+	
+	return newlist;
 }
 
 
-void DeleteBoardList(BLIST *list)
-{
+void DeleteBoardList(BLIST *list){
 
-    BENTRY *curr, *succ;
-
-    assert(list);
-    curr = list->First;
-    while (curr)
-    {
-        succ = curr->Next;
-        assert(curr->List == list);
-        DeleteBoard(curr->List); /* need to adjust this code */
-        curr->Boards = NULL;
-        free(curr);
-        curr = succ;
-    }
-
-    free(list);
+	BENTRY *curr, *succ;
+	
+	assert(list);
+	curr = list->First;
+	while(curr){
+		succ = curr->Next;
+		assert(curr->List == list);
+		DeleteBoard(curr->List); /* need to adjust this code */
+		curr->Boards = NULL;
+		free(curr);
+		curr = succ;
+	}
+	
+	free (list);
 }
 
 
 
 /* Defines the data and function flow for a human player's turn */
 /*returns 1 to return to main menu or 0 to conitnue game in control flow, 2 prompt undo*/
+/*
+ * 유저의 턴일 때 작동 되는 함수
+ * 메인메뉴로 이동할 때 1을 리턴, 계속 진행 할 때 0을 리턴
+ * 보드, 케슬링 체크, 턴, (기물, 시작점, 종료점, 잡은 기물, 특수 이동) => 로그저장에 사용, (백나이트 이동유무, 백비숍 이동유무, 흑나이트 이동유무, 흑비숍 이동유무) => AI에서 사용
+*/
 int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[][3], char end[][3], int capture[],
              int special[], int *Wn, int *Wb, int *Bn, int *Bb)
 {
-    char start_rank, end_rank;
+    char start_rank, end_rank; // rank => 가로줄 - 숫자
     t_move Move;
-    char start_file, end_file;
+    char start_file, end_file; // file => 세로줄 - 알파벳
     int validInput = 0;
     int decision;
     int i;
@@ -654,10 +644,10 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
     char startin[5], endin[3];
     static int chessboard1 = 0, chessboard2 = 0, legal = 0;
 
-    /*user choice menu prompt*/
+    /*유저 선택창 출력*/
     while (1)
     {
-        /*prompt board again within players move*/
+        /*이동 후 새 보드 출력*/
         if (chessboard1 != 0)
         {
             system("clear");
@@ -669,24 +659,25 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
 			undoprompt = 0;
 			printf("Cannot Undo");
 		}
-*/        if (validInput == 1)
+*/
+        /*선택지 입력*/
+        if (validInput == 1)
         {
             validInput = 0;
             printf("Invalid Selection");
         }
-        printf("\n<=========================>{ Your Move }<========================>\n");
-        printf("                          1. Make Move                            \n");
-        printf("                          2. Undo Move                            \n");
-        printf("                          3. Quit to Menu                         \n");
+        printf("\n\33[1;32m [당신의 차례입니다]\33[0m\n");
+        printf(" [1] 기물 움직이기 \n");
+        printf(" [2] 메뉴로 나가기로 \n");
 
-        printf("Make your decision: ");
+        printf(" 명령을 입력하세요> ");
         scanf("%s", input);
-        /*decision check*/
+        /*선택지 판별*/
         if (input[0] > 51 || input[0] < 49)
         {
             validInput = 1;
             /*printf("Invalid Selection\n\n");*/
-            continue;/*go back to move menu*/
+            continue;/*이동 메뉴로 돌아가기*/
         }
         else
         {
@@ -694,7 +685,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
             memset(input, 0, 2);
         }/*end input check:AI difficulty*/
 
-        /*make a move*/
+        /*이동을 선택 했을 경우*/
         if (decision == 1)
         {
             /*for file and rank check*/
@@ -706,19 +697,17 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                 {
                     if (legal == 1)
                     {
-                        printf("\nThat move is not legal");
+                        printf("\n유효한 이동이 아닙니다.");
                         legal = 0;
                     }
                     else if (validInput != 0)
                     {
-
                         validInput = 0;
-                        printf("\nInvalid entry. Make sure File is a letter and Rank is a number");
+                        printf("\33[0;31m\n잘못된 입력입니다. 열(A~H)을 입력한 다음 행(1~8)을 입력해 주세요.\33[0m");
                     }
                 }
-
                 chessboard2++;
-                printf("\nEnter Move(FileRank NewFileRank): ");
+                printf("\n움직임을 입력하세요(선택위치 목표위치)> ");
                 scanf("%s", startin);
                 if (startin[3])
                 {
@@ -747,12 +736,12 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                 }
                 getchar();
 
-                /* clear start and end */
+                /* 시작점, 이동점 초기화 */
                 memset(startin, 0, 5);
                 memset(endin, 0, 3);
 
-                /*FILE CHECKS => allows capital or lowercase*/
-                /*check start file*/
+                /*file 체크 => 대소문자 판별*/
+                /*start_file 체크*/
                 if (start_file >= 65 && start_file <= 72)
                     start_file -= 64;
                 else if (start_file >= 97 && start_file <= 104)
@@ -761,8 +750,8 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                 {
                     /*printf("\nInvalid start file.");*/
                     validInput++;
-                }/*end Start File check*/
-
+                }
+                /*end_file 체크*/
                 if (end_file >= 65 && end_file <= 72)
                     end_file -= 64;
                 else if (end_file >= 97 && end_file <= 104)
@@ -771,9 +760,9 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                 {
                     /*printf("\nInvalid end file.");*/
                     validInput++;
-                }/*end End File check*/
+                }
 
-                /*RANK CHECKS*/
+                /*rank 체크*/
                 if (start_rank > 56 || start_rank < 49)
                 {
                     /*printf("\nInvalid start rank");*/
@@ -782,7 +771,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                 else
                 {
                     start_rank -= 48;
-                }/*end start rank check*/
+                }
 
                 if (end_rank > 56 || end_rank < 49)
                 {
@@ -792,21 +781,19 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                 else
                 {
                     end_rank -= 48;
-                }/*end end rank check*/
+                }
 
-                if (validInput != 0)
-                {
-                    continue;
-                }/*end if*/
+				if(validInput != 0){
+                                        continue;
+                                }/*end if*/
 
-                Move.Start.File = start_file;
-                Move.Start.Rank = start_rank;
-                Move.End.File = end_file;
-                Move.End.Rank = end_rank;
-                Move.PieceType = Board[two2one(Move.Start)];
+                        	Move.Start.File = start_file;
+                       		Move.Start.Rank = start_rank;
+                        	Move.End.File = end_file;
+                        	Move.End.Rank = end_rank;
+                        	Move.PieceType = Board[two2one(Move.Start)];
 
 
-                /*logfile*/
                 piece[arraynum] = Move.PieceType;
                 capture[arraynum] = Board[two2one(Move.End)];
                 special[arraynum] = 0; /*no special move*/
@@ -842,25 +829,13 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                     /* printf("That move is not legal!\n");*/ /* Raising illegal move flag */
                     legal = 1;
                     continue;
-                    /*UserTurn(Board, turn);*/ /*Loop through UserTurn until a legal move is made*/
+                    /*UserTurn(Board, turn);*/
                 }
                 break;
-            }/*end while F/R CHECK*/
-            break;/*gets out of user decision menu*/
-        }/*end if: make move*/
-
+            }
+            break;/*유저 선택메뉴 나가기*/
+        }
         else if (decision == 2)
-        {/*undo choice*/
-/*           		undoprompt = UndoBoard(boardlist, Board);
-			if(turn == 1)
-				turn = 0;
-			else
-				turn = 1;
-			printboard(Board);
-			return undoprompt;
-*/                }/*end else if: undo*/
-
-        else if (decision == 3)
         {/*Quit game choice*/
             chessboard1 = 0;
 /*			DeleteBoardList(boardlist);
@@ -872,152 +847,150 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
     return 0;
 }
 
-/* Defines the data and function flow for a AI player's turn */
+/* AI 턴 함수 */
 void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[], char start[][3], char end[][3],
             int capture[], int special[], int *Wn, int *Wb, int *Bn, int *Bb)
 {
-    t_move Best = GetBestMove(Board, Castle, turn, difficulty, Wn, Wb, Bn, Bb);
-
-    /*logfile*/
-    piece[arraynum] = Best.PieceType;
-    switch (Best.Start.File)
-    {
-        case 1:
-            start[arraynum][0] = 'a';
-            break;
-        case 2:
-            start[arraynum][0] = 'b';
-            break;
-        case 3:
-            start[arraynum][0] = 'c';
-            break;
-        case 4:
-            start[arraynum][0] = 'd';
-            break;
-        case 5:
-            start[arraynum][0] = 'e';
-            break;
-        case 6:
-            start[arraynum][0] = 'f';
-            break;
-        case 7:
-            start[arraynum][0] = 'g';
-            break;
-        case 8:
-            start[arraynum][0] = 'h';
-            break;
-        default:
-            start[arraynum][0] = 'X';
-    }/*end switch: start file*/
-    switch (Best.Start.Rank)
-    {
-        case 1:
-            start[arraynum][1] = '1';
-            break;
-        case 2:
-            start[arraynum][1] = '2';
-            break;
-        case 3:
-            start[arraynum][1] = '3';
-            break;
-        case 4:
-            start[arraynum][1] = '4';
-            break;
-        case 5:
-            start[arraynum][1] = '5';
-            break;
-        case 6:
-            start[arraynum][1] = '6';
-            break;
-        case 7:
-            start[arraynum][1] = '7';
-            break;
-        case 8:
-            start[arraynum][1] = '8';
-            break;
-        default:
-            start[arraynum][1] = 'X';
-    }/*end switch: start file*/
-    switch (Best.End.File)
-    {
-        case 1:
-            end[arraynum][0] = 'a';
-            break;
-        case 2:
-            end[arraynum][0] = 'b';
-            break;
-        case 3:
-            end[arraynum][0] = 'c';
-            break;
-        case 4:
-            end[arraynum][0] = 'd';
-            break;
-        case 5:
-            end[arraynum][0] = 'e';
-            break;
-        case 6:
-            end[arraynum][0] = 'f';
-            break;
-        case 7:
-            end[arraynum][0] = 'g';
-            break;
-        case 8:
-            end[arraynum][0] = 'h';
-            break;
-        default:
-            end[arraynum][0] = 'X';
-    }/*end switch: start file*/
-    switch (Best.End.Rank)
-    {
-        case 1:
-            end[arraynum][1] = '1';
-            break;
-        case 2:
-            end[arraynum][1] = '2';
-            break;
-        case 3:
-            end[arraynum][1] = '3';
-            break;
-        case 4:
-            end[arraynum][1] = '4';
-            break;
-        case 5:
-            end[arraynum][1] = '5';
-            break;
-        case 6:
-            end[arraynum][1] = '6';
-            break;
-        case 7:
-            end[arraynum][1] = '7';
-            break;
-        case 8:
-            end[arraynum][1] = '8';
-            break;
-        default:
-            end[arraynum][1] = 'X';
-    }/*end switch: start file*/
-    capture[arraynum] = Board[two2one(Best.End)];
-    special[arraynum] = 0;/*for special move*/
+	t_move Best = GetBestMove(Board,Castle, turn, difficulty, Wn, Wb, Bn, Bb);
+	
+	/*logfile*/
+	piece[arraynum] = Best.PieceType;
+	switch(Best.Start.File){
+		case 1:
+			start[arraynum][0] = 'a';
+			break;
+		case 2:
+			start[arraynum][0] = 'b';
+			break;
+		case 3:
+			start[arraynum][0] = 'c';
+			break;
+		case 4:
+			start[arraynum][0] = 'd';
+			break; 
+		case 5:
+			start[arraynum][0] = 'e';
+			break; 
+		case 6:
+			start[arraynum][0] = 'f';
+			break; 
+		case 7:
+			start[arraynum][0] = 'g';
+			break; 
+ 		case 8:
+			start[arraynum][0] = 'h';
+			break; 
+		default:
+			start[arraynum][0] = 'X';
+	}/*end switch: start file*/
+	switch(Best.Start.Rank){                                                                                               
+                case 1:                                                                                                        
+                        start[arraynum][1] = '1';                                                                              
+                        break;                                                                                                 
+                case 2:                                                                                                        
+                        start[arraynum][1] = '2';                                                                              
+                        break;                                                                                                 
+                case 3:                                                                                                        
+                        start[arraynum][1] = '3';                                                                              
+                        break;                                                                                                 
+                case 4:                                                                                                        
+                        start[arraynum][1] = '4';                                                                              
+                        break;                                                                                                 
+                case 5:                                                                                                        
+                        start[arraynum][1] = '5';                                                                              
+                        break;                                                                                                 
+                case 6:                                                                                                        
+                        start[arraynum][1] = '6';                                                                              
+                        break;                                                                                                 
+                case 7:                                                                                                        
+                        start[arraynum][1] = '7';                                                                              
+                        break;                                                                                                 
+                case 8:                                                                                                        
+                        start[arraynum][1] = '8';                                                                              
+                        break;                                                                                                 
+                default:
+			start[arraynum][1] = 'X';                                                                                                       
+        }/*end switch: start file*/
+	switch(Best.End.File){                                                                                               
+                case 1:                                                                                                        
+                        end[arraynum][0] = 'a';                                                                              
+                        break;                                                                                                 
+                case 2:                                                                                                        
+                        end[arraynum][0] = 'b';                                                                              
+                        break;                                                                                                 
+                case 3:                                                                                                        
+                        end[arraynum][0] = 'c';                                                                              
+                        break;                                                                                                 
+                case 4:                                                                                                        
+                        end[arraynum][0] = 'd';                                                                              
+                        break;                                                                                                 
+                case 5:                                                                                                        
+                        end[arraynum][0] = 'e';                                                                              
+                        break;                                                                                                 
+                case 6:                                                                                                        
+                        end[arraynum][0] = 'f';                                                                              
+                        break;                                                                                                 
+                case 7:                                                                                                        
+                        end[arraynum][0] = 'g';                                                                              
+                        break;                                                                                                 
+                case 8:                                                                                                        
+                        end[arraynum][0] = 'h';                                                                              
+                        break;                                                                                                 
+                default:
+			end[arraynum][0] = 'X';                                                                                                       
+        }/*end switch: start file*/                                                                                            
+        switch(Best.End.Rank){                                                                                               
+                case 1:                                                                                                        
+                        end[arraynum][1] = '1';                                                                              
+                        break;                                                                                                 
+                case 2:                                                                                                        
+                        end[arraynum][1] = '2';                                                                              
+                        break;                                                                                                 
+                case 3:                                                                                                        
+                        end[arraynum][1] = '3';                                                                              
+                        break;                                                                                                 
+                case 4:                                                                                                        
+                        end[arraynum][1] = '4';                                                                              
+                        break;                                                                                                 
+                case 5:                                                                                                        
+                        end[arraynum][1] = '5';                                                                              
+                        break;                                                                                                 
+                case 6:                                                                                                        
+                        end[arraynum][1] = '6';                                                                              
+                        break;                                                                                                 
+                case 7:                                                                                                        
+                        end[arraynum][1] = '7';                                                                              
+                        break;                                                                                                 
+                case 8:                                                                                                        
+                        end[arraynum][1] = '8';                                                                              
+                        break;                                                                                                 
+                default:
+			end[arraynum][1] = 'X';                                                                                   
+        }/*end switch: start file*/ 
+	capture[arraynum] = Board[two2one(Best.End)];
+	special[arraynum] = 0;/*for special move*/
 
 /*	sleep(2);
-*/    MovePiece(Board, Best, Castle);
-    UpdateHasMoved(Board, Wn, Wb, Bn, Bb);
+*/	MovePiece(Board, Best,Castle);
+	UpdateHasMoved(Board, Wn, Wb, Bn, Bb);
 
 }
-
+	
 /*Prints out sexy menu header*/
-void PrintTrojan()
+void PrintCHESS()
 {
-    printf("  e88~-_   888                              \n");
-    printf(" d888   \\  888-~88e   e88~~8e    d88~\\   d88~\n");
-    printf(" 8888      888  888  d888  88b  C888    C888  \n");
-    printf(" 8888      888  888  8888__888   Y88b    Y88b \n");
-    printf(" Y888   /  888  888  Y888    ,    888D    888D\n");
-    printf("  \"88_-~   888  888   \"88___/   \\_88P   \\_88P \n");
+    printf("\n          --------------------------------------------------  \n"); // 13칸 공백
+    printf("               e88~-_   888                                     \n");
+    printf("              d888   \\  888-~88e   e88~~8e    d88~\\   d88~    \n");
+    printf("              8888      888  888  d888  88b  C888    C888       \n");
+    printf("              8888      888  888  8888__888   Y88b    Y88b      \n");
+    printf("              Y888   /  888  888  Y888    ,    888D    888D     \n");
+    printf("               \"88_-~   888  888   \"88___/   \\_88P   \\_88P  \n");
+    printf("\n          --------------------------------------------------  \n");
 }/*end print trojan*/
 
 /*******************************/
-/* HOW I AM SEEING THE BOARD */
+/* HOW WE ARE SEEING THE BOARD */
 /*		___________________________
  *  	8	| 21 22 23 24 25 26 27 28 |	BLACK
  *  	7	| 31 32 33 34 35 36 37 38 |
