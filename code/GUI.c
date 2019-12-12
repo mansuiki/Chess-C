@@ -1,12 +1,10 @@
 #include "GUI.h"
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 
 /**
  * 보드를 출력하는 함수
- * 숫자로 이루어진 판 배열
- * @param board
+ * @param board 숫자로 이루어진 판 배열
  */
 void printboard(t_board board)
 {

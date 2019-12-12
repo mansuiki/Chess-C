@@ -193,13 +193,13 @@ int main()
                             invalidprompt = 0;
                             printf("Invalid Selection");
                         }
-                        printf("\n<=======================>{ AI Difficulty }<=======================>\n");
-                        printf(" 			    1: Easy                                 \n");
-                        printf("     			    2: Medium                               \n");
-                        printf("                            3: Hard                                 \n");
-                        printf("                                   4: Master                               \n");
+                        printf("\n\33[1;32m[ AI 난이도 ]\33[0m\n");
+                        printf("1: 쉬움\n");
+                        printf("2: 중간\n");
+                        printf("3: 어려움\n");
+                        printf("4: 마스터\n");
 
-                        printf("Please make a selection: ");
+                        printf("난이도를 선택해 주십시오> ");
                         scanf("%s", input);
                         /*choice2:AI difficulty check*/
                         if (input[0] > 52 || input[0] < 49)
@@ -341,8 +341,8 @@ int main()
                     {
                         WriteLog(piece, START, END, capture, special);
                         arraynum = 0;
-                        printf("Black Wins!\n");
-                        printf("Press Enter to Continue");
+                        printf("흑 승리!\n");
+                        printf("엔터키를 눌러서 계속하세요");
                         while (getchar() != '\n');
                         end = 1;
                     }
@@ -376,8 +376,8 @@ int main()
                 {
                     WriteLog(piece, START, END, capture, special);
                     arraynum = 0;
-                    printf("White Wins!\n");
-                    printf("Press Enter to Continue");
+                    printf("백 승리!\n");
+                    printf("엔터키를 눌러서 계속하세요");
                     while (getchar() != '\n');
                     end = 1;
                 }
@@ -399,8 +399,8 @@ int main()
                     {
                         WriteLog(piece, START, END, capture, special);
                         arraynum = 0;
-                        printf("Black Wins!\n");
-                        printf("Press Enter to Continue");
+                        printf("흑 승리!\n");
+                        printf("엔터키를 눌러서 계속하세요");
                         while (getchar() != '\n');
                         end = 1;
                     }
@@ -428,8 +428,8 @@ int main()
                 {
                     WriteLog(piece, START, END, capture, special);
                     arraynum = 0;
-                    printf("White Wins!\n");
-                    printf("Press Enter to Continue");
+                    printf("백 승리!\n");
+                    printf("엔터키를 눌러서 계속하세요");
                     while (getchar() != '\n');
                     end = 1;
                 }
@@ -456,8 +456,8 @@ int main()
                     {
                         WriteLog(piece, START, END, capture, special);
                         arraynum = 0;
-                        printf("Black Wins!\n");
-                        printf("Press Enter to Continue");
+                        printf("흑 승리!\n");
+                        printf("엔터키를 눌러서 계속하세요");
                         while (getchar() != '\n');
                         end = 1;
                     }
@@ -485,8 +485,8 @@ int main()
                 {
                     WriteLog(piece, START, END, capture, special);
                     arraynum = 0;
-                    printf("White Wins!\n");
-                    printf("Press Enter to Continue");
+                    printf("백 승리!\n");
+                    printf("엔터키를 눌러서 계속하세요");
                     while (getchar() != '\n');
                     end = 1;
                 }
@@ -508,8 +508,8 @@ int main()
                     {
                         WriteLog(piece, START, END, capture, special);
                         arraynum = 0;
-                        printf("Black Wins!\n");
-                        printf("Press Enter to Continue");
+                        printf("흑 승리!\n");
+                        printf("엔터키를 눌러서 계속하세요");
                         while (getchar() != '\n');
                         end = 1;
                     }
