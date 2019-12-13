@@ -3,7 +3,7 @@
 
 #include "DataTypes.h"
 
-/* AI  Functions */
+/* AI 기능 관련 함수들 */
 
 double EvaluatePosition(t_board Board, t_move_array Moves, int turn, t_castle Castle);
 

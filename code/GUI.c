@@ -19,9 +19,9 @@ void printboard(t_board board)
     {
         printf("\33[1;35m%d \33[0m", 8 - row);
 
-        for (int i = boardnum; i < boardnum+8; i++)
+        for (int i = boardnum; i < boardnum + 8; i++)
         {
-            int tmp=i;
+            int tmp = i; // Cygwin 작동을 위한 임시변수
             convertPieceType(board[tmp], piecetype);
             printf("%s ", piecetype);
         }

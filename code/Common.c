@@ -1645,6 +1645,7 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle)
 
     return value;
 }
+
 /**
  * 체크상태에 돌입했음을 파악하는 함수
  * */

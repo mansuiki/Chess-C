@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 #include "AI.h"
 #include "GUI.h"
@@ -643,7 +642,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
             validInput = 0;
             printf("Invalid Selection");
         }
-        if(turn)
+        if (turn)
             printf("\n\33[1;32m [흰색의 차례입니다]\33[0m\n");
         else
             printf("\n\33[1;32m [검은색의 차례입니다]\33[0m\n");
