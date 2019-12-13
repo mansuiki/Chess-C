@@ -19,6 +19,7 @@ void PromotePiece(t_board board, int promotingSquare);
 
 /** 체스의 가로세로 위치를 얻는 함수 **/
 int GetRank(int index);
+
 int GetFile(int index);
 
 t_move_array ExhaustMoves(t_board board, int turn, t_castle Castle);
@@ -30,6 +31,7 @@ t_move_array ExhaustMoves(t_board board, int turn, t_castle Castle);
  * @return 둘중 작은값 반환
  */
 double Max(double a, double b);
+
 double Min(double a, double b);
 
 t_coin
