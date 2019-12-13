@@ -7,6 +7,7 @@
 #include "Common.h"
 #include "DataTypes.h"
 
+
 double Max(double a, double b)
 {
     if (a >= b)
@@ -23,10 +24,6 @@ double Min(double a, double b)
         return b;
 }
 
-
-/**
- * 최선의 이동을 찾는 함수
- * */
 t_move GetBestMove(t_board board, t_castle Castle, int turn, int depth, int *wn, int *wb, int *bn, int *bb)
 {
     t_coin BestMove;
@@ -40,11 +37,11 @@ t_move GetBestMove(t_board board, t_castle Castle, int turn, int depth, int *wn,
         top.Board[i] = board[i];
 
     if (turn == 0)
-    {        /* 흑색 이동 */
+    { /* 흑색 이동 */
         BestMove = MinValue(top, Castle, alpha, beta, depth, turn, wn, wb, bn, bb);
     }
     else
-    {            /* 백색 이동 */
+    { /* 백색 이동 */
         BestMove = MaxValue(top, Castle, alpha, beta, depth, turn, wn, wb, bn, bb);
     }
 
@@ -81,9 +78,7 @@ MaxValue(t_node state, t_castle Castle, double alpha, double beta, int depth, in
         score = MinC.Value;
         score += EvaluateMove(state.Board, Moves.Moves[i], WN, WB, BN, BB, turn);
         alpha = Max(alpha, score);
-/*		if (state.Depth == 0)
-			printf("Checking Move %d\n\tValue: %lf\n\tStart: Rank: %d File: %d | End: Rank: %d File: %d | PT: %d\n", i+1, score, Moves.Moves[i].Start.Rank, Moves.Moves[i].Start.File, Moves.Moves[i].End.Rank, Moves.Moves[i].End.File, Moves.Moves[i].PieceType);
-*/        if (score > oldAlpha)
+        if (score > oldAlpha)
         {
             MoveID = i;
             oldAlpha = score;
@@ -96,11 +91,8 @@ MaxValue(t_node state, t_castle Castle, double alpha, double beta, int depth, in
         }
     }
     poss.Value = alpha;
-/*	if (MoveID == -1)
-		MoveID = MoveID.Length/2;
-*/    poss.Move = Moves.Moves[MoveID];
-/*	printf("maxv BestMove : RFS -> RFE: %d %d -> %d %d | D: %d | MID: %d\n", poss.Move.Start.Rank, poss.Move.Start.File, poss.Move.End.Rank, poss.Move.End.File, state.Depth, MoveID);
-*/    return poss;
+    poss.Move = Moves.Moves[MoveID];
+    return poss;
 }
 
 t_coin
@@ -132,9 +124,7 @@ MinValue(t_node state, t_castle Castle, double alpha, double beta, int depth, in
         score = MaxC.Value;
         score += EvaluateMove(state.Board, Moves.Moves[i], WN, WB, BN, BB, turn);
         beta = Min(beta, score);
-/*		if (state.Depth == 1)
-			printf("Checking Move %d\n\tValue: %lf\n\tStart: Rank: %d File: %d | End: Rank: %d File: %d | PT: %d\n", i+1, score, Moves.Moves[i].Start.Rank, Moves.Moves[i].Start.File, Moves.Moves[i].End.Rank, Moves.Moves[i].End.File, Moves.Moves[i].PieceType);
-*/        if (score < oldBeta)
+        if (score < oldBeta)
         {
             MoveID = i;
             oldBeta = score;
@@ -147,16 +137,10 @@ MinValue(t_node state, t_castle Castle, double alpha, double beta, int depth, in
         }
     }
     poss.Value = beta;
-/*	if (MoveID == -1)
-		MoveID = Moves.Length/2;
-*/    poss.Move = Moves.Moves[MoveID];
-/*	printf(" MINV BestMove : RFS -> RFE: %d %d -> %d %d | D: %d | MID: %d\n", poss.Move.Start.Rank, poss.Move.Start.File, poss.Move.End.Rank, poss.Move.End.File, state.Depth, MoveID);
-*/    return poss;
+    poss.Move = Moves.Moves[MoveID];
+    return poss;
 }
 
-/**
- * 기물 이동 함수, 캐슬링용 Castle 로그 변경
- * */
 void MovePiece(t_board Board, t_move Move, t_castle Castle)
 {
     if (Move.PieceType == 6)
@@ -182,10 +166,6 @@ void MovePiece(t_board Board, t_move Move, t_castle Castle)
 
 }
 
-
-/**
- * 프로모션
- * */
 void PromotePiece(t_board board, int promotingSquare)
 {
     char input[2];
@@ -229,12 +209,8 @@ void PromotePiece(t_board board, int promotingSquare)
     }
 }
 
-
-/**
- * 2차원 값을 하나의 값으로 치환해주는 함수
- * */
 int two2one(t_square Square)
-{ /* ranks and files are 1-8, not 0-7 */
+{
     int one;
 
     one = ((10 - Square.Rank) * 10) + Square.File;
@@ -242,8 +218,6 @@ int two2one(t_square Square)
     return one;
 }
 
-
-/* 하나의 값을 2차원 값으로 치환해주는 함수*/
 t_square one2two(int oneDindex)
 {
     t_square interSquare;
@@ -528,11 +502,6 @@ int GetRank(int index)
     return ret.Rank;
 }
 
-
-/**
- * 모든 체스 말 움직임의 가능 여부 판별 파트
- * IsLegal(보드, 움직임, 턴, 캐슬링 가능 로그)
- * */
 int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle)
 {
     int value = 0;
@@ -1092,9 +1061,6 @@ int IsLegal(t_board Board, t_move Move, int turn, t_castle Castle)
     return value;
 }
 
-/**
- * @return AmlinCheck() 를 불 포함한 islegal 함수, 말을 이동한 뒤에 상대의 말이 그 말을 잡을 수 있는 지 확인하지 않아도 됨
- * */
 int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle)
 {
     int value = 0;
@@ -1646,9 +1612,6 @@ int IsLegal_Check(t_board Board, t_move Move, int turn, t_castle Castle)
     return value;
 }
 
-/**
- * 체크상태에 돌입했음을 파악하는 함수
- * */
 int AmIinCheck(t_board Board, t_move Move, int turn, t_castle Castle)
 {
     int check1;
@@ -1733,9 +1696,6 @@ int AmIinCheck(t_board Board, t_move Move, int turn, t_castle Castle)
     }
 }
 
-/**
- * 이동이 완료 된 후 체크가 되는 지 판별
- * */
 int CheckCheck(t_board Board, int turn, t_castle Castle)
 {
     int check1;
@@ -1815,9 +1775,6 @@ int CheckCheck(t_board Board, int turn, t_castle Castle)
     }
 }
 
-/**
- * 기물의 이동이 상대 진영의 체크 조건을 만족할 때 판별
- * */
 int CheckCheckmate(t_board Board, int turn, t_castle Castle)
 {
     int check1;
