@@ -34,7 +34,7 @@ int main()
     t_board InitialBoard;
     BLIST *boardlist;
     t_castle Castle = {0, 0, 0, 0, 0, 0};
-    int Black, White; /* 1 = human player 0 = AI player */
+    int Black, White; /* 1 = 플레이어 0 = AI */
     int end = 0;
     int i;
     int *wN = malloc(sizeof(int));
@@ -134,7 +134,7 @@ int main()
                                 if (invalidprompt == 1)
                                 {
                                     invalidprompt = 0;
-                                    printf("Invalid Selection");
+                                    printf("잘못 선택하였습니다");
                                 }
                                 printf("\n\n\33[1;32m[ AI 기물 ]\33[0m\n");
                                 printf("1: 화이트\n");
@@ -311,8 +311,8 @@ int main()
                 {
                     WriteLog(piece, START, END, capture, special);
                     arraynum = 0;
-                    printf("White Wins!\n");
-                    printf("Press Enter to Continue");
+                    printf("흰색의 승리!\n");
+                    printf("Enter 를 눌러 게임을 종료하세요");
                     while (getchar() != '\n');
                     end = 1;
                 }
@@ -340,8 +340,8 @@ int main()
                     {
                         WriteLog(piece, START, END, capture, special);
                         arraynum = 0;
-                        printf("Black Wins!\n");
-                        printf("Press Enter to Continue");
+                        printf("검은색의 승리!\n");
+                        printf("Enter를 눌러 게임을 종료하세요");
                         while (getchar() != '\n');
                         end = 1;
                     }
@@ -375,8 +375,8 @@ int main()
                 {
                     WriteLog(piece, START, END, capture, special);
                     arraynum = 0;
-                    printf("White Wins!\n");
-                    printf("Press Enter to Continue");
+                    printf("흰색의 승리!\n");
+                    printf("Enter를 눌러 게임을 종료하세요");
                     while (getchar() != '\n');
                     end = 1;
                 }
@@ -399,7 +399,7 @@ int main()
                         WriteLog(piece, START, END, capture, special);
                         arraynum = 0;
                         printf("Black Wins!\n");
-                        printf("Press Enter to Continue");
+                        printf("Enter를 눌러 게임을 종료하세요");
                         while (getchar() != '\n');
                         end = 1;
                     }
@@ -427,8 +427,8 @@ int main()
                 {
                     WriteLog(piece, START, END, capture, special);
                     arraynum = 0;
-                    printf("White Wins!\n");
-                    printf("Press Enter to Continue");
+                    printf("흰색의 승리!\n");
+                    printf("Enter를 눌러 게임을 종료하세요");
                     while (getchar() != '\n');
                     end = 1;
                 }
@@ -456,7 +456,7 @@ int main()
                         WriteLog(piece, START, END, capture, special);
                         arraynum = 0;
                         printf("Black Wins!\n");
-                        printf("Press Enter to Continue");
+                        printf("Enter를 눌러 게임을 종료하세요");
                         while (getchar() != '\n');
                         end = 1;
                     }
@@ -484,8 +484,8 @@ int main()
                 {
                     WriteLog(piece, START, END, capture, special);
                     arraynum = 0;
-                    printf("White Wins!\n");
-                    printf("Press Enter to Continue");
+                    printf("흰색의 승리!\n");
+                    printf("Enter를 눌러 게임을 종료하세요");
                     while (getchar() != '\n');
                     end = 1;
                 }
@@ -603,13 +603,11 @@ BLIST *NewBoardList(void)
     return newlist;
 }
 
-/* Defines the data and function flow for a human player's turn */
-/*returns 1 to return to main menu or 0 to conitnue game in control flow, 2 prompt undo*/
-/*
+/**
  * 유저의 턴일 때 작동 되는 함수
  * 메인메뉴로 이동할 때 1을 리턴, 계속 진행 할 때 0을 리턴
  * 보드, 케슬링 체크, 턴, (기물, 시작점, 종료점, 잡은 기물, 특수 이동) => 로그저장에 사용, (백나이트 이동유무, 백비숍 이동유무, 흑나이트 이동유무, 흑비숍 이동유무) => AI에서 사용
-*/
+ * */
 int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[][3], char end[][3], int capture[],
              int special[], int *Wn, int *Wb, int *Bn, int *Bb)
 {
@@ -645,7 +643,10 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
             validInput = 0;
             printf("Invalid Selection");
         }
-        printf("\n\33[1;32m [당신의 차례입니다]\33[0m\n");
+        if(turn)
+            printf("\n\33[1;32m [흰색의 차례입니다]\33[0m\n");
+        else
+            printf("\n\33[1;32m [검은색의 차례입니다]\33[0m\n");
         printf(" [1] 기물 움직이기 \n");
         printf(" [2] 메뉴로 나가기로 \n");
 
@@ -667,7 +668,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
         /*이동을 선택 했을 경우*/
         if (decision == 1)
         {
-            /*for file and rank check*/
+            /*파일과 랭크를 검사, 랭크 미구현*/
             while (1)
             {
                 system("clear");
@@ -960,7 +961,7 @@ void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[
 
 }
 
-/*Prints out sexy menu header*/
+/*체스의 감-성을 더해줄 로고*/
 void PrintCHESS()
 {
     printf("\n          --------------------------------------------------  \n"); // 13칸 공백
@@ -971,10 +972,10 @@ void PrintCHESS()
     printf("              Y888   /  888  888  Y888    ,    888D    888D     \n");
     printf("               \"88_-~   888  888   \"88___/   \\_88P   \\_88P  \n");
     printf("\n          --------------------------------------------------  \n");
-}/*end print trojan*/
+}
 
 /*******************************/
-/* HOW WE ARE SEEING THE BOARD */
+/* 체스 판 구상도 */
 /*		___________________________
  *  	8	| 21 22 23 24 25 26 27 28 |	BLACK
  *  	7	| 31 32 33 34 35 36 37 38 |
