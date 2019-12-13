@@ -4,6 +4,9 @@
 
 #include "ChessLog.h"
 
+/**
+ * 지난 게임의 로그를 작성하는 함수
+ */
 void WriteLog(int piece[], char start[][3], char end[][3], int capture[], int special[])
 {
     FILE *f;
@@ -14,7 +17,7 @@ void WriteLog(int piece[], char start[][3], char end[][3], int capture[], int sp
 
     if (f == NULL)
     {
-        printf("Error creating file!");
+        printf("파일을 만드는것에 실패하였습니다");
         exit(10);
     }
 
@@ -36,11 +39,11 @@ void WriteLog(int piece[], char start[][3], char end[][3], int capture[], int sp
             }
             fprintf(f, "| %d.\t\t", turn);
             turn++;
-        }/*end if:seperation line*/
+        }
         else
             fprintf(f, "|\t\t");
 
-        /* Prints out the player and the piece */
+        /* 각 플레이어와 움직인 기물을 기록합니다 */
         switch (piece[j])
         {
             case 1:
@@ -82,10 +85,10 @@ void WriteLog(int piece[], char start[][3], char end[][3], int capture[], int sp
             default:
                 fprintf(f, "ERROR");
                 break;
-        }/*end switch:player piece*/
+        }
 
 
-        /* prints the start and end positions */
+        /* 선택했던 기물의 위치와, 움직인 위치를 기록합니다 */
         for (i = 0; i < 4; i++)
         {
             if (i < 2)
@@ -98,10 +101,9 @@ void WriteLog(int piece[], char start[][3], char end[][3], int capture[], int sp
             }
             if (i == 1 || i == 3)
                 fprintf(f, "\t\t");
-            /*fprintf(f, "%s\t\t%s\t\t", &start[j], &end[j]);*/
         }
 
-        /* prints out if a piece was captured */
+        /* 기물 움직임 이후 잡힌 기물을 출력합니다 */
         switch (capture[j])
         {
             case 0:
@@ -134,9 +136,9 @@ void WriteLog(int piece[], char start[][3], char end[][3], int capture[], int sp
             default:
                 fprintf(f, "ERROR");
                 break;
-        }/*end switch: piece capture*/
+        }
 
-        /* prints out the special moves */
+        /* 특수 규칙에 따른 움직임들을 기록합니다 */
         switch (special[j])
         {
             case 0:
@@ -154,17 +156,8 @@ void WriteLog(int piece[], char start[][3], char end[][3], int capture[], int sp
         }
 
 
-    }/*end for:go through arrays*/
-
+    }
     fprintf(f,
             "============================================================================================================");
     fclose(f);
-}/*end Write Chess Log*/
-
-/*Delete Lines for undo*/
-void DeleteLines()
-{
-
-}/*end Delete line */
-
-
+}

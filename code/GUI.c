@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 /**
  * 보드를 출력하는 함수
  * @param board 숫자로 이루어진 판 배열
@@ -18,9 +19,10 @@ void printboard(t_board board)
     {
         printf("\33[1;35m%d \33[0m", 8 - row);
 
-        for (int i = boardnum; i < (boardnum + 8); i++)
+        for (int i = boardnum; i < boardnum + 8; i++)
         {
-            convertPieceType(board[i], piecetype);
+            int tmp = i; // Cygwin 작동을 위한 임시변수
+            convertPieceType(board[tmp], piecetype);
             printf("%s ", piecetype);
         }
 
@@ -42,67 +44,67 @@ void convertPieceType(int num, char piece[3])
 
     switch (num)
     {
-        case (1):
+        case (1): /*백폰*/
         {
             strcpy(piece, "♙");
             break;
         }
-        case (-1):
+        case (-1):/*흑폰*/
         {
             strcpy(piece, "♟");
             break;
         }
-        case (2):
+        case (2):/*백나이트*/
         {
             strcpy(piece, "♘");
             break;
         }
-        case (-2):
+        case (-2):/*흑나이트*/
         {
             strcpy(piece, "♞");
             break;
         }
-        case (3):
+        case (3):/*백비숍*/
         {
             strcpy(piece, "♗");
             break;
         }
-        case (-3):
+        case (-3):/*흑비숍*/
         {
             strcpy(piece, "♝");
             break;
         }
-        case (4):
+        case (4):/*백룩*/
         {
             strcpy(piece, "♖");
             break;
         }
-        case (-4):
+        case (-4):/*흑룩*/
         {
             strcpy(piece, "♜");
             break;
         }
-        case (5):
+        case (5):/*백퀸*/
         {
             strcpy(piece, "♕");
             break;
         }
-        case (-5):
+        case (-5):/*흑퀸*/
         {
             strcpy(piece, "♛");
             break;
         }
-        case (6):
+        case (6):/*백킹*/
         {
             strcpy(piece, "♔");
             break;
         }
-        case (-6):
+        case (-6):/*흑킹*/
         {
             strcpy(piece, "♚");
             break;
         }
-        default:
+        default:/*기물 없는 체스 판*/
         {
             strcpy(piece, "·");
             break;
