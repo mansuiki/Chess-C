@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 #include "AI.h"
-#include "Chess.h"
-#include "DataTypes.h"
-#include "AI.h"
 #include "GUI.h"
+#include "Chess.h"
+#include "Common.h"
 #include "ChessLog.h"
+#include "DataTypes.h"
 
 void PrintMenu();
 
@@ -99,8 +98,8 @@ int main()
 
                         printf("\n\n\33[1;32m[ 게임 모드 ]\33[0m\n");
                         printf("1: 플레이어 vs 플레이어\n");
-                        printf("2: 플레이어 vs AI\n");
-                        printf("3: AI vs AI\n");
+                        printf("2: 플레이어 vs AI (Beta)\n");
+                        printf("3: AI vs AI (Beta)\n");
 
                         printf("게임 모드를 선택하세요> ");
                         scanf("%s", input);
@@ -213,7 +212,7 @@ int main()
                             memset(input, 0, 2);
                         }
 
-                        if (choice2 >=1 && choice2<=4)
+                        if (choice2 >= 1 && choice2 <= 4)
                             difficulty = choice2;
                     }
                     choice2 = 0;
@@ -234,9 +233,10 @@ int main()
             continue;
         }
 
-		for(i = 0; i < 120; i++){
-			InitialBoard[i] = 42;
-		}
+        for (i = 0; i < 120; i++)
+        {
+            InitialBoard[i] = 42;
+        }
 
         InitialBoard[21] = -4;        /* 흑색 룩,나이트,비숍,퀸,킹 보드에 초기화 */
         InitialBoard[22] = -2;      /* -4 : 흑룩, -2 : 흑나이트, -3 : 흑비숍, -5 : 흑퀸, -6 : 흑킹*/
@@ -257,14 +257,14 @@ int main()
             InitialBoard[i] = 0;
         }
 
-		InitialBoard[49] = 42;
-		InitialBoard[50] = 42;
-		InitialBoard[59] = 42;
-		InitialBoard[60] = 42;
-		InitialBoard[69] = 42;
-		InitialBoard[70] = 42;
-		InitialBoard[79] = 42;
-		InitialBoard[80] = 42;
+        InitialBoard[49] = 42;
+        InitialBoard[50] = 42;
+        InitialBoard[59] = 42;
+        InitialBoard[60] = 42;
+        InitialBoard[69] = 42;
+        InitialBoard[70] = 42;
+        InitialBoard[79] = 42;
+        InitialBoard[80] = 42;
 
         for (i = 81; i < 89; i++)
         {    /* 백색 폰 보드에 초기화 */
@@ -526,8 +526,6 @@ int main()
     system("clear");
     return 0;
 }
-	
-	
 
 void PrintMenu()
 { /* 메뉴 출력 함수 */
@@ -539,37 +537,38 @@ void PrintMenu()
     printf("4: 나가기\n");
 }
 
-
 void AddBoard(t_board *board, BLIST *list)
 { /* 보드에 추가 */
 
-	BENTRY *newentry;
-	
-	assert(list);
-	
-	newentry = (BENTRY *)malloc (sizeof(BENTRY));
-	
-	if (newentry != NULL){
-		newentry->List = list;
-		newentry->Next = NULL;
-		newentry->Prev = NULL;
-		newentry->Turn = list->Turn;
-		newentry->Boards = board;
-		
-		if(!list->First){
-			list->First = list->Last = newentry;
-		}
-		
-		else{
-			list->Last->Next = newentry;
-			newentry->Prev = list->Last;
-			list->Last = newentry;
-		}
-		list->Turn ++;
-	}
-		
-}
+    BENTRY *newentry;
 
+    assert(list);
+
+    newentry = (BENTRY *) malloc(sizeof(BENTRY));
+
+    if (newentry != NULL)
+    {
+        newentry->List = list;
+        newentry->Next = NULL;
+        newentry->Prev = NULL;
+        newentry->Turn = list->Turn;
+        newentry->Boards = board;
+
+        if (!list->First)
+        {
+            list->First = list->Last = newentry;
+        }
+
+        else
+        {
+            list->Last->Next = newentry;
+            newentry->Prev = list->Last;
+            list->Last = newentry;
+        }
+        list->Turn++;
+    }
+
+}
 
 void DeleteBoard(BLIST *list)
 { /* 보드에서 제거 */
@@ -588,41 +587,20 @@ void DeleteBoard(BLIST *list)
 
 }
 
+BLIST *NewBoardList(void)
+{
 
-BLIST *NewBoardList(void){
+    BLIST *newlist = (BLIST *) malloc(sizeof(BLIST));
 
-	BLIST *newlist = (BLIST *)malloc(sizeof(BLIST));
-	
-	if (newlist != NULL)
-	{
-		newlist->First = NULL;
-		newlist->Last = NULL;
-		newlist->Turn = 0;
-	}
-	
-	return newlist;
+    if (newlist != NULL)
+    {
+        newlist->First = NULL;
+        newlist->Last = NULL;
+        newlist->Turn = 0;
+    }
+
+    return newlist;
 }
-
-
-void DeleteBoardList(BLIST *list){
-
-	BENTRY *curr, *succ;
-	
-	assert(list);
-	curr = list->First;
-	while(curr){
-		succ = curr->Next;
-		assert(curr->List == list);
-		DeleteBoard(curr->List); /* need to adjust this code */
-		curr->Boards = NULL;
-		free(curr);
-		curr = succ;
-	}
-	
-	free (list);
-}
-
-
 
 /* Defines the data and function flow for a human player's turn */
 /*returns 1 to return to main menu or 0 to conitnue game in control flow, 2 prompt undo*/
@@ -783,15 +761,16 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                     end_rank -= 48;
                 }
 
-				if(validInput != 0){
-                                        continue;
-                                }/*end if*/
+                if (validInput != 0)
+                {
+                    continue;
+                }/*end if*/
 
-                        	Move.Start.File = start_file;
-                       		Move.Start.Rank = start_rank;
-                        	Move.End.File = end_file;
-                        	Move.End.Rank = end_rank;
-                        	Move.PieceType = Board[two2one(Move.Start)];
+                Move.Start.File = start_file;
+                Move.Start.Rank = start_rank;
+                Move.End.File = end_file;
+                Move.End.Rank = end_rank;
+                Move.PieceType = Board[two2one(Move.Start)];
 
 
                 piece[arraynum] = Move.PieceType;
@@ -851,131 +830,135 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
 void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[], char start[][3], char end[][3],
             int capture[], int special[], int *Wn, int *Wb, int *Bn, int *Bb)
 {
-	t_move Best = GetBestMove(Board,Castle, turn, difficulty, Wn, Wb, Bn, Bb);
-	
-	/*logfile*/
-	piece[arraynum] = Best.PieceType;
-	switch(Best.Start.File){
-		case 1:
-			start[arraynum][0] = 'a';
-			break;
-		case 2:
-			start[arraynum][0] = 'b';
-			break;
-		case 3:
-			start[arraynum][0] = 'c';
-			break;
-		case 4:
-			start[arraynum][0] = 'd';
-			break; 
-		case 5:
-			start[arraynum][0] = 'e';
-			break; 
-		case 6:
-			start[arraynum][0] = 'f';
-			break; 
-		case 7:
-			start[arraynum][0] = 'g';
-			break; 
- 		case 8:
-			start[arraynum][0] = 'h';
-			break; 
-		default:
-			start[arraynum][0] = 'X';
-	}/*end switch: start file*/
-	switch(Best.Start.Rank){                                                                                               
-                case 1:                                                                                                        
-                        start[arraynum][1] = '1';                                                                              
-                        break;                                                                                                 
-                case 2:                                                                                                        
-                        start[arraynum][1] = '2';                                                                              
-                        break;                                                                                                 
-                case 3:                                                                                                        
-                        start[arraynum][1] = '3';                                                                              
-                        break;                                                                                                 
-                case 4:                                                                                                        
-                        start[arraynum][1] = '4';                                                                              
-                        break;                                                                                                 
-                case 5:                                                                                                        
-                        start[arraynum][1] = '5';                                                                              
-                        break;                                                                                                 
-                case 6:                                                                                                        
-                        start[arraynum][1] = '6';                                                                              
-                        break;                                                                                                 
-                case 7:                                                                                                        
-                        start[arraynum][1] = '7';                                                                              
-                        break;                                                                                                 
-                case 8:                                                                                                        
-                        start[arraynum][1] = '8';                                                                              
-                        break;                                                                                                 
-                default:
-			start[arraynum][1] = 'X';                                                                                                       
-        }/*end switch: start file*/
-	switch(Best.End.File){                                                                                               
-                case 1:                                                                                                        
-                        end[arraynum][0] = 'a';                                                                              
-                        break;                                                                                                 
-                case 2:                                                                                                        
-                        end[arraynum][0] = 'b';                                                                              
-                        break;                                                                                                 
-                case 3:                                                                                                        
-                        end[arraynum][0] = 'c';                                                                              
-                        break;                                                                                                 
-                case 4:                                                                                                        
-                        end[arraynum][0] = 'd';                                                                              
-                        break;                                                                                                 
-                case 5:                                                                                                        
-                        end[arraynum][0] = 'e';                                                                              
-                        break;                                                                                                 
-                case 6:                                                                                                        
-                        end[arraynum][0] = 'f';                                                                              
-                        break;                                                                                                 
-                case 7:                                                                                                        
-                        end[arraynum][0] = 'g';                                                                              
-                        break;                                                                                                 
-                case 8:                                                                                                        
-                        end[arraynum][0] = 'h';                                                                              
-                        break;                                                                                                 
-                default:
-			end[arraynum][0] = 'X';                                                                                                       
-        }/*end switch: start file*/                                                                                            
-        switch(Best.End.Rank){                                                                                               
-                case 1:                                                                                                        
-                        end[arraynum][1] = '1';                                                                              
-                        break;                                                                                                 
-                case 2:                                                                                                        
-                        end[arraynum][1] = '2';                                                                              
-                        break;                                                                                                 
-                case 3:                                                                                                        
-                        end[arraynum][1] = '3';                                                                              
-                        break;                                                                                                 
-                case 4:                                                                                                        
-                        end[arraynum][1] = '4';                                                                              
-                        break;                                                                                                 
-                case 5:                                                                                                        
-                        end[arraynum][1] = '5';                                                                              
-                        break;                                                                                                 
-                case 6:                                                                                                        
-                        end[arraynum][1] = '6';                                                                              
-                        break;                                                                                                 
-                case 7:                                                                                                        
-                        end[arraynum][1] = '7';                                                                              
-                        break;                                                                                                 
-                case 8:                                                                                                        
-                        end[arraynum][1] = '8';                                                                              
-                        break;                                                                                                 
-                default:
-			end[arraynum][1] = 'X';                                                                                   
-        }/*end switch: start file*/ 
-	capture[arraynum] = Board[two2one(Best.End)];
-	special[arraynum] = 0;/*for special move*/
+    t_move Best = GetBestMove(Board, Castle, turn, difficulty, Wn, Wb, Bn, Bb);
+
+    /*logfile*/
+    piece[arraynum] = Best.PieceType;
+    switch (Best.Start.File)
+    {
+        case 1:
+            start[arraynum][0] = 'a';
+            break;
+        case 2:
+            start[arraynum][0] = 'b';
+            break;
+        case 3:
+            start[arraynum][0] = 'c';
+            break;
+        case 4:
+            start[arraynum][0] = 'd';
+            break;
+        case 5:
+            start[arraynum][0] = 'e';
+            break;
+        case 6:
+            start[arraynum][0] = 'f';
+            break;
+        case 7:
+            start[arraynum][0] = 'g';
+            break;
+        case 8:
+            start[arraynum][0] = 'h';
+            break;
+        default:
+            start[arraynum][0] = 'X';
+    }/*end switch: start file*/
+    switch (Best.Start.Rank)
+    {
+        case 1:
+            start[arraynum][1] = '1';
+            break;
+        case 2:
+            start[arraynum][1] = '2';
+            break;
+        case 3:
+            start[arraynum][1] = '3';
+            break;
+        case 4:
+            start[arraynum][1] = '4';
+            break;
+        case 5:
+            start[arraynum][1] = '5';
+            break;
+        case 6:
+            start[arraynum][1] = '6';
+            break;
+        case 7:
+            start[arraynum][1] = '7';
+            break;
+        case 8:
+            start[arraynum][1] = '8';
+            break;
+        default:
+            start[arraynum][1] = 'X';
+    }/*end switch: start file*/
+    switch (Best.End.File)
+    {
+        case 1:
+            end[arraynum][0] = 'a';
+            break;
+        case 2:
+            end[arraynum][0] = 'b';
+            break;
+        case 3:
+            end[arraynum][0] = 'c';
+            break;
+        case 4:
+            end[arraynum][0] = 'd';
+            break;
+        case 5:
+            end[arraynum][0] = 'e';
+            break;
+        case 6:
+            end[arraynum][0] = 'f';
+            break;
+        case 7:
+            end[arraynum][0] = 'g';
+            break;
+        case 8:
+            end[arraynum][0] = 'h';
+            break;
+        default:
+            end[arraynum][0] = 'X';
+    }/*end switch: start file*/
+    switch (Best.End.Rank)
+    {
+        case 1:
+            end[arraynum][1] = '1';
+            break;
+        case 2:
+            end[arraynum][1] = '2';
+            break;
+        case 3:
+            end[arraynum][1] = '3';
+            break;
+        case 4:
+            end[arraynum][1] = '4';
+            break;
+        case 5:
+            end[arraynum][1] = '5';
+            break;
+        case 6:
+            end[arraynum][1] = '6';
+            break;
+        case 7:
+            end[arraynum][1] = '7';
+            break;
+        case 8:
+            end[arraynum][1] = '8';
+            break;
+        default:
+            end[arraynum][1] = 'X';
+    }/*end switch: start file*/
+    capture[arraynum] = Board[two2one(Best.End)];
+    special[arraynum] = 0;/*for special move*/
 
 /*	sleep(2);
-*/	MovePiece(Board, Best,Castle);
-	UpdateHasMoved(Board, Wn, Wb, Bn, Bb);
+*/    MovePiece(Board, Best, Castle);
+    UpdateHasMoved(Board, Wn, Wb, Bn, Bb);
 
 }
-	
+
 /*Prints out sexy menu header*/
 void PrintCHESS()
 {

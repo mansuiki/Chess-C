@@ -1,6 +1,7 @@
-#include "GUI.h"
 #include <stdio.h>
 #include <string.h>
+
+#include "GUI.h"
 
 /**
  * 보드를 출력하는 함수

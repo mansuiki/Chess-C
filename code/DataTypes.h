@@ -6,7 +6,6 @@ typedef int t_board[120];
 
 typedef int t_castle[6];
 
-
 /* Square Struct Definition */
 typedef struct
 {          /* This is needed to convert from 1-D to 2-D */
