@@ -77,7 +77,7 @@ int main()
         {
             choice1 = input[0] - 48;
             memset(input, 0, 2);
-        }/* end input check:Game menu */
+        }
 
         while (choice1 != 3)
         { /* 게임이 시작하기전 모든 설정을 반복함 */
@@ -580,7 +580,7 @@ void DeleteBoard(BLIST *list)
 
     entry = list->Last;
     list->Last = entry->Prev;
-    DeleteBoard(entry->List); /* need to adjust this code */
+    DeleteBoard(entry->List);
     entry->Boards = NULL;
     free(entry);
     list->Turn--;
@@ -631,11 +631,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
         }
 
         chessboard1++;
-/*		if(undoprompt == 2){
-			undoprompt = 0;
-			printf("Cannot Undo");
-		}
-*/
+
         /*선택지 입력*/
         if (validInput == 1)
         {
@@ -655,14 +651,13 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
         if (input[0] > 51 || input[0] < 49)
         {
             validInput = 1;
-            /*printf("Invalid Selection\n\n");*/
             continue;/*이동 메뉴로 돌아가기*/
         }
         else
         {
             decision = input[0] - 48;
             memset(input, 0, 2);
-        }/*end input check:AI difficulty*/
+        }
 
         /*이동을 선택 했을 경우*/
         if (decision == 1)
@@ -727,7 +722,6 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                     start_file -= 96;
                 else
                 {
-                    /*printf("\nInvalid start file.");*/
                     validInput++;
                 }
                 /*end_file 체크*/
@@ -737,14 +731,12 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                     end_file -= 96;
                 else
                 {
-                    /*printf("\nInvalid end file.");*/
                     validInput++;
                 }
 
                 /*rank 체크*/
                 if (start_rank > 56 || start_rank < 49)
                 {
-                    /*printf("\nInvalid start rank");*/
                     validInput++;
                 }
                 else
@@ -754,7 +746,6 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
 
                 if (end_rank > 56 || end_rank < 49)
                 {
-                    /*printf("\nInvalid end rank");*/
                     validInput++;
                 }
                 else
@@ -765,7 +756,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                 if (validInput != 0)
                 {
                     continue;
-                }/*end if*/
+                }
 
                 Move.Start.File = start_file;
                 Move.Start.Rank = start_rank;
@@ -776,7 +767,7 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
 
                 piece[arraynum] = Move.PieceType;
                 capture[arraynum] = Board[two2one(Move.End)];
-                special[arraynum] = 0; /*no special move*/
+                special[arraynum] = 0;
 
                 if (IsLegal(Board, Move, turn, Castle) == 1)
                 {
@@ -806,23 +797,19 @@ int UserTurn(t_board Board, t_castle Castle, int turn, int piece[], char start[]
                 }
                 else
                 {
-                    /* printf("That move is not legal!\n");*/ /* Raising illegal move flag */
                     legal = 1;
                     continue;
-                    /*UserTurn(Board, turn);*/
                 }
                 break;
             }
             break;/*유저 선택메뉴 나가기*/
         }
         else if (decision == 2)
-        {/*Quit game choice*/
+        {
             chessboard1 = 0;
-/*			DeleteBoardList(boardlist);
-*/            return 1;
-        }/*end else if:quit out of game*/
-
-    }/*end while: user decision*/
+            return 1;
+        }
+    }
     chessboard1 = 0;
     return 0;
 }
@@ -833,7 +820,6 @@ void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[
 {
     t_move Best = GetBestMove(Board, Castle, turn, difficulty, Wn, Wb, Bn, Bb);
 
-    /*logfile*/
     piece[arraynum] = Best.PieceType;
     switch (Best.Start.File)
     {
@@ -863,7 +849,7 @@ void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[
             break;
         default:
             start[arraynum][0] = 'X';
-    }/*end switch: start file*/
+    }
     switch (Best.Start.Rank)
     {
         case 1:
@@ -892,7 +878,7 @@ void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[
             break;
         default:
             start[arraynum][1] = 'X';
-    }/*end switch: start file*/
+    }
     switch (Best.End.File)
     {
         case 1:
@@ -921,7 +907,7 @@ void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[
             break;
         default:
             end[arraynum][0] = 'X';
-    }/*end switch: start file*/
+    }
     switch (Best.End.Rank)
     {
         case 1:
@@ -950,12 +936,11 @@ void AITurn(t_board Board, t_castle Castle, int turn, int difficulty, int piece[
             break;
         default:
             end[arraynum][1] = 'X';
-    }/*end switch: start file*/
+    }
     capture[arraynum] = Board[two2one(Best.End)];
-    special[arraynum] = 0;/*for special move*/
+    special[arraynum] = 0;
 
-/*	sleep(2);
-*/    MovePiece(Board, Best, Castle);
+    MovePiece(Board, Best, Castle);
     UpdateHasMoved(Board, Wn, Wb, Bn, Bb);
 
 }

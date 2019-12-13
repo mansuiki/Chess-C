@@ -55,7 +55,7 @@ double EvaluateMove(t_board board, t_move Move, int *whN, int *whB, int *blN, in
 double EvaluatePosition(t_board Board, t_move_array Moves, int turn, t_castle Castle)
 {
     double score = 0;
-    double open_game = 1 - ((.125 * PawnsOnBoard(Board)) / 2); /* Level of openness of the board */
+    double open_game = 1 - ((.125 * PawnsOnBoard(Board)) / 2);
     int i;
 
     if (GamePhase(Board, turn) == 0)
@@ -74,13 +74,7 @@ double EvaluatePosition(t_board Board, t_move_array Moves, int turn, t_castle Ca
         }
         else
         {
-/*			if (Board[i] == 6){
-				score += IsCastled(Board, i);
-			}else if (Board[i] == -6){
-				score += IsCastled(Board, i);
-			}
-
-*/            switch (Board[i])
+            switch (Board[i])
             {
                 case -5: /* 흑색 퀸 */
                     score -= 18;
