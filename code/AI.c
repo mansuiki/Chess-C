@@ -190,12 +190,12 @@ void PromotePiece(t_board board, int promotingSquare)
             printf("\nInvalid Selection!");
         }
 
-        printf("\n<=========================>{ Promote Piece }<========================>\n");
-        printf("                              1. Knight                               \n");
-        printf("                              2. Bishop                               \n");
-        printf("                              3. Rook                                 \n");
-        printf("                              4. Queen                                \n");
-        printf("Make your decision: ");
+        printf("\n\33[1;32m[ 기물 프로모션 ]\33[0m\n");
+        printf("1. 나이트\n");
+        printf("2. 비숍\n");
+        printf("3. 룩\n");
+        printf("4. 퀸\n");
+        printf("선택하세요> ");
         scanf("%s", input);
         if (input[0] > 52 || input[0] < 49)
         {

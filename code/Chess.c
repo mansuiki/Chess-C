@@ -61,7 +61,7 @@ int main()
         else if (GameAI == 1)
         {
             GameAI = 0;
-            printf("Please Select a Game mode fire before starting the game");
+            printf("\33[0;31m게임을 시작하기 전에 게임 모드를 선택하세요.\33[0m");
         }
 
         PrintMenu();
